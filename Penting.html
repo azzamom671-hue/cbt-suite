@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Key Generator & Activation Suite</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #000000;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at 50% 0%, #2e1065 0%, #090514 60%, #000000 100%);
+            position: relative;
+        }
+
+        .orb-1 {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(60px);
+            animation: floating 12s infinite alternate ease-in-out;
+            z-index: 0;
+        }
+
+        .orb-2 {
+            position: absolute;
+            bottom: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(60px);
+            animation: floating 16s infinite alternate-reverse ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 60px) scale(1.15); }
+        }
+
+        .animate-premium-fade {
+            animation: premiumFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes premiumFadeUp {
+            from { opacity: 0; transform: translateY(40px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .glass-panel {
+            background: rgba(9, 5, 20, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .neon-btn {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 50%, #d946ef 100%);
+            background-size: 200% auto;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .neon-btn:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(147, 51, 234, 0.4), 0 0 15px rgba(217, 70, 239, 0.2);
+        }
+        .neon-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-200 selection:bg-purple-500/30 selection:text-purple-200">
+
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+
+    <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-8 box-border relative z-10 overflow-y-auto">
+
+        <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
+                    <i class="fa-solid fa-shield-halved animate-pulse"></i>
+                </div>
+            </div>
+
+            <div class="text-center mt-10 mb-6">
+                <h1 class="text-3xl font-black text-white tracking-tight bg-gradient-to-r from-white via-purple-200 to-slate-400 bg-clip-text text-transparent">Identity Verification</h1>
+                <p class="text-purple-300/60 text-sm mt-2 font-medium">Masukkan kredensial otorisasi enkripsi suite Anda.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label for="loginUser" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Username</label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50 group-focus-within:text-purple-400 transition-colors">
+                            <i class="fa-solid fa-user text-sm"></i>
+                        </span>
+                        <input type="text" id="loginUser" placeholder="Masukkan Username" 
+                            class="w-full pl-11 pr-4 py-3 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/50 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all text-sm font-semibold">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="loginPass" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Password</label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50 group-focus-within:text-purple-400 transition-colors">
+                            <i class="fa-solid fa-lock text-sm"></i>
+                        </span>
+                        <input type="password" id="loginPass" placeholder="••••••••" 
+                            class="w-full pl-11 pr-4 py-3 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/50 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all text-sm font-bold tracking-widest">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-1 pb-2 px-1">
+                    <label class="flex items-center gap-2.5 cursor-pointer select-none group">
+                        <input type="checkbox" id="autoSaveCheck" class="w-4 h-4 rounded accent-purple-500 bg-black/80 border-purple-950 text-purple-600 focus:ring-purple-500/30 focus:ring-offset-black">
+                        <span class="text-xs font-semibold text-purple-300/60 group-hover:text-purple-300 transition-colors">Auto Save Login</span>
+                    </label>
+                </div>
+
+                <div class="pt-1">
+                    <button onclick="validateLogin()" class="neon-btn w-full py-3.5 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 cursor-pointer shadow-lg text-sm tracking-wide">
+                        <i class="fa-solid fa-unlock-keyhole text-xs"></i> Masuk Ke Sistem
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="loadingCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden">
+            <div class="flex flex-col items-center justify-center space-y-6">
+                <div class="relative flex items-center justify-center w-24 h-24">
+                    <div class="absolute inset-0 rounded-full border-4 border-purple-950/40"></div>
+                    <div class="absolute inset-0 rounded-full border-4 border-t-purple-500 border-r-fuchsia-500 animate-spin"></div>
+                    <div class="w-16 h-16 rounded-full bg-black/80 flex items-center justify-center border border-purple-900/40 shadow-inner">
+                        <i class="fa-solid fa-fingerprint text-2xl text-purple-400 animate-pulse"></i>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 id="loadingStatusText" class="text-lg font-bold text-white tracking-wide transition-all duration-300">Menghubungkan ke Server...</h2>
+                    <p class="text-[10px] text-purple-400/50 mt-1.5 font-bold tracking-widest uppercase">Meganggun Terowongan Enkripsi Aman</p>
+                </div>
+
+                <div class="w-full bg-black/80 rounded-full h-1.5 border border-purple-950/60 p-[1px] overflow-hidden">
+                    <div id="loadingProgressBar" class="bg-gradient-to-r from-purple-500 via-purple-700 to-fuchsia-500 h-full w-0 rounded-full transition-all duration-100 ease-out"></div>
+                </div>
+                
+                <span id="loadingPercentage" class="text-xs font-mono font-bold text-fuchsia-400">0%</span>
+            </div>
+        </div>
+
+        <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden">
+            
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
+                <div class="flex items-center gap-4 text-center sm:text-left">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-black text-white tracking-tight">CBT Key Architect</h1>
+                        <p class="text-purple-300/50 text-xs mt-0.5 font-medium">Generator Lisensi Enkripsi Online</p>
+                    </div>
+                </div>
+                
+                <div id="roleBadge" class="bg-purple-500/10 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> v2.5 Online
+                </div>
+            </div>
+
+            <div id="generatorTabContent" class="space-y-5">
+                <div>
+                    <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50 group-focus-within:text-purple-400 transition-colors">
+                            <i class="fa-solid fa-microchip text-sm"></i>
+                        </span>
+                        <input type="text" id="hwidInput" placeholder="CONTOH: X9F2-B4D1-E8A0" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/50 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all uppercase font-mono tracking-wider text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="durationSelect" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Tipe Durasi</label>
+                        <div class="relative">
+                            <select id="durationSelect" onchange="handleDurationChange()" class="w-full pl-4 pr-10 py-3.5 bg-black border border-purple-950 rounded-xl text-white font-medium focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all cursor-pointer appearance-none text-sm disabled:cursor-not-allowed disabled:opacity-70">
+                                <option value="permanent">♾️ Lifetime (Permanen)</option>
+                                <option value="custom_days">📅 Rentang Hari (Custom)</option>
+                                <option value="custom_hours">⏱️ Rentang Jam (Custom)</option>
+                            </select>
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-purple-400 pointer-events-none text-xs">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div id="customInputWrapper" class="transition-all duration-300" style="display: none;">
+                        <label id="customInputLabel" for="customInputValue" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Kuantitas</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50">
+                                <i id="customInputIcon" class="fa-solid fa-calendar-days text-sm"></i>
+                            </span>
+                            <input type="number" id="customInputValue" value="30" min="1" disabled
+                                class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white font-semibold focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all text-sm disabled:opacity-75">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-3">
+                    <button onclick="generateKey()" class="neon-btn flex-1 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 cursor-pointer shadow-lg text-sm tracking-wide">
+                        <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Build Activation Key
+                    </button>
+                    
+                    <a href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group" title="Download Aplikasi Exambro">
+                        <i class="fa-solid fa-cloud-arrow-down text-base group-hover:translate-y-0.5 transition-transform"></i> App
+                    </a>
+                </div>
+
+                <div id="resultArea" class="mt-6 pt-5 border-t border-purple-950/60 hidden opacity-0 transition-opacity duration-500">
+                    <div class="flex items-center justify-between mb-2 ml-1">
+                        <label class="block text-xs font-bold text-fuchsia-400 uppercase tracking-widest">Generated Key</label>
+                        <span class="text-[10px] bg-fuchsia-500/10 text-fuchsia-400 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider border border-fuchsia-500/20">Siap Digunakan</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 bg-black border border-purple-950/80 rounded-2xl p-4 relative overflow-hidden shadow-inner">
+                        <div class="font-mono text-base sm:text-lg font-bold text-purple-300 tracking-wide sm:tracking-widest whitespace-nowrap overflow-x-auto no-scrollbar select-all flex-1 pr-2 min-w-0" id="activationKeyDisplay">
+                            XXXXX-XXXXX-XXXXX-XXXXX
+                        </div>
+                        <button onclick="copyToClipboard()" class="text-purple-400 hover:text-white w-10 h-10 rounded-xl bg-neutral-950 border border-purple-950 hover:border-purple-800 flex items-center justify-center transition-colors cursor-pointer shrink-0" title="Salin Kode">
+                            <i id="copyIcon" class="fa-regular fa-copy text-sm"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4 bg-black/40 border border-purple-950/30 rounded-xl p-3 flex items-center justify-center">
+                        <p id="licenseDetails" class="text-center text-xs text-purple-300/70 font-medium tracking-wide"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="historyTabContent" class="hidden space-y-4">
+                <div class="flex items-center ml-1 pb-1">
+                    <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Total Database Key (Cloud)
+                    </label>
+                </div>
+                <div id="historyContainer" class="space-y-3 max-h-80 overflow-y-auto pr-1 no-scrollbar">
+                    <p id="emptyHistory" class="text-center text-xs text-purple-900/60 py-10 italic">Mengambil data dari server...</p>
+                </div>
+            </div>
+
+            <div id="createAkunTabContent" class="hidden space-y-5 animate-premium-fade">
+                <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
+                    <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-user-plus"></i> Registrasi Akun Baru Online
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Username Baru</label>
+                            <input type="text" id="newUsername" placeholder="Contoh: Reseller1" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white focus:outline-none focus:border-purple-500 text-sm font-semibold">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Password</label>
+                            <input type="text" id="newPassword" placeholder="Contoh: pass123" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white focus:outline-none focus:border-purple-500 text-sm font-semibold">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Role Akses</label>
+                            <select id="newRole" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer">
+                                <option value="member">👤 Member / Reseller</option>
+                                <option value="developer">⚡ Sub-Developer</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Masa Aktif Akun</label>
+                            <select id="newAccountDuration" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer">
+                                <option value="permanent">♾️ Lifetime (Selamanya)</option>
+                                <option value="1">📅 1 Hari</option>
+                                <option value="7">📅 7 Hari</option>
+                                <option value="30">📅 30 Hari</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="createNewAccount()" class="neon-btn w-full py-3 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer mt-2 shadow-md">
+                        <i class="fa-solid fa-save"></i> Daftarkan Ke Cloud Server
+                    </button>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                        <i class="fa-solid fa-users-gear"></i> Monitoring Lisensi Pusat
+                    </label>
+                    <div id="accountContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1 no-scrollbar">
+                        <p class="text-center text-xs text-purple-900/50 py-6 italic">Mengambil data dari server...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="aboutTabContent" class="hidden space-y-5 animate-premium-fade">
+                <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
+                    <div class="absolute -right-12 -top-12 w-32 h-32 bg-purple-600/10 rounded-full blur-xl pointer-events-none"></div>
+                    <div class="absolute -left-12 -bottom-12 w-32 h-32 bg-fuchsia-600/5 rounded-full blur-xl pointer-events-none"></div>
+
+                    <h3 id="aboutTag" class="text-[10px] font-black text-purple-400 uppercase tracking-[0.25em] mb-5">System Architect</h3>
+                    
+                    <div class="w-28 h-28 rounded-full bg-black/80 mx-auto flex items-center justify-center border-2 border-purple-500/40 shadow-[0_0_30px_rgba(147,51,234,0.35)] mb-4 relative overflow-hidden group">
+                        <div id="avatarFallbackIcon" class="absolute inset-0 flex items-center justify-center bg-purple-950/40 text-purple-400 text-3xl">
+                            <i id="dynamicIcon" class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <img id="aboutImg" src="foto.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.opacity='0';">
+                    </div>
+                    
+                    <h2 id="aboutName" class="text-2xl font-black text-white tracking-wide flex items-center justify-center gap-2">
+                        Muh. Khaerul Azzam
+                        <i class="fa-solid fa-circle-check text-blue-500 text-lg shadow-[0_0_15px_rgba(59,130,246,0.6)]" title="Verified Developer"></i>
+                    </h2>
+                    <p id="aboutSub" class="text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5">Developer Suite</p>
+                    
+                    <p id="aboutDesc" class="text-xs text-purple-300/60 mt-4 max-w-sm mx-auto leading-relaxed font-medium"></p>
+
+                    <div id="aboutSocial" class="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-purple-950/60 text-left">
+                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center">
+                            <span class="text-[9px] font-bold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                <i class="fa-brands fa-tiktok text-xs"></i> Tiktok
+                            </span>
+                            <span class="text-xs font-mono font-bold text-slate-200 select-all truncate">mhmmdkhrullazzam</span>
+                        </div>
+                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center">
+                            <span class="text-[9px] font-bold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                <i class="fa-brands fa-instagram text-xs"></i> Instagram
+                            </span>
+                            <span class="text-xs font-mono font-bold text-slate-200 select-all truncate">mhmmdkhrulazzam</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-purple-950/30 flex justify-center">
+                        <button onclick="triggerLogout()" class="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-xs font-bold rounded-xl flex items-center gap-2 cursor-pointer transition-all">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out / Hapus Sesi
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden">
+                <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden xs:inline">Build Panel</span><span class="xs:hidden">Build</span>
+                </button>
+                <button onclick="switchTab('history')" id="tabHist" class="flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20">
+                    <i class="fa-solid fa-clock-rotate-left"></i> <span class="hidden xs:inline">Riwayat Key</span><span class="xs:hidden">Riwayat</span>
+                </button>
+                <button onclick="switchTab('create_akun')" id="tabCreate" style="display: none;" class="flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20">
+                    <i class="fa-solid fa-user-plus"></i> <span class="hidden xs:inline">Create Akun</span><span class="xs:hidden">Akun</span>
+                </button>
+                <button onclick="switchTab('about')" id="tabAbout" class="flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20">
+                    <i class="fa-solid fa-user-gear"></i> About Me
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
+    </div>
+
+    <script>
+        // ==========================================
+        // TUKAR ISI KODE DI BAWAH INI DENGAN CONFIG DATA FIREBASE KAMU
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "MASUKKAN_API_KEY_KAMU",
+            authDomain: "PROJEK_KAMU.firebaseapp.com",
+            databaseURL: "https://PROJEK_KAMU-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "PROJEK_KAMU",
+            storageBucket: "PROJEK_KAMU.appspot.com",
+            messagingSenderId: "ID_SENDER_KAMU",
+            appId: "APP_ID_ID_KAMU"
+        };
+        
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        let toastTimeout;
+        let userRole = ""; 
+        let activeUser = "";
+        let currentAccountExpiry = null;
+
+        // Akun bawaan master script (Tetap aktif permanen)
+        const userDatabase = [
+            { username: "Azzam", password: "Azzam", role: "developer", expiry: "permanent" },
+            { username: "Dev_Azzam2", password: "pwdev2", role: "developer", expiry: "permanent" },
+            { username: "Member", password: "Member", role: "member", expiry: "permanent" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            handleDurationChange();
+            if(firebaseConfig.databaseURL.includes("MASUKKAN")) {
+                showToast("⚠️ Konfigurasi Firebase belum diisi di dalam kode!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+            } else {
+                checkAutoLogin(); 
+            }
+        });
+
+        function checkAutoLogin() {
+            const savedUser = localStorage.getItem("vault_username");
+            const savedPass = localStorage.getItem("vault_password");
+
+            if (savedUser && savedPass) {
+                db.ref('accounts').once('value').then((snapshot) => {
+                    let customAccounts = [];
+                    snapshot.forEach(child => { customAccounts.push(child.val()); });
+                    const allAccounts = [...userDatabase, ...customAccounts];
+                    const matchAccount = allAccounts.find(acc => acc.username === savedUser && acc.password === savedPass);
+                    
+                    if (matchAccount) {
+                        if (matchAccount.expiry !== "permanent" && Date.now() > matchAccount.expiry) {
+                            localStorage.removeItem("vault_username");
+                            localStorage.removeItem("vault_password");
+                            return;
+                        }
+                        document.getElementById("loginUser").value = savedUser;
+                        document.getElementById("loginPass").value = savedPass;
+                        document.getElementById("autoSaveCheck").checked = true;
+                        validateLogin(true);
+                    }
+                });
+            }
+        }
+
+        function switchTab(target) {
+            const tabs = ["tabGen", "tabHist", "tabCreate", "tabAbout"];
+            const contents = ["generatorTabContent", "historyTabContent", "createAkunTabContent", "aboutTabContent"];
+
+            const inactiveClass = "flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20";
+            const activeClass = "flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]";
+
+            tabs.forEach(t => document.getElementById(t).className = inactiveClass);
+            contents.forEach(c => document.getElementById(c).classList.add("hidden"));
+
+            if (target === "generator") {
+                document.getElementById("tabGen").className = activeClass;
+                document.getElementById("generatorTabContent").classList.remove("hidden");
+            } else if (target === "history") {
+                document.getElementById("tabHist").className = activeClass;
+                document.getElementById("historyTabContent").classList.remove("hidden");
+                renderHistory();
+            } else if (target === "create_akun") {
+                if (userRole !== "developer") {
+                    showToast("❌ Akses Ditolak!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-ban text-rose-400");
+                    switchTab("generator");
+                    return;
+                }
+                document.getElementById("tabCreate").className = activeClass;
+                document.getElementById("createAkunTabContent").classList.remove("hidden");
+                renderCreatedAccounts();
+            } else if (target === "about") {
+                document.getElementById("tabAbout").className = activeClass;
+                document.getElementById("aboutTabContent").classList.remove("hidden");
+            }
+        }
+
+        function validateLogin(isAutoLogin = false) {
+            const user = document.getElementById("loginUser").value.trim();
+            const pass = document.getElementById("loginPass").value.trim();
+            const autoSaveActive = document.getElementById("autoSaveCheck").checked;
+
+            const loginCard = document.getElementById("loginCard");
+            const loadingCard = document.getElementById("loadingCard");
+
+            if (user === "" || pass === "") {
+                showToast("⚠️ Mohon isi field Username dan Password!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            loginCard.classList.add("hidden");
+            loadingCard.classList.remove("hidden");
+            loadingCard.classList.add("animate-premium-fade");
+            
+            const processingDuration = isAutoLogin ? 1200 : 3500;
+
+            runLoadingEngine(processingDuration, () => {
+                db.ref('accounts').once('value').then((snapshot) => {
+                    let customAccounts = [];
+                    snapshot.forEach(child => { customAccounts.push(child.val()); });
+                    const allAccounts = [...userDatabase, ...customAccounts];
+                    const accountFound = allAccounts.find(account => account.username.toLowerCase() === user.toLowerCase() && account.password === pass);
+
+                    if (accountFound) {
+                        if (accountFound.expiry !== "permanent" && Date.now() > accountFound.expiry) {
+                            loadingCard.classList.add("hidden");
+                            loginCard.classList.remove("hidden");
+                            showToast("❌ Masa Aktif Akun Telah Habis!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-clock text-rose-400");
+                            return;
+                        }
+
+                        userRole = accountFound.role;
+                        activeUser = accountFound.username;
+                        currentAccountExpiry = accountFound.expiry;
+                        
+                        if (autoSaveActive) {
+                            localStorage.setItem("vault_username", user);
+                            localStorage.setItem("vault_password", pass);
+                        } else {
+                            localStorage.removeItem("vault_username");
+                            localStorage.removeItem("vault_password");
+                        }
+
+                        loadingCard.classList.add("hidden");
+                        applyRoleConfigurations(); 
+                        showGenerator();
+                        
+                        if (userRole === "developer") {
+                            showToast(`⚡ Server Terkoneksi. Welcome Dev ${activeUser}`, "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/30", "fa-solid fa-user-shield text-purple-400");
+                        } else {
+                            showToast(`👤 Member Akses (${activeUser}) Sinkron Online!`, "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-user text-amber-400");
+                        }
+                    } else {
+                        loadingCard.classList.add("hidden");
+                        loginCard.classList.remove("hidden");
+                        showToast("❌ Kredensial salah atau tidak terdaftar!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-circle-xmark text-rose-400");
+                    }
+                }).catch(() => {
+                    loadingCard.classList.add("hidden");
+                    loginCard.classList.remove("hidden");
+                    showToast("❌ Gagal Terhubung Ke Server Online!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-wifi text-rose-400");
+                });
+            });
+        }
+
+        function triggerLogout() {
+            localStorage.removeItem("vault_username");
+            localStorage.removeItem("vault_password");
+            document.getElementById("loginUser").value = "";
+            document.getElementById("loginPass").value = "";
+            document.getElementById("generatorCard").classList.add("hidden");
+            document.getElementById("loginCard").classList.remove("hidden");
+            showToast("🔒 Sesi dihapus dari perangkat.", "bg-gradient-to-r from-black via-slate-950 to-black border-slate-800", "fa-solid fa-power-off text-rose-400");
+        }
+
+        function applyRoleConfigurations() {
+            const durationSelect = document.getElementById("durationSelect");
+            const roleBadge = document.getElementById("roleBadge");
+            const tabCreate = document.getElementById("tabCreate");
+            const aboutTag = document.getElementById("aboutTag");
+            const aboutImg = document.getElementById("aboutImg");
+            const aboutName = document.getElementById("aboutName");
+            const aboutSub = document.getElementById("aboutSub");
+            const aboutDesc = document.getElementById("aboutDesc");
+            const aboutSocial = document.getElementById("aboutSocial");
+            const dynamicIcon = document.getElementById("dynamicIcon");
+
+            aboutImg.style.opacity = '1';
+
+            if (userRole === "member") {
+                tabCreate.style.display = "none"; 
+                durationSelect.value = "custom_days";
+                durationSelect.disabled = true;
+                handleDurationChange(); 
+
+                let expiryStatusText = "Active (Lifetime)";
+                if (currentAccountExpiry !== "permanent") {
+                    let diff = currentAccountExpiry - Date.now();
+                    let daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                    expiryStatusText = `Aktif (${daysLeft} Hari)`;
+                }
+
+                roleBadge.className = "bg-amber-500/10 text-amber-300 px-3 py-1.5 rounded-full border border-amber-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
+                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping"></span> ${activeUser} | ${expiryStatusText}`;
+
+                aboutTag.innerText = "Premium Access";
+                aboutImg.src = "member.jpg"; 
+                dynamicIcon.className = "fa-solid fa-user text-amber-400";
+                aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-amber-500 text-lg"></i>`;
+                aboutSub.innerText = "Member Suite";
+                aboutDesc.innerText = "Terverifikasi sebagai pengguna sistem berlisensi Premium.";
+                aboutSocial.classList.add("hidden"); 
+            } else {
+                tabCreate.style.display = "flex"; 
+                durationSelect.disabled = false;
+                roleBadge.className = "bg-purple-500/10 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
+                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> Dev Pusat: ${activeUser}`;
+
+                aboutTag.innerText = "System Architect";
+                aboutImg.src = "foto.jpg";
+                dynamicIcon.className = "fa-solid fa-user-gear text-purple-400";
+                aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-blue-500 text-lg"></i>`;
+                aboutSub.innerText = "Developer Suite";
+                aboutDesc.innerText = "Sistem Manajemen Lisensi cloud Aman.";
+                aboutSocial.classList.remove("hidden"); 
+            }
+        }
+
+        function runLoadingEngine(duration, onCompleteCallback) {
+            const progressBar = document.getElementById("loadingProgressBar");
+            const percentageText = document.getElementById("loadingPercentage");
+            const statusText = document.getElementById("loadingStatusText");
+
+            const encryptedSteps = [
+                "Menghubungkan ke Cloud Core Database...",
+                "Mendekripsi Handshake Enkripsi Global...",
+                "Menyinkronkan Riwayat Database Lisensi...",
+                "Memverifikasi Hak Otorisasi Perangkat...",
+                "Akses Online Diberikan!"
+            ];
+
+            let startTimestamp = null;
+            function animationStep(timestamp) {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const elapsed = timestamp - startTimestamp;
+                let progress = Math.min((elapsed / duration) * 100, 100);
+                progressBar.style.width = `${progress}%`;
+                percentageText.innerText = `${Math.floor(progress)}%`;
+
+                if (progress < 25) statusText.innerText = encryptedSteps[0];
+                else if (progress < 50) statusText.innerText = encryptedSteps[1];
+                else if (progress < 75) statusText.innerText = encryptedSteps[2];
+                else if (progress < 90) statusText.innerText = encryptedSteps[3];
+                else statusText.innerText = encryptedSteps[4];
+
+                if (elapsed < duration) requestAnimationFrame(animationStep);
+                else if (onCompleteCallback) onCompleteCallback();
+            }
+            requestAnimationFrame(animationStep);
+        }
+
+        function showGenerator() {
+            document.getElementById("generatorCard").classList.remove("hidden");
+            switchTab("generator");
+        }
+
+        function showToast(message, bgColorClass = "bg-neutral-950", iconClass = "fa-solid fa-circle-check") {
+            const toast = document.getElementById("toast");
+            clearTimeout(toastTimeout);
+            document.getElementById("toastText").innerText = message;
+            document.getElementById("toastIcon").className = `${iconClass} text-base`;
+            toast.className = `fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border backdrop-blur-xl ${bgColorClass}`;
+            toast.style.opacity = "1";
+            toast.style.pointerEvents = "auto";
+            toast.style.transform = "translate(-50%, 0px)";
+            toastTimeout = setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.pointerEvents = "none";
+                toast.style.transform = "translate(-50%, -20px)";
+            }, 2500); 
+        }
+
+        function handleDurationChange() {
+            const durationSelect = document.getElementById("durationSelect").value;
+            const wrapper = document.getElementById("customInputWrapper");
+            const label = document.getElementById("customInputLabel");
+            const input = document.getElementById("customInputValue");
+            const icon = document.getElementById("customInputIcon");
+
+            if (userRole === "member") {
+                wrapper.style.display = "block";
+                label.innerText = "Jumlah Hari";
+                icon.className = "fa-solid fa-calendar-days text-sm";
+                input.value = "1";
+                input.setAttribute("disabled", "true");
+                return;
+            }
+
+            if (durationSelect === "permanent") {
+                wrapper.style.display = "none";
+            } else {
+                wrapper.style.display = "block";
+                input.removeAttribute("disabled");
+                if (durationSelect === "custom_days") {
+                    label.innerText = "Jumlah Hari";
+                    icon.className = "fa-solid fa-calendar-days text-sm";
+                    input.value = "30";
+                } else if (durationSelect === "custom_hours") {
+                    label.innerText = "Jumlah Jam";
+                    icon.className = "fa-solid fa-clock text-sm";
+                    input.value = "24";
+                }
+            }
+        }
+
+        function generateActivationKey(hwid, timestampHex) {
+            const secretKey = "resellerexammod2026";
+            const hash = CryptoJS.HmacSHA256(hwid + timestampHex, secretKey);
+            const signaturePart = hash.toString(CryptoJS.enc.Hex).toUpperCase().substring(0, 12);
+            const fullKey = timestampHex + signaturePart;
+            let formattedKey = "";
+            for (let i = 0; i < fullKey.length; i += 5) {
+                formattedKey += fullKey.substring(i, i + 5) + "-";
+            }
+            return formattedKey.slice(0, -1);
+        }
+
+        function generateKey() {
+            if (userRole === "member") {
+                const cd = localStorage.getItem(`cd_${activeUser}`);
+                if (cd && parseInt(cd) - Date.now() > 0) {
+                    showToast("⏳ Akun Anda dalam Cooldown 20 Jam!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-hourglass-half text-amber-400");
+                    return;
+                }
+            }
+
+            const hwidInput = document.getElementById("hwidInput").value.trim().toUpperCase();
+            const durationSelect = document.getElementById("durationSelect").value;
+            const resultArea = document.getElementById("resultArea");
+
+            if (hwidInput === "") {
+                showToast("⚠️ Mohon input HWID!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            let timestampHex = "FFFFFFFF";
+            let infoText = `<i class="fa-solid fa-circle-check text-fuchsia-400 mr-2"></i>Permanen (Lifetime)`;
+            let cleanDurationText = "Lifetime";
+            let val = (userRole === "member") ? 1 : parseInt(document.getElementById("customInputValue").value);
+            let activeType = (userRole === "member") ? "custom_days" : durationSelect;
+
+            if (activeType !== "permanent") {
+                const targetDate = new Date();
+                if (activeType === "custom_days") {
+                    targetDate.setDate(targetDate.getDate() + val);
+                    cleanDurationText = `${val} Hari`;
+                } else {
+                    targetDate.setHours(targetDate.getHours() + val);
+                    cleanDurationText = `${val} Jam`;
+                }
+                const epoch = Math.floor(targetDate.getTime() / 1000);
+                timestampHex = epoch.toString(16).toUpperCase().padStart(8, '0');
+                infoText = `<i class="fa-solid fa-calendar-days text-purple-400 mr-2"></i>Hingga: ${targetDate.toLocaleDateString('id-ID')}`;
+            }
+
+            const finalKey = generateActivationKey(hwidInput, timestampHex);
+            document.getElementById("activationKeyDisplay").innerText = finalKey;
+            document.getElementById("licenseDetails").innerHTML = infoText;
+            resultArea.classList.remove("hidden");
+            setTimeout(() => resultArea.classList.remove("opacity-0"), 50);
+
+            saveToHistory(hwidInput, finalKey, cleanDurationText);
+
+            if (userRole === "member") {
+                localStorage.setItem(`cd_${activeUser}`, Date.now() + (20 * 60 * 60 * 1000));
+            }
+        }
+
+        function saveToHistory(hwid, key, durationType) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' | ' + now.toLocaleDateString('id-ID');
+            
+            // Push data langsung ke Cloud Firebase
+            db.ref('history').push({
+                hwid, key, duration: durationType, time: timeString, timestamp: Date.now()
+            });
+        }
+
+        function renderHistory() {
+            const container = document.getElementById("historyContainer");
+            
+            db.ref('history').orderByChild('timestamp').limitToLast(25).once('value').then((snapshot) => {
+                let history = [];
+                snapshot.forEach(child => { history.unshift(child.val()); });
+
+                if (history.length === 0) {
+                    container.innerHTML = `<p class="text-center text-xs text-purple-900/60 py-10 italic">Belum ada riwayat global di server.</p>`;
+                    return;
+                }
+                
+                container.innerHTML = history.map(item => `
+                    <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
+                                <span class="font-mono text-[11px] font-bold text-purple-400 truncate max-w-[140px]">${item.hwid}</span>
+                                <span class="text-[10px] text-purple-300/40">${item.time}</span>
+                            </div>
+                            <div class="font-mono text-xs font-bold text-slate-300 break-all select-all">${item.key}</div>
+                        </div>
+                        <div class="text-[9px] bg-purple-950/30 border border-purple-500/20 text-purple-300 px-2 py-1 rounded-md font-bold shrink-0">
+                            ${item.duration}
+                        </div>
+                    </div>
+                `).join('');
+            });
+        }
+
+        function createNewAccount() {
+            if (userRole !== "developer") return;
+
+            const userIn = document.getElementById("newUsername").value.trim();
+            const passIn = document.getElementById("newPassword").value.trim();
+            const roleIn = document.getElementById("newRole").value;
+            const durationIn = document.getElementById("newAccountDuration").value;
+
+            if (userIn === "" || passIn === "") {
+                showToast("⚠️ Field tidak boleh kosong!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            db.ref('accounts').once('value').then((snapshot) => {
+                let isExist = userDatabase.some(u => u.username.toLowerCase() === userIn.toLowerCase());
+                snapshot.forEach(child => {
+                    if(child.val().username.toLowerCase() === userIn.toLowerCase()) isExist = true;
+                });
+
+                if (isExist) {
+                    showToast("❌ Username sudah terdaftar!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-xmark text-rose-400");
+                    return;
+                }
+
+                let expiryTimestamp = "permanent";
+                if (durationIn !== "permanent") {
+                    let targetDate = new Date();
+                    targetDate.setDate(targetDate.getDate() + parseInt(durationIn));
+                    expiryTimestamp = targetDate.getTime(); 
+                }
+
+                // Tulis data ke cloud server pusat
+                db.ref('accounts/' + userIn).set({
+                    username: userIn, password: passIn, role: roleIn, expiry: expiryTimestamp
+                }).then(() => {
+                    document.getElementById("newUsername").value = "";
+                    document.getElementById("newPassword").value = "";
+                    showToast(`🎉 Akun ${userIn} Berhasil Diunggah Ke Cloud!`, "bg-gradient-to-r from-black via-fuchsia-950 to-black border-fuchsia-500/30", "fa-solid fa-user-check text-fuchsia-400");
+                    renderCreatedAccounts();
+                });
+            });
+        }
+
+        function removeAccount(usernameToDel) {
+            if (userRole !== "developer") return;
+
+            db.ref('accounts/' + usernameToDel).remove().then(() => {
+                showToast(`🗑️ Akun ${usernameToDel} Dihapus dari Cloud!`, "bg-gradient-to-r from-black via-slate-950 to-black border-slate-700", "fa-solid fa-trash-can text-rose-400");
+                renderCreatedAccounts();
+            });
+        }
+
+        function renderCreatedAccounts() {
+            const container = document.getElementById("accountContainer");
+            if (userRole !== "developer") return;
+
+            db.ref('accounts').once('value').then((snapshot) => {
+                let customDb = [];
+                snapshot.forEach(child => { customDb.push(child.val()); });
+
+                if (customDb.length === 0) {
+                    container.innerHTML = `<p class="text-center text-xs text-purple-900/50 py-6 italic">Belum ada akun dinamis di database cloud.</p>`;
+                    return;
+                }
+
+                container.innerHTML = customDb.map(acc => {
+                    let statusLabel = "";
+                    if (acc.expiry === "permanent") {
+                        statusLabel = `<span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-bold uppercase">Lifetime</span>`;
+                    } else {
+                        let diff = acc.expiry - Date.now();
+                        if (diff <= 0) {
+                            statusLabel = `<span class="text-[9px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20 font-bold uppercase">Expired</span>`;
+                        } else {
+                            let daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                            statusLabel = `<span class="text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold uppercase">${daysLeft} Hari</span>`;
+                        }
+                    }
+
+                    return `
+                        <div class="bg-black/50 border border-purple-950/60 rounded-xl p-3.5 flex items-center justify-between gap-3">
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="font-bold text-sm text-white font-mono truncate">${acc.username}</span>
+                                    <span class="text-[10px] text-purple-400/60 font-bold px-1.5 py-0.5 bg-black rounded border border-purple-950">${acc.role === "developer" ? "⚡ Dev" : "👤 Member"}</span>
+                                </div>
+                                <div class="text-xs text-purple-300/50 font-mono truncate">Password: <span class="text-slate-300">${acc.password}</span></div>
+                            </div>
+                            <div class="flex items-center gap-3 shrink-0">
+                                ${statusLabel}
+                                <button onclick="removeAccount('${acc.username}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 text-rose-400 flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            });
+        }
+
+        function copyToClipboard() {
+            const keyText = document.getElementById("activationKeyDisplay").innerText;
+            const copyIcon = document.getElementById("copyIcon");
+            if (keyText.includes("XXXXX")) return;
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(keyText).then(() => handleCopySuccess(copyIcon));
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = keyText;
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus(); textArea.select();
+                try { document.execCommand('copy'); handleCopySuccess(copyIcon); } catch (err) {}
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function handleCopySuccess(icon) {
+            icon.className = "fa-solid fa-check text-fuchsia-400";
+            showToast("Kode aktivasi disalin ke clipboard!", "bg-gradient-to-r from-black via-fuchsia-950 to-black border-fuchsia-500/30", "fa-solid fa-circle-check text-fuchsia-400");
+            setTimeout(() => { icon.className = "fa-regular fa-copy text-sm"; }, 2000);
+        }
+    </script>
+</body>
+</html>
