@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
     <style>
         html, body {
             margin: 0;
@@ -28,6 +25,7 @@
             position: relative;
         }
 
+        /* Ambient Cyber Glowing Orbs (Purple & Black Vibe) */
         .orb-1 {
             position: absolute;
             top: -10%;
@@ -66,6 +64,7 @@
             to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
+        /* Glassmorphism Utilities - Deep Black Purple tint */
         .glass-panel {
             background: rgba(9, 5, 20, 0.6);
             backdrop-filter: blur(24px);
@@ -88,6 +87,7 @@
             transform: translateY(-1px);
         }
 
+        /* Custom Scrollbar */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -166,7 +166,7 @@
                 
                 <div>
                     <h2 id="loadingStatusText" class="text-lg font-bold text-white tracking-wide transition-all duration-300">Menghubungkan ke Server...</h2>
-                    <p class="text-[10px] text-purple-400/50 mt-1.5 font-bold tracking-widest uppercase">Meganggun Terowongan Enkripsi Aman</p>
+                    <p class="text-[10px] text-purple-400/50 mt-1.5 font-bold tracking-widest uppercase">Membangun Terowongan Enkripsi Aman</p>
                 </div>
 
                 <div class="w-full bg-black/80 rounded-full h-1.5 border border-purple-950/60 p-[1px] overflow-hidden">
@@ -186,16 +186,17 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-black text-white tracking-tight">CBT Key Architect</h1>
-                        <p class="text-purple-300/50 text-xs mt-0.5 font-medium">Generator Lisensi Enkripsi Online</p>
+                        <p class="text-purple-300/50 text-xs mt-0.5 font-medium">Generator Lisensi Enkripsi untuk Aplikasi CBT</p>
                     </div>
                 </div>
                 
                 <div id="roleBadge" class="bg-purple-500/10 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> v2.5 Online
+                    <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> v2.5 Live
                 </div>
             </div>
 
             <div id="generatorTabContent" class="space-y-5">
+
                 <div>
                     <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
                     <div class="relative group">
@@ -266,18 +267,19 @@
             <div id="historyTabContent" class="hidden space-y-4">
                 <div class="flex items-center ml-1 pb-1">
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-list-check"></i> Total Database Key (Cloud)
+                        <i class="fa-solid fa-list-check"></i> Total Database Key
                     </label>
                 </div>
+                
                 <div id="historyContainer" class="space-y-3 max-h-80 overflow-y-auto pr-1 no-scrollbar">
-                    <p id="emptyHistory" class="text-center text-xs text-purple-900/60 py-10 italic">Mengambil data dari server...</p>
+                    <p id="emptyHistory" class="text-center text-xs text-purple-900/60 py-10 italic">Belum ada riwayat pembuatan key.</p>
                 </div>
             </div>
 
             <div id="createAkunTabContent" class="hidden space-y-5 animate-premium-fade">
                 <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
-                        <i class="fa-solid fa-user-plus"></i> Registrasi Akun Baru Online
+                        <i class="fa-solid fa-user-plus"></i> Registrasi Akun Baru
                     </h3>
                     
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -311,22 +313,22 @@
                     </div>
 
                     <button onclick="createNewAccount()" class="neon-btn w-full py-3 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer mt-2 shadow-md">
-                        <i class="fa-solid fa-save"></i> Daftarkan Ke Cloud Server
+                        <i class="fa-solid fa-save"></i> Daftarkan & Simpan Akun
                     </button>
                 </div>
 
                 <div class="space-y-3">
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                        <i class="fa-solid fa-users-gear"></i> Monitoring Lisensi Pusat
+                        <i class="fa-solid fa-users-gear"></i> Monitoring Lisensi Akun Terdaftar
                     </label>
                     <div id="accountContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1 no-scrollbar">
-                        <p class="text-center text-xs text-purple-900/50 py-6 italic">Mengambil data dari server...</p>
-                    </div>
+                        </div>
                 </div>
             </div>
 
             <div id="aboutTabContent" class="hidden space-y-5 animate-premium-fade">
                 <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
+                    
                     <div class="absolute -right-12 -top-12 w-32 h-32 bg-purple-600/10 rounded-full blur-xl pointer-events-none"></div>
                     <div class="absolute -left-12 -bottom-12 w-32 h-32 bg-fuchsia-600/5 rounded-full blur-xl pointer-events-none"></div>
 
@@ -336,7 +338,7 @@
                         <div id="avatarFallbackIcon" class="absolute inset-0 flex items-center justify-center bg-purple-950/40 text-purple-400 text-3xl">
                             <i id="dynamicIcon" class="fa-solid fa-user-gear"></i>
                         </div>
-                        <img id="aboutImg" src="foto.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.opacity='0';">
+                        <img id="aboutImg" src="foto.jpg" alt="" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110" onerror="this.style.opacity='0';">
                     </div>
                     
                     <h2 id="aboutName" class="text-2xl font-black text-white tracking-wide flex items-center justify-center gap-2">
@@ -345,7 +347,9 @@
                     </h2>
                     <p id="aboutSub" class="text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5">Developer Suite</p>
                     
-                    <p id="aboutDesc" class="text-xs text-purple-300/60 mt-4 max-w-sm mx-auto leading-relaxed font-medium"></p>
+                    <p id="aboutDesc" class="text-xs text-purple-300/60 mt-4 max-w-sm mx-auto leading-relaxed font-medium">
+                        Berdedikasi dalam merancang arsitektur sistem manajemen lisensi aman, enkripsi data, serta optimasi antarmuka digital Key Generator.
+                    </p>
 
                     <div id="aboutSocial" class="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-purple-950/60 text-left">
                         <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center">
@@ -384,7 +388,9 @@
                     <i class="fa-solid fa-user-gear"></i> About Me
                 </button>
             </div>
+
         </div>
+
     </div>
 
     <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
@@ -392,29 +398,12 @@
     </div>
 
     <script>
-        // ==========================================
-        // TUKAR ISI KODE DI BAWAH INI DENGAN CONFIG DATA FIREBASE KAMU
-        // ==========================================
-        const firebaseConfig = {
-            apiKey: "MASUKKAN_API_KEY_KAMU",
-            authDomain: "PROJEK_KAMU.firebaseapp.com",
-            databaseURL: "https://PROJEK_KAMU-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "PROJEK_KAMU",
-            storageBucket: "PROJEK_KAMU.appspot.com",
-            messagingSenderId: "ID_SENDER_KAMU",
-            appId: "APP_ID_ID_KAMU"
-        };
-        
-        // Inisialisasi Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
         let toastTimeout;
         let userRole = ""; 
         let activeUser = "";
         let currentAccountExpiry = null;
 
-        // Akun bawaan master script (Tetap aktif permanen)
+        // Core Hardcoded Baseline Accounts
         const userDatabase = [
             { username: "Azzam", password: "Azzam", role: "developer", expiry: "permanent" },
             { username: "Dev_Azzam2", password: "pwdev2", role: "developer", expiry: "permanent" },
@@ -423,36 +412,33 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             handleDurationChange();
-            if(firebaseConfig.databaseURL.includes("MASUKKAN")) {
-                showToast("⚠️ Konfigurasi Firebase belum diisi di dalam kode!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
-            } else {
-                checkAutoLogin(); 
-            }
+            checkAutoLogin(); 
         });
+
+        function getMergedAccounts() {
+            let customDb = JSON.parse(localStorage.getItem("suite_custom_accounts")) || [];
+            return [...userDatabase, ...customDb];
+        }
 
         function checkAutoLogin() {
             const savedUser = localStorage.getItem("vault_username");
             const savedPass = localStorage.getItem("vault_password");
 
             if (savedUser && savedPass) {
-                db.ref('accounts').once('value').then((snapshot) => {
-                    let customAccounts = [];
-                    snapshot.forEach(child => { customAccounts.push(child.val()); });
-                    const allAccounts = [...userDatabase, ...customAccounts];
-                    const matchAccount = allAccounts.find(acc => acc.username === savedUser && acc.password === savedPass);
-                    
-                    if (matchAccount) {
-                        if (matchAccount.expiry !== "permanent" && Date.now() > matchAccount.expiry) {
-                            localStorage.removeItem("vault_username");
-                            localStorage.removeItem("vault_password");
-                            return;
-                        }
-                        document.getElementById("loginUser").value = savedUser;
-                        document.getElementById("loginPass").value = savedPass;
-                        document.getElementById("autoSaveCheck").checked = true;
-                        validateLogin(true);
+                const allAccounts = getMergedAccounts();
+                const matchAccount = allAccounts.find(acc => acc.username === savedUser && acc.password === savedPass);
+                
+                if (matchAccount) {
+                    if (matchAccount.expiry !== "permanent" && Date.now() > matchAccount.expiry) {
+                        localStorage.removeItem("vault_username");
+                        localStorage.removeItem("vault_password");
+                        return;
                     }
-                });
+                    document.getElementById("loginUser").value = savedUser;
+                    document.getElementById("loginPass").value = savedPass;
+                    document.getElementById("autoSaveCheck").checked = true;
+                    validateLogin(true);
+                }
             }
         }
 
@@ -474,8 +460,9 @@
                 document.getElementById("historyTabContent").classList.remove("hidden");
                 renderHistory();
             } else if (target === "create_akun") {
+                // Sisi Proteksi Logika Tab
                 if (userRole !== "developer") {
-                    showToast("❌ Akses Ditolak!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-ban text-rose-400");
+                    showToast("❌ Akses Ditolak: Khusus Akun Developer!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-ban text-rose-400");
                     switchTab("generator");
                     return;
                 }
@@ -496,80 +483,74 @@
             const loginCard = document.getElementById("loginCard");
             const loadingCard = document.getElementById("loadingCard");
 
-            if (user === "" || pass === "") {
-                showToast("⚠️ Mohon isi field Username dan Password!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
-                return;
-            }
+            const allAccounts = getMergedAccounts();
+            const accountFound = allAccounts.find(account => account.username.toLowerCase() === user.toLowerCase() && account.password === pass);
 
-            loginCard.classList.add("hidden");
-            loadingCard.classList.remove("hidden");
-            loadingCard.classList.add("animate-premium-fade");
-            
-            const processingDuration = isAutoLogin ? 1200 : 3500;
+            if (accountFound) {
+                if (accountFound.expiry !== "permanent" && Date.now() > accountFound.expiry) {
+                    showToast("❌ Masa Aktif Akun Telah Habis! Hubungi Dev.", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-clock text-rose-400");
+                    return;
+                }
 
-            runLoadingEngine(processingDuration, () => {
-                db.ref('accounts').once('value').then((snapshot) => {
-                    let customAccounts = [];
-                    snapshot.forEach(child => { customAccounts.push(child.val()); });
-                    const allAccounts = [...userDatabase, ...customAccounts];
-                    const accountFound = allAccounts.find(account => account.username.toLowerCase() === user.toLowerCase() && account.password === pass);
+                userRole = accountFound.role;
+                activeUser = accountFound.username;
+                currentAccountExpiry = accountFound.expiry;
+                
+                if (autoSaveActive) {
+                    localStorage.setItem("vault_username", user);
+                    localStorage.setItem("vault_password", pass);
+                } else {
+                    localStorage.removeItem("vault_username");
+                    localStorage.removeItem("vault_password");
+                }
 
-                    if (accountFound) {
-                        if (accountFound.expiry !== "permanent" && Date.now() > accountFound.expiry) {
-                            loadingCard.classList.add("hidden");
-                            loginCard.classList.remove("hidden");
-                            showToast("❌ Masa Aktif Akun Telah Habis!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-clock text-rose-400");
-                            return;
-                        }
+                loginCard.classList.add("hidden");
+                loadingCard.classList.remove("hidden");
+                loadingCard.classList.add("animate-premium-fade");
+                
+                const processingDuration = isAutoLogin ? 1200 : 4000;
 
-                        userRole = accountFound.role;
-                        activeUser = accountFound.username;
-                        currentAccountExpiry = accountFound.expiry;
-                        
-                        if (autoSaveActive) {
-                            localStorage.setItem("vault_username", user);
-                            localStorage.setItem("vault_password", pass);
-                        } else {
-                            localStorage.removeItem("vault_username");
-                            localStorage.removeItem("vault_password");
-                        }
-
-                        loadingCard.classList.add("hidden");
-                        applyRoleConfigurations(); 
-                        showGenerator();
-                        
-                        if (userRole === "developer") {
-                            showToast(`⚡ Server Terkoneksi. Welcome Dev ${activeUser}`, "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/30", "fa-solid fa-user-shield text-purple-400");
-                        } else {
-                            showToast(`👤 Member Akses (${activeUser}) Sinkron Online!`, "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-user text-amber-400");
-                        }
-                    } else {
-                        loadingCard.classList.add("hidden");
-                        loginCard.classList.remove("hidden");
-                        showToast("❌ Kredensial salah atau tidak terdaftar!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-circle-xmark text-rose-400");
-                    }
-                }).catch(() => {
+                runLoadingEngine(processingDuration, () => {
                     loadingCard.classList.add("hidden");
-                    loginCard.classList.remove("hidden");
-                    showToast("❌ Gagal Terhubung Ke Server Online!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-wifi text-rose-400");
+                    applyRoleConfigurations(); 
+                    showGenerator();
+                    
+                    if (userRole === "developer") {
+                        showToast(isAutoLogin ? `⚡ Auto-Login Dev: ${activeUser}` : `⚡ Otorisasi Dev (${activeUser}) Sukses!`, "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/30", "fa-solid fa-user-shield text-purple-400");
+                    } else {
+                        showToast(isAutoLogin ? `👤 Auto-Login Member: ${activeUser}` : `👤 Akses Member (${activeUser}) Diterima!`, "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-user text-amber-400");
+                    }
                 });
-            });
+
+            } else if (user === "" || pass === "") {
+                showToast("⚠️ Mohon isi field Username dan Password!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+            } else {
+                showToast("❌ Kredensial salah atau akses ditolak!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-circle-xmark text-rose-400");
+            }
         }
 
         function triggerLogout() {
             localStorage.removeItem("vault_username");
             localStorage.removeItem("vault_password");
+            
             document.getElementById("loginUser").value = "";
             document.getElementById("loginPass").value = "";
+            document.getElementById("autoSaveCheck").checked = false;
+
             document.getElementById("generatorCard").classList.add("hidden");
-            document.getElementById("loginCard").classList.remove("hidden");
-            showToast("🔒 Sesi dihapus dari perangkat.", "bg-gradient-to-r from-black via-slate-950 to-black border-slate-800", "fa-solid fa-power-off text-rose-400");
+            const loginCard = document.getElementById("loginCard");
+            loginCard.classList.remove("hidden");
+            loginCard.classList.add("animate-premium-fade");
+
+            showToast("🔒 Sesi berhasil dihapus. Silakan login kembali.", "bg-gradient-to-r from-black via-slate-950 to-black border-slate-800", "fa-solid fa-power-off text-rose-400");
         }
 
         function applyRoleConfigurations() {
             const durationSelect = document.getElementById("durationSelect");
+            const customInputValue = document.getElementById("customInputValue");
             const roleBadge = document.getElementById("roleBadge");
             const tabCreate = document.getElementById("tabCreate");
+
             const aboutTag = document.getElementById("aboutTag");
             const aboutImg = document.getElementById("aboutImg");
             const aboutName = document.getElementById("aboutName");
@@ -581,16 +562,21 @@
             aboutImg.style.opacity = '1';
 
             if (userRole === "member") {
+                // 🔒 HILANGKAN NAV BAR 'CREATE AKUN' SECARA TOTAL BAGI MEMBER
                 tabCreate.style.display = "none"; 
+                
                 durationSelect.value = "custom_days";
                 durationSelect.disabled = true;
+                
                 handleDurationChange(); 
+                customInputValue.value = "1";
+                customInputValue.disabled = true;
 
                 let expiryStatusText = "Active (Lifetime)";
                 if (currentAccountExpiry !== "permanent") {
                     let diff = currentAccountExpiry - Date.now();
                     let daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-                    expiryStatusText = `Aktif (${daysLeft} Hari)`;
+                    expiryStatusText = `Aktif (${daysLeft} Hari Lagi)`;
                 }
 
                 roleBadge.className = "bg-amber-500/10 text-amber-300 px-3 py-1.5 rounded-full border border-amber-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
@@ -599,22 +585,35 @@
                 aboutTag.innerText = "Premium Access";
                 aboutImg.src = "member.jpg"; 
                 dynamicIcon.className = "fa-solid fa-user text-amber-400";
-                aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-amber-500 text-lg"></i>`;
+                aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-amber-500 text-lg shadow-[0_0_15px_rgba(245,158,11,0.6)]" title="Verified Member"></i>`;
+                aboutSub.className = "text-xs text-amber-400 font-bold tracking-widest uppercase mt-1.5";
                 aboutSub.innerText = "Member Suite";
-                aboutDesc.innerText = "Terverifikasi sebagai pengguna sistem berlisensi Premium.";
+                aboutDesc.innerText = "Terverifikasi sebagai pengguna sistem berlisensi Premium. Memiliki akses terbatas untuk pembuatan kode lisensi dengan batasan waktu perlindungan.";
                 aboutSocial.classList.add("hidden"); 
             } else {
+                // 🔓 TAMPILKAN NAV BAR 'CREATE AKUN' HANYA UNTUK DEVELOPER
                 tabCreate.style.display = "flex"; 
+                
                 durationSelect.disabled = false;
+                durationSelect.value = "permanent";
+                handleDurationChange();
+
                 roleBadge.className = "bg-purple-500/10 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
-                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> Dev Pusat: ${activeUser}`;
+                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> Dev: ${activeUser}`;
 
                 aboutTag.innerText = "System Architect";
                 aboutImg.src = "foto.jpg";
                 dynamicIcon.className = "fa-solid fa-user-gear text-purple-400";
-                aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-blue-500 text-lg"></i>`;
+                
+                if (activeUser.toLowerCase() === "azzam") {
+                    aboutName.innerHTML = 'Muh. Khaerul Azzam <i class="fa-solid fa-circle-check text-blue-500 text-lg shadow-[0_0_15px_rgba(59,130,246,0.6)]" title="Verified Developer"></i>';
+                } else {
+                    aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-purple-500 text-lg shadow-[0_0_15px_rgba(168,85,247,0.6)]" title="Sub-Developer"></i>`;
+                }
+
+                aboutSub.className = "text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5";
                 aboutSub.innerText = "Developer Suite";
-                aboutDesc.innerText = "Sistem Manajemen Lisensi cloud Aman.";
+                aboutDesc.innerText = "Berdedikasi dalam merancang arsitektur sistem manajemen lisensi aman, enkripsi data, serta optimasi antarmuka digital Key Generator.";
                 aboutSocial.classList.remove("hidden"); 
             }
         }
@@ -625,47 +624,70 @@
             const statusText = document.getElementById("loadingStatusText");
 
             const encryptedSteps = [
-                "Menghubungkan ke Cloud Core Database...",
-                "Mendekripsi Handshake Enkripsi Global...",
-                "Menyinkronkan Riwayat Database Lisensi...",
-                "Memverifikasi Hak Otorisasi Perangkat...",
-                "Akses Online Diberikan!"
+                "Menghubungkan ke Server Secure Core...",
+                "Mendekripsi Kunci Handshake SHA-256...",
+                "Mengonfigurasi Arsitektur Key Generator...",
+                "Memverifikasi Integritas Lisensi...",
+                "Akses Diberikan! Mengalihkan..."
             ];
 
             let startTimestamp = null;
+
             function animationStep(timestamp) {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const elapsed = timestamp - startTimestamp;
+                
                 let progress = Math.min((elapsed / duration) * 100, 100);
+                
                 progressBar.style.width = `${progress}%`;
                 percentageText.innerText = `${Math.floor(progress)}%`;
 
-                if (progress < 25) statusText.innerText = encryptedSteps[0];
-                else if (progress < 50) statusText.innerText = encryptedSteps[1];
-                else if (progress < 75) statusText.innerText = encryptedSteps[2];
-                else if (progress < 90) statusText.innerText = encryptedSteps[3];
-                else statusText.innerText = encryptedSteps[4];
+                if (progress < 20) {
+                    statusText.innerText = encryptedSteps[0];
+                } else if (progress < 45) {
+                    statusText.innerText = encryptedSteps[1];
+                } else if (progress < 70) {
+                    statusText.innerText = encryptedSteps[2];
+                } else if (progress < 90) {
+                    statusText.innerText = encryptedSteps[3];
+                } else {
+                    statusText.innerText = encryptedSteps[4];
+                }
 
-                if (elapsed < duration) requestAnimationFrame(animationStep);
-                else if (onCompleteCallback) onCompleteCallback();
+                if (elapsed < duration) {
+                    requestAnimationFrame(animationStep);
+                } else {
+                    if (onCompleteCallback) onCompleteCallback();
+                }
             }
+
+            progressBar.style.width = "0%";
+            percentageText.innerText = "0%";
             requestAnimationFrame(animationStep);
         }
 
         function showGenerator() {
-            document.getElementById("generatorCard").classList.remove("hidden");
+            const generatorCard = document.getElementById("generatorCard");
+            generatorCard.classList.remove("hidden");
+            generatorCard.classList.add("animate-premium-fade");
             switchTab("generator");
         }
 
         function showToast(message, bgColorClass = "bg-neutral-950", iconClass = "fa-solid fa-circle-check") {
             const toast = document.getElementById("toast");
+            const toastText = document.getElementById("toastText");
+            const toastIcon = document.getElementById("toastIcon");
+            
             clearTimeout(toastTimeout);
-            document.getElementById("toastText").innerText = message;
-            document.getElementById("toastIcon").className = `${iconClass} text-base`;
+
             toast.className = `fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border backdrop-blur-xl ${bgColorClass}`;
+            toastText.innerText = message;
+            toastIcon.className = `${iconClass} text-base`;
+
             toast.style.opacity = "1";
             toast.style.pointerEvents = "auto";
             toast.style.transform = "translate(-50%, 0px)";
+
             toastTimeout = setTimeout(() => {
                 toast.style.opacity = "0";
                 toast.style.pointerEvents = "none";
@@ -691,9 +713,11 @@
 
             if (durationSelect === "permanent") {
                 wrapper.style.display = "none";
+                input.setAttribute("disabled", "true");
             } else {
                 wrapper.style.display = "block";
                 input.removeAttribute("disabled");
+                
                 if (durationSelect === "custom_days") {
                     label.innerText = "Jumlah Hari";
                     icon.className = "fa-solid fa-calendar-days text-sm";
@@ -708,9 +732,14 @@
 
         function generateActivationKey(hwid, timestampHex) {
             const secretKey = "resellerexammod2026";
-            const hash = CryptoJS.HmacSHA256(hwid + timestampHex, secretKey);
-            const signaturePart = hash.toString(CryptoJS.enc.Hex).toUpperCase().substring(0, 12);
+            const dataToHash = hwid + timestampHex;
+            
+            const hash = CryptoJS.HmacSHA256(dataToHash, secretKey);
+            const signatureHash = hash.toString(CryptoJS.enc.Hex).toUpperCase();
+            
+            const signaturePart = signatureHash.substring(0, 12);
             const fullKey = timestampHex + signaturePart;
+            
             let formattedKey = "";
             for (let i = 0; i < fullKey.length; i += 5) {
                 formattedKey += fullKey.substring(i, i + 5) + "-";
@@ -720,96 +749,125 @@
 
         function generateKey() {
             if (userRole === "member") {
-                const cd = localStorage.getItem(`cd_${activeUser}`);
-                if (cd && parseInt(cd) - Date.now() > 0) {
-                    showToast("⏳ Akun Anda dalam Cooldown 20 Jam!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-hourglass-half text-amber-400");
-                    return;
+                const cooldownCheckpoint = localStorage.getItem("member_cooldown_time");
+                if (cooldownCheckpoint) {
+                    const timeLeft = parseInt(cooldownCheckpoint) - Date.now();
+                    if (timeLeft > 0) {
+                        const totalSeconds = Math.floor(timeLeft / 1000);
+                        const hours = Math.floor(totalSeconds / 3600);
+                        const minutes = Math.floor((totalSeconds % 3600) / 60);
+                        const seconds = totalSeconds % 60;
+                        
+                        showToast(`⏳ Cooldown! Sisa waktu: ${hours}j ${minutes}m ${seconds}d`, "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-hourglass-half text-amber-400");
+                        return;
+                    }
                 }
             }
 
             const hwidInput = document.getElementById("hwidInput").value.trim().toUpperCase();
             const durationSelect = document.getElementById("durationSelect").value;
             const resultArea = document.getElementById("resultArea");
+            const keyDisplay = document.getElementById("activationKeyDisplay");
+            const licenseDetails = document.getElementById("licenseDetails");
 
             if (hwidInput === "") {
-                showToast("⚠️ Mohon input HWID!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+                showToast("⚠️ Mohon input HWID perangkat terlebih dahulu!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
                 return;
             }
 
             let timestampHex = "FFFFFFFF";
-            let infoText = `<i class="fa-solid fa-circle-check text-fuchsia-400 mr-2"></i>Permanen (Lifetime)`;
-            let cleanDurationText = "Lifetime";
-            let val = (userRole === "member") ? 1 : parseInt(document.getElementById("customInputValue").value);
-            let activeType = (userRole === "member") ? "custom_days" : durationSelect;
+            let infoText = `<i class="fa-solid fa-circle-check text-fuchsia-400 mr-2"></i>Lisensi ini dikonfigurasi secara Permanen (Lifetime)`;
+            let cleanDurationText = "Lifetime (Permanen)";
 
-            if (activeType !== "permanent") {
+            let val = (userRole === "member") ? 1 : parseInt(document.getElementById("customInputValue").value);
+            let activeDurationType = (userRole === "member") ? "custom_days" : durationSelect;
+
+            if (activeDurationType !== "permanent") {
+                if (isNaN(val) || val <= 0) {
+                    showToast("⚠️ Masukkan nominal kuantitas angka yang valid!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+                    return;
+                }
+                
                 const targetDate = new Date();
-                if (activeType === "custom_days") {
+                if (activeDurationType === "custom_days") {
                     targetDate.setDate(targetDate.getDate() + val);
+                    const epochSeconds = Math.floor(targetDate.getTime() / 1000);
+                    timestampHex = epochSeconds.toString(16).toUpperCase().padStart(8, '0');
+                    
+                    infoText = `<i class="fa-solid fa-calendar-days text-purple-400 mr-2"></i>Berlaku ${val} Hari (Hingga: ${targetDate.toLocaleDateString('id-ID')}) | Hex: ${timestampHex}`;
                     cleanDurationText = `${val} Hari`;
-                } else {
+                } else if (activeDurationType === "custom_hours") {
                     targetDate.setHours(targetDate.getHours() + val);
+                    const epochSeconds = Math.floor(targetDate.getTime() / 1000);
+                    timestampHex = epochSeconds.toString(16).toUpperCase().padStart(8, '0');
+                    
+                    const formattedTime = targetDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                    infoText = `<i class="fa-solid fa-clock text-purple-400 mr-2"></i>Berlaku ${val} Jam (Hingga: ${targetDate.toLocaleDateString('id-ID')} - ${formattedTime} WIB) | Hex: ${timestampHex}`;
                     cleanDurationText = `${val} Jam`;
                 }
-                const epoch = Math.floor(targetDate.getTime() / 1000);
-                timestampHex = epoch.toString(16).toUpperCase().padStart(8, '0');
-                infoText = `<i class="fa-solid fa-calendar-days text-purple-400 mr-2"></i>Hingga: ${targetDate.toLocaleDateString('id-ID')}`;
             }
 
             const finalKey = generateActivationKey(hwidInput, timestampHex);
-            document.getElementById("activationKeyDisplay").innerText = finalKey;
-            document.getElementById("licenseDetails").innerHTML = infoText;
+
+            keyDisplay.innerText = finalKey;
+            licenseDetails.innerHTML = infoText;
             resultArea.classList.remove("hidden");
-            setTimeout(() => resultArea.classList.remove("opacity-0"), 50);
+            
+            setTimeout(() => {
+                resultArea.classList.remove("opacity-0");
+            }, 50);
 
             saveToHistory(hwidInput, finalKey, cleanDurationText);
 
             if (userRole === "member") {
-                localStorage.setItem(`cd_${activeUser}`, Date.now() + (20 * 60 * 60 * 1000));
+                const cooldownDuration = 20 * 60 * 60 * 1000; 
+                const futureExpiryTime = Date.now() + cooldownDuration;
+                localStorage.setItem("member_cooldown_time", futureExpiryTime);
             }
         }
 
         function saveToHistory(hwid, key, durationType) {
+            let history = JSON.parse(localStorage.getItem("exam_key_history")) || [];
             const now = new Date();
             const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' | ' + now.toLocaleDateString('id-ID');
             
-            // Push data langsung ke Cloud Firebase
-            db.ref('history').push({
-                hwid, key, duration: durationType, time: timeString, timestamp: Date.now()
-            });
+            history.unshift({ hwid, key, duration: durationType, time: timeString });
+            if (history.length > 30) history.pop();
+            
+            localStorage.setItem("exam_key_history", JSON.stringify(history));
         }
 
         function renderHistory() {
             const container = document.getElementById("historyContainer");
+            let history = JSON.parse(localStorage.getItem("exam_key_history")) || [];
             
-            db.ref('history').orderByChild('timestamp').limitToLast(25).once('value').then((snapshot) => {
-                let history = [];
-                snapshot.forEach(child => { history.unshift(child.val()); });
-
-                if (history.length === 0) {
-                    container.innerHTML = `<p class="text-center text-xs text-purple-900/60 py-10 italic">Belum ada riwayat global di server.</p>`;
-                    return;
-                }
-                
-                container.innerHTML = history.map(item => `
-                    <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div class="min-w-0 flex-1">
-                            <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
-                                <span class="font-mono text-[11px] font-bold text-purple-400 truncate max-w-[140px]">${item.hwid}</span>
-                                <span class="text-[10px] text-purple-300/40">${item.time}</span>
-                            </div>
-                            <div class="font-mono text-xs font-bold text-slate-300 break-all select-all">${item.key}</div>
+            if (history.length === 0) {
+                container.innerHTML = `<p id="emptyHistory" class="text-center text-xs text-purple-900/60 py-10 italic">Belum ada riwayat pembuatan key.</p>`;
+                return;
+            }
+            
+            container.innerHTML = history.map(item => `
+                <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition-all hover:border-purple-900/60">
+                    <div class="min-w-0 flex-1">
+                        <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
+                            <span class="font-mono text-[11px] font-bold text-purple-400 tracking-wide truncate max-w-[140px]" title="HWID">${item.hwid}</span>
+                            <span class="text-[10px] text-purple-300/40 font-medium">${item.time}</span>
                         </div>
-                        <div class="text-[9px] bg-purple-950/30 border border-purple-500/20 text-purple-300 px-2 py-1 rounded-md font-bold shrink-0">
-                            ${item.duration}
-                        </div>
+                        <div class="font-mono text-xs font-bold text-slate-300 break-all tracking-wide select-all">${item.key}</div>
                     </div>
-                `).join('');
-            });
+                    <div class="text-[9px] bg-purple-950/30 border border-purple-500/20 text-purple-300 px-2 py-1 rounded-md font-bold self-start sm:self-center shrink-0 tracking-wide">
+                        ${item.duration}
+                    </div>
+                </div>
+            `).join('');
         }
 
         function createNewAccount() {
-            if (userRole !== "developer") return;
+            if (userRole !== "developer") {
+                showToast("❌ Otorisasi Gagal: Hanya Developer sah yang bisa membuat akun!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-shield-halved text-rose-400");
+                switchTab("generator");
+                return;
+            }
 
             const userIn = document.getElementById("newUsername").value.trim();
             const passIn = document.getElementById("newPassword").value.trim();
@@ -817,119 +875,139 @@
             const durationIn = document.getElementById("newAccountDuration").value;
 
             if (userIn === "" || passIn === "") {
-                showToast("⚠️ Field tidak boleh kosong!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+                showToast("⚠️ Username dan Password tidak boleh kosong!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
                 return;
             }
 
-            db.ref('accounts').once('value').then((snapshot) => {
-                let isExist = userDatabase.some(u => u.username.toLowerCase() === userIn.toLowerCase());
-                snapshot.forEach(child => {
-                    if(child.val().username.toLowerCase() === userIn.toLowerCase()) isExist = true;
-                });
+            let customDb = JSON.parse(localStorage.getItem("suite_custom_accounts")) || [];
+            
+            const isExist = userDatabase.some(u => u.username.toLowerCase() === userIn.toLowerCase()) || customDb.some(u => u.username.toLowerCase() === userIn.toLowerCase());
+            if (isExist) {
+                showToast("❌ Username tersebut sudah terdaftar!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-xmark text-rose-400");
+                return;
+            }
 
-                if (isExist) {
-                    showToast("❌ Username sudah terdaftar!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-xmark text-rose-400");
-                    return;
-                }
+            let expiryTimestamp = "permanent";
+            if (durationIn !== "permanent") {
+                let days = parseInt(durationIn);
+                let targetDate = new Date();
+                targetDate.setDate(targetDate.getDate() + days);
+                expiryTimestamp = targetDate.getTime(); 
+            }
 
-                let expiryTimestamp = "permanent";
-                if (durationIn !== "permanent") {
-                    let targetDate = new Date();
-                    targetDate.setDate(targetDate.getDate() + parseInt(durationIn));
-                    expiryTimestamp = targetDate.getTime(); 
-                }
-
-                // Tulis data ke cloud server pusat
-                db.ref('accounts/' + userIn).set({
-                    username: userIn, password: passIn, role: roleIn, expiry: expiryTimestamp
-                }).then(() => {
-                    document.getElementById("newUsername").value = "";
-                    document.getElementById("newPassword").value = "";
-                    showToast(`🎉 Akun ${userIn} Berhasil Diunggah Ke Cloud!`, "bg-gradient-to-r from-black via-fuchsia-950 to-black border-fuchsia-500/30", "fa-solid fa-user-check text-fuchsia-400");
-                    renderCreatedAccounts();
-                });
+            customDb.unshift({
+                username: userIn,
+                password: passIn,
+                role: roleIn,
+                expiry: expiryTimestamp
             });
+
+            localStorage.setItem("suite_custom_accounts", JSON.stringify(customDb));
+            
+            document.getElementById("newUsername").value = "";
+            document.getElementById("newPassword").value = "";
+            
+            showToast(`🎉 Akun ${userIn} Berhasil Dibuat!`, "bg-gradient-to-r from-black via-fuchsia-950 to-black border-fuchsia-500/30", "fa-solid fa-user-check text-fuchsia-400");
+            renderCreatedAccounts();
         }
 
         function removeAccount(usernameToDel) {
-            if (userRole !== "developer") return;
+            if (userRole !== "developer") {
+                showToast("❌ Otorisasi Gagal: Hanya Developer yang bisa menghapus akses!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-shield-halved text-rose-400");
+                return;
+            }
 
-            db.ref('accounts/' + usernameToDel).remove().then(() => {
-                showToast(`🗑️ Akun ${usernameToDel} Dihapus dari Cloud!`, "bg-gradient-to-r from-black via-slate-950 to-black border-slate-700", "fa-solid fa-trash-can text-rose-400");
-                renderCreatedAccounts();
-            });
+            let customDb = JSON.parse(localStorage.getItem("suite_custom_accounts")) || [];
+            customDb = customDb.filter(acc => acc.username !== usernameToDel);
+            localStorage.setItem("suite_custom_accounts", JSON.stringify(customDb));
+            
+            showToast(`🗑️ Akun ${usernameToDel} Berhasil Dihapus!`, "bg-gradient-to-r from-black via-slate-950 to-black border-slate-700", "fa-solid fa-trash-can text-rose-400");
+            renderCreatedAccounts();
         }
 
         function renderCreatedAccounts() {
             const container = document.getElementById("accountContainer");
-            if (userRole !== "developer") return;
+            let customDb = JSON.parse(localStorage.getItem("suite_custom_accounts")) || [];
 
-            db.ref('accounts').once('value').then((snapshot) => {
-                let customDb = [];
-                snapshot.forEach(child => { customDb.push(child.val()); });
+            if (userRole !== "developer") {
+                container.innerHTML = `<p class="text-center text-xs text-rose-500/70 py-6 italic">Akses Ditolak.</p>`;
+                return;
+            }
 
-                if (customDb.length === 0) {
-                    container.innerHTML = `<p class="text-center text-xs text-purple-900/50 py-6 italic">Belum ada akun dinamis di database cloud.</p>`;
-                    return;
+            if (customDb.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-purple-900/50 py-6 italic">Belum ada akun custom yang dibuat.</p>`;
+                return;
+            }
+
+            container.innerHTML = customDb.map(acc => {
+                let statusLabel = "";
+                if (acc.expiry === "permanent") {
+                    statusLabel = `<span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-bold uppercase">Lifetime</span>`;
+                } else {
+                    let diff = acc.expiry - Date.now();
+                    if (diff <= 0) {
+                        statusLabel = `<span class="text-[9px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20 font-bold uppercase">Expired</span>`;
+                    } else {
+                        let daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                        statusLabel = `<span class="text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold uppercase">${daysLeft} Hari</span>`;
+                    }
                 }
 
-                container.innerHTML = customDb.map(acc => {
-                    let statusLabel = "";
-                    if (acc.expiry === "permanent") {
-                        statusLabel = `<span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-bold uppercase">Lifetime</span>`;
-                    } else {
-                        let diff = acc.expiry - Date.now();
-                        if (diff <= 0) {
-                            statusLabel = `<span class="text-[9px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20 font-bold uppercase">Expired</span>`;
-                        } else {
-                            let daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-                            statusLabel = `<span class="text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold uppercase">${daysLeft} Hari</span>`;
-                        }
-                    }
+                let badgeRole = acc.role === "developer" ? "⚡ Dev" : "👤 Member";
 
-                    return `
-                        <div class="bg-black/50 border border-purple-950/60 rounded-xl p-3.5 flex items-center justify-between gap-3">
-                            <div class="min-w-0 flex-1">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="font-bold text-sm text-white font-mono truncate">${acc.username}</span>
-                                    <span class="text-[10px] text-purple-400/60 font-bold px-1.5 py-0.5 bg-black rounded border border-purple-950">${acc.role === "developer" ? "⚡ Dev" : "👤 Member"}</span>
-                                </div>
-                                <div class="text-xs text-purple-300/50 font-mono truncate">Password: <span class="text-slate-300">${acc.password}</span></div>
+                return `
+                    <div class="bg-black/50 border border-purple-950/60 rounded-xl p-3.5 flex items-center justify-between gap-3 transition-all hover:border-purple-900/40">
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="font-bold text-sm text-white font-mono tracking-wide truncate">${acc.username}</span>
+                                <span class="text-[10px] text-purple-400/60 font-bold px-1.5 py-0.5 bg-black rounded-md border border-purple-950">${badgeRole}</span>
                             </div>
-                            <div class="flex items-center gap-3 shrink-0">
-                                ${statusLabel}
-                                <button onclick="removeAccount('${acc.username}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 text-rose-400 flex items-center justify-center transition-colors">
-                                    <i class="fa-solid fa-trash text-xs"></i>
-                                </button>
-                            </div>
+                            <div class="text-xs text-purple-300/50 font-medium font-mono truncate">Password: <span class="text-slate-300">${acc.password}</span></div>
                         </div>
-                    `;
-                }).join('');
-            });
+                        <div class="flex items-center gap-3 shrink-0">
+                            ${statusLabel}
+                            <button onclick="removeAccount('${acc.username}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 hover:border-rose-700 text-rose-400 flex items-center justify-center transition-colors cursor-pointer" title="Hapus Akses Akun">
+                                <i class="fa-solid fa-trash text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function copyToClipboard() {
             const keyText = document.getElementById("activationKeyDisplay").innerText;
             const copyIcon = document.getElementById("copyIcon");
+
             if (keyText.includes("XXXXX")) return;
 
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(keyText).then(() => handleCopySuccess(copyIcon));
+                navigator.clipboard.writeText(keyText).then(() => {
+                    handleCopySuccess(copyIcon);
+                });
             } else {
                 const textArea = document.createElement("textarea");
                 textArea.value = keyText;
                 textArea.style.position = "fixed";
                 document.body.appendChild(textArea);
-                textArea.focus(); textArea.select();
-                try { document.execCommand('copy'); handleCopySuccess(copyIcon); } catch (err) {}
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    handleCopySuccess(copyIcon);
+                } catch (err) {
+                    showToast("❌ Gagal menyalin secara otomatis.", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-circle-xmark text-rose-400");
+                }
                 document.body.removeChild(textArea);
             }
         }
 
         function handleCopySuccess(icon) {
             icon.className = "fa-solid fa-check text-fuchsia-400";
-            showToast("Kode aktivasi disalin ke clipboard!", "bg-gradient-to-r from-black via-fuchsia-950 to-black border-fuchsia-500/30", "fa-solid fa-circle-check text-fuchsia-400");
-            setTimeout(() => { icon.className = "fa-regular fa-copy text-sm"; }, 2000);
+            showToast("Kode aktivasi berhasil disalin ke clipboard!", "bg-gradient-to-r from-black via-fuchsia-950 to-black border-fuchsia-500/30", "fa-solid fa-circle-check text-fuchsia-400");
+            setTimeout(() => {
+                icon.className = "fa-regular fa-copy text-sm";
+            }, 2000);
         }
     </script>
 </body>
