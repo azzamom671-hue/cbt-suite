@@ -104,7 +104,6 @@
 
     <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-8 box-border relative z-10 overflow-y-auto">
 
-        <!-- LOGIN CARD -->
         <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto">
             <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
                 <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
@@ -144,7 +143,24 @@
             </div>
         </div>
 
-        <!-- LOADING CARD -->
+        <div id="maintenanceCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade">
+            <div class="flex flex-col items-center justify-center space-y-6">
+                <div class="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+                    <i class="fa-solid fa-screwdriver-wrench animate-bounce"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-white tracking-tight">System Maintenance</h1>
+                    <p class="text-amber-400 text-xs font-bold tracking-widest uppercase mt-1.5">Server Sedang Diperbarui</p>
+                    <p class="text-purple-300/60 text-sm mt-4 leading-relaxed">Mohon maaf atas ketidaknyamanannya. Generator sedang dioptimasi oleh Developer demi meningkatkan performa enkripsi. Silakan coba lagi nanti.</p>
+                </div>
+                <div class="pt-2 w-full">
+                    <button onclick="backToLoginFromMaintenance()" class="w-full py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-colors cursor-pointer">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Kembali Ke Login
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div id="loadingCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden">
             <div class="flex flex-col items-center justify-center space-y-6">
                 <div class="relative flex items-center justify-center w-24 h-24">
@@ -168,7 +184,6 @@
             </div>
         </div>
 
-        <!-- MAIN GENERATOR CARD -->
         <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden">
             
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
@@ -187,7 +202,6 @@
                 </div>
             </div>
 
-            <!-- TAB GENERATOR -->
             <div id="generatorTabContent" class="space-y-5">
                 <div>
                     <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
@@ -256,7 +270,6 @@
                 </div>
             </div>
 
-            <!-- TAB RIWAYAT -->
             <div id="historyTabContent" class="hidden space-y-4">
                 <div class="flex items-center ml-1 pb-1">
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
@@ -268,8 +281,25 @@
                 </div>
             </div>
 
-            <!-- TAB CREATE KEY (DEV ONLY) -->
             <div id="createAkunTabContent" class="hidden space-y-5 animate-premium-fade">
+                <div class="bg-gradient-to-r from-purple-950/20 via-amber-950/10 to-purple-950/20 p-5 rounded-2xl border border-amber-500/20 space-y-4 shadow-inner">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-sm font-bold text-amber-400 uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-screwdriver-wrench text-xs"></i> Fitur Sistem Kontrol Maintenance
+                            </h3>
+                            <p class="text-[11px] text-purple-300/50 mt-0.5">Jika aktif, Member akan terblokir sementara dari akses login/generator.</p>
+                        </div>
+                        <label class="inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" id="maintenanceToggle" onchange="toggleMaintenanceMode()" class="sr-only peer">
+                            <div class="w-11 h-6 bg-neutral-900 border border-purple-950 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-purple-400 after:border-purple-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-600 peer-checked:after:bg-white relative"></div>
+                        </label>
+                    </div>
+                    <div id="maintenanceStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+                        🟢 Mode Normal (Akses Member Dibuka)
+                    </div>
+                </div>
+
                 <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
                         <i class="fa-solid fa-key"></i> Rilis Kode Aktivasi Login Baru
@@ -314,7 +344,6 @@
                 </div>
             </div>
 
-            <!-- TAB ABOUT ME -->
             <div id="aboutTabContent" class="hidden space-y-5 animate-premium-fade">
                 <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
                     <div class="absolute -right-12 -top-12 w-32 h-32 bg-purple-600/10 rounded-full blur-xl pointer-events-none"></div>
@@ -352,7 +381,6 @@
                 </div>
             </div>
 
-            <!-- NAVIGATION TABS BLOCK -->
             <div class="flex bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden">
                 <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden xs:inline">Build Panel</span><span class="xs:hidden">Build</span>
@@ -371,7 +399,6 @@
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
         <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
     </div>
@@ -389,12 +416,29 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             handleDurationChange();
+            initMaintenanceUI();
             setTimeout(checkAutoLogin, 200); 
         });
 
         function getMergedKeys() {
             let customKeys = JSON.parse(localStorage.getItem("suite_custom_keys")) || [];
             return [...baselineKeys, ...customKeys];
+        }
+
+        function isMaintenanceActive() {
+            return localStorage.getItem("system_maintenance_mode") === "true";
+        }
+
+        function initMaintenanceUI() {
+            const toggle = document.getElementById("maintenanceToggle");
+            const badge = document.getElementById("maintenanceStatusBadge");
+            if(isMaintenanceActive()) {
+                if(toggle) toggle.checked = true;
+                if(badge) {
+                    badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-amber-500/10 text-amber-400 border-amber-500/20 animate-pulse";
+                    badge.innerHTML = "⚠️ Mode Maintenance Aktif (Member Terblokir)";
+                }
+            }
         }
 
         function checkAutoLogin() {
@@ -407,10 +451,51 @@
                         localStorage.removeItem("vault_access_key");
                         return;
                     }
+                    
+                    // Filter Maintenance saat Autologin
+                    if (matchKey.role === "member" && isMaintenanceActive()) {
+                        localStorage.removeItem("vault_access_key"); // Hapus sesi otomatis jika sedang MT
+                        showMaintenanceScreen();
+                        return;
+                    }
+
                     document.getElementById("loginKey").value = savedKey;
                     document.getElementById("autoSaveCheck").checked = true;
                     validateLogin(true);
                 }
+            }
+        }
+
+        function showMaintenanceScreen() {
+            document.getElementById("loginCard").classList.add("hidden");
+            document.getElementById("generatorCard").classList.add("hidden");
+            document.getElementById("loadingCard").classList.add("hidden");
+            
+            const mtCard = document.getElementById("maintenanceCard");
+            mtCard.classList.remove("hidden");
+        }
+
+        function backToLoginFromMaintenance() {
+            document.getElementById("maintenanceCard").classList.add("hidden");
+            const loginCard = document.getElementById("loginCard");
+            loginCard.classList.remove("hidden");
+        }
+
+        function toggleMaintenanceMode() {
+            if (userRole !== "developer") return;
+            const toggle = document.getElementById("maintenanceToggle");
+            const badge = document.getElementById("maintenanceStatusBadge");
+
+            if(toggle.checked) {
+                localStorage.setItem("system_maintenance_mode", "true");
+                badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-amber-500/10 text-amber-400 border-amber-500/20 animate-pulse";
+                badge.innerHTML = "⚠️ Mode Maintenance Aktif (Member Terblokir)";
+                showToast("⚠️ Maintenance Diaktifkan! Member tidak bisa masuk.", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-screwdriver-wrench text-amber-400");
+            } else {
+                localStorage.setItem("system_maintenance_mode", "false");
+                badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+                badge.innerHTML = "🟢 Mode Normal (Akses Member Dibuka)";
+                showToast("🟢 Maintenance Dimatikan. Sistem kembali normal.", "bg-gradient-to-r from-black via-purple-950 to-black border-emerald-500/30", "fa-solid fa-circle-check text-emerald-400");
             }
         }
 
@@ -439,6 +524,7 @@
                 document.getElementById("tabCreate").className = activeClass;
                 document.getElementById("createAkunTabContent").classList.remove("hidden");
                 renderCreatedKeys();
+                initMaintenanceUI(); // Pastikan state UI toggle sinkron saat tab dibuka
             } else if (target === "about") {
                 document.getElementById("tabAbout").className = activeClass;
                 document.getElementById("aboutTabContent").classList.remove("hidden");
@@ -457,6 +543,13 @@
             if (keyFound) {
                 if (keyFound.expiry !== "permanent" && Date.now() > keyFound.expiry) {
                     showToast("❌ Masa Aktif Kunci Akses Ini Telah Habis!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-clock text-rose-400");
+                    return;
+                }
+
+                // Proteksi Utama Maintenance Mode untuk Akun Member
+                if (keyFound.role === "member" && isMaintenanceActive()) {
+                    showMaintenanceScreen();
+                    showToast("⚠️ Sistem sedang dalam perbaikan berkala.", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-screwdriver-wrench text-amber-400");
                     return;
                 }
 
@@ -519,8 +612,6 @@
             const dynamicIcon = document.getElementById("dynamicIcon");
 
             aboutImg.style.opacity = '1';
-
-            // UPDATE: Member dilepas pembatasannya agar bisa akses "Semua Key" (Lifetime/Hari/Jam)
             durationSelect.disabled = false;
 
             if (userRole === "member") {
@@ -626,7 +717,6 @@
             }, 2500); 
         }
 
-        // UPDATE: Penyesuaian agar visibilitas input seragam tanpa batasan role terpisah
         function handleDurationChange() {
             const durationSelect = document.getElementById("durationSelect").value;
             const wrapper = document.getElementById("customInputWrapper");
@@ -666,7 +756,6 @@
             return formattedKey.slice(0, -1);
         }
 
-        // UPDATE: Logika pengecekan cooldown 24 jam untuk Member
         function generateKey() {
             if (userRole === "member") {
                 const cooldownCheckpoint = localStorage.getItem("member_cooldown_time");
@@ -734,7 +823,6 @@
 
             saveToHistory(hwidInput, finalKey, cleanDurationText);
 
-            // UPDATE: Begitu sukses, kunci hak generate Member selama 24 jam penuh
             if (userRole === "member") {
                 const cooldownDuration = 24 * 60 * 60 * 1000; 
                 const futureExpiryTime = Date.now() + cooldownDuration;
