@@ -41,6 +41,7 @@
 
     <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-8 box-border relative z-10 overflow-y-auto">
 
+        <!-- LOGIN CARD -->
         <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto">
             <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
                 <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
@@ -80,6 +81,7 @@
             </div>
         </div>
 
+        <!-- MAINTENANCE CARD -->
         <div id="maintenanceCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade">
             <div class="flex flex-col items-center justify-center space-y-6">
                 <div class="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-[0_0_30px_rgba(245,158,11,0.2)]">
@@ -98,6 +100,7 @@
             </div>
         </div>
 
+        <!-- MAIN GENERATOR CARD -->
         <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
                 <div class="flex items-center gap-4 text-center sm:text-left">
@@ -114,6 +117,7 @@
                 </div>
             </div>
 
+            <!-- TAB GENERATOR -->
             <div id="generatorTabContent" class="space-y-5">
                 <div>
                     <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
@@ -182,6 +186,7 @@
                 </div>
             </div>
 
+            <!-- TAB RIWAYAT -->
             <div id="historyTabContent" class="hidden space-y-4">
                 <div class="flex items-center justify-between ml-1 pb-1">
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
@@ -196,6 +201,7 @@
                 </div>
             </div>
 
+            <!-- TAB MANAGEMENT KEY -->
             <div id="createAkunTabContent" class="hidden space-y-5">
                 <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
@@ -231,6 +237,17 @@
                     </button>
                 </div>
 
+                <!-- Reset Device Lock Block (Dev & Admin Only) -->
+                <div id="deviceControlBlock" class="bg-blue-950/10 p-5 rounded-2xl border border-blue-500/20 space-y-4 shadow-inner" style="display: none;">
+                    <h3 class="text-sm font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-mobile-screen text-xs"></i> Reset Device Lock Key
+                    </h3>
+                    <div class="flex gap-2">
+                        <input type="text" id="resetDeviceInput" placeholder="MASUKKAN KODE LOGIN RESELLER" class="flex-1 px-4 py-3 bg-black border border-blue-950 rounded-xl text-blue-400 focus:outline-none focus:border-blue-500 text-sm font-mono font-bold tracking-wider uppercase">
+                        <button onclick="resetKeyDeviceLock()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer">Reset ID</button>
+                    </div>
+                </div>
+
                 <div id="banControlBlock" class="bg-rose-950/10 p-5 rounded-2xl border border-rose-500/20 space-y-4 shadow-inner" style="display: none;">
                     <h3 class="text-sm font-bold text-rose-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-ban text-xs"></i> Banned Key
@@ -255,12 +272,15 @@
                 </div>
             </div>
 
+            <!-- TAB ABOUT -->
             <div id="aboutTabContent" class="hidden space-y-5">
+                <!-- DEVELOPER SETTINGS SUITE (KHUSUS AZZAM-DEV) -->
                 <div id="developerSettingsBlock" class="bg-gradient-to-r from-purple-950/20 via-neutral-950 to-purple-950/20 p-5 rounded-2xl border border-purple-500/30 space-y-4 shadow-inner" style="display: none;">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-gears text-xs"></i> Developer Settings Suite
                     </h3>
                     
+                    <!-- Maintenance Feature -->
                     <div class="flex justify-between items-center pt-2 border-t border-purple-950/40">
                         <div>
                             <span class="text-xs font-bold text-amber-400 block">System Maintenance</span>
@@ -275,6 +295,7 @@
                         🟢 Mode Normal Terbuka
                     </div>
 
+                    <!-- Change App Link Feature -->
                     <div class="pt-3 border-t border-purple-950/40 space-y-2">
                         <label for="appLinkInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1">Ubah Link Download Aplikasi (App)</label>
                         <div class="flex gap-2">
@@ -284,6 +305,7 @@
                     </div>
                 </div>
 
+                <!-- Profile Architect Card -->
                 <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
                     <h3 id="aboutTag" class="text-[10px] font-black text-purple-400 uppercase tracking-[0.25em] mb-5">System Architect</h3>
                     <div class="w-28 h-28 rounded-full bg-black/80 mx-auto flex items-center justify-center border-2 border-purple-500/40 shadow-[0_0_30px_rgba(147,51,234,0.35)] mb-4 relative overflow-hidden group">
@@ -322,6 +344,7 @@
                 </div>
             </div>
 
+            <!-- TAB NAVIGATION CONTROLLER -->
             <div class="flex bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden">
                 <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden xs:inline">Build Panel</span><span class="xs:hidden">Build</span>
@@ -339,6 +362,7 @@
         </div>
     </div>
 
+    <!-- CONFIRMATION MODAL -->
     <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
             <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)]"><i id="modalIcon" class="fa-solid fa-triangle-exclamation"></i></div>
@@ -351,15 +375,18 @@
         </div>
     </div>
 
+    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
         <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
     </div>
 
+    <!-- CORE LOGIC ENGINE (JAVASCRIPT) -->
     <script>
         window.userRole = ""; 
         window.activeUser = "";
         window.loggedKey = ""; 
         window.currentAccountExpiry = null;
+        window.myDeviceId = "";
 
         const baselineKeys = [
             { key: "AZZAM-DEV", label: "mhmmdkhrulazzam", role: "developer", expiry: "permanent" },
@@ -385,6 +412,13 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Setup Unique Perangkat Peramban
+            window.myDeviceId = localStorage.getItem("suite_device_id");
+            if (!window.myDeviceId) {
+                window.myDeviceId = "HW-" + Math.floor(Math.random() * 0xFFFFFFFFF).toString(16).toUpperCase();
+                localStorage.setItem("suite_device_id", window.myDeviceId);
+            }
+
             handleDurationChange();
             if (db) listenToSystemSettings();
             setTimeout(checkAutoLogin, 200); 
@@ -527,6 +561,28 @@
                         showToast("⚠️ Sistem sedang maintenance.", "bg-amber-950", "fa-solid fa-screwdriver-wrench text-amber-400");
                         resetLoginButton();
                         return;
+                    }
+
+                    // --- FITUR 1 KEY 1 DEVICE ENGINE ---
+                    if (keyFound.role !== "developer" && keyFound.role !== "admin" && db) {
+                        try {
+                            const deviceSnap = await fetchWithTimeout(`device_locks/${inputKey}`, 5000);
+                            if (deviceSnap && deviceSnap.exists()) {
+                                if (deviceSnap.val() !== window.myDeviceId) {
+                                    showToast("❌ Akses Ditolak! Key terikat di HP/Perangkat lain.", "bg-rose-950", "fa-solid fa-mobile-screen-button text-rose-500");
+                                    resetLoginButton();
+                                    return;
+                                }
+                            } else {
+                                // Mengunci Perangkat di Login Pertama Kali
+                                await db.ref(`device_locks/${inputKey}`).set(window.myDeviceId);
+                            }
+                        } catch (deviceError) {
+                            console.error(deviceError);
+                            showToast("⚠️ Proteksi Hardware ID Gagal Diverifikasi.", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-500");
+                            resetLoginButton();
+                            return;
+                        }
                     }
 
                     window.userRole = keyFound.role;
@@ -685,8 +741,23 @@
                 showToast("❌ Admin tidak diizinkan menghapus akun!", "bg-rose-950", "fa-solid fa-ban text-rose-500");
                 return;
             }
-            if (db) await db.ref(`custom_keys/${keyToDel}`).remove().catch(()=>{});
+            if (db) {
+                await db.ref(`custom_keys/${keyToDel}`).remove().catch(()=>{});
+                await db.ref(`device_locks/${keyToDel}`).remove().catch(()=>{});
+            }
             showToast(`🗑️ Akses Key Dihapus!`, "bg-neutral-950", "fa-solid fa-trash-can text-rose-400");
+        }
+
+        async function resetKeyDeviceLock() {
+            if (window.userRole !== "developer" && window.userRole !== "admin") return;
+            const keyToReset = document.getElementById("resetDeviceInput").value.trim().toUpperCase();
+            if (keyToReset === "") return;
+            
+            if (db) {
+                await db.ref(`device_locks/${keyToReset}`).remove().catch(()=>{});
+                document.getElementById("resetDeviceInput").value = "";
+                showToast(`🔓 Device Lock Berhasil Direset!`, "bg-blue-950", "fa-solid fa-mobile-screen text-emerald-400");
+            }
         }
 
         async function addKeyToBanList() {
@@ -821,7 +892,10 @@
         }
 
         async function executeWipeCustomAccessKeys() {
-            if (db) await db.ref("custom_keys").remove().catch(()=>{});
+            if (db) {
+                await db.ref("custom_keys").remove().catch(()=>{});
+                await db.ref("device_locks").remove().catch(()=>{});
+            }
             closeWipeModal();
             showToast("💀 Database dihapus!", "bg-rose-950", "fa-solid fa-skull-crossbones text-rose-500");
         }
@@ -878,6 +952,7 @@
                 document.getElementById("createAkunTabContent").classList.remove("hidden");
                 document.getElementById("clearCustomKeysBtn").style.display = (window.loggedKey === "AZZAM-DEV") ? "flex" : "none";
                 document.getElementById("banControlBlock").style.display = (window.loggedKey === "AZZAM-DEV") ? "block" : "none";
+                document.getElementById("deviceControlBlock").style.display = (window.userRole === "developer" || window.userRole === "admin") ? "block" : "none";
                 renderCreatedKeys();
                 renderBanList();
             } else if (target === "about") {
