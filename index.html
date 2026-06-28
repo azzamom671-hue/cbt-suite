@@ -41,7 +41,6 @@
 
     <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-8 box-border relative z-10 overflow-y-auto">
 
-        <!-- LOGIN CARD -->
         <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto">
             <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
                 <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
@@ -81,7 +80,6 @@
             </div>
         </div>
 
-        <!-- MAINTENANCE CARD -->
         <div id="maintenanceCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade">
             <div class="flex flex-col items-center justify-center space-y-6">
                 <div class="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-[0_0_30px_rgba(245,158,11,0.2)]">
@@ -100,7 +98,6 @@
             </div>
         </div>
 
-        <!-- MAIN GENERATOR CARD -->
         <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
                 <div class="flex items-center gap-4 text-center sm:text-left">
@@ -117,7 +114,6 @@
                 </div>
             </div>
 
-            <!-- TAB GENERATOR -->
             <div id="generatorTabContent" class="space-y-5">
                 <div>
                     <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
@@ -162,7 +158,7 @@
                         <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Build Activation Key
                     </button>
                     
-                    <a href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group">
+                    <a id="appDownloadBtn" href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group">
                         <i class="fa-solid fa-cloud-arrow-down text-base group-hover:translate-y-0.5 transition-transform"></i> App
                     </a>
                 </div>
@@ -186,7 +182,6 @@
                 </div>
             </div>
 
-            <!-- TAB RIWAYAT -->
             <div id="historyTabContent" class="hidden space-y-4">
                 <div class="flex items-center justify-between ml-1 pb-1">
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
@@ -201,26 +196,7 @@
                 </div>
             </div>
 
-            <!-- TAB MANAGEMENT KEY -->
             <div id="createAkunTabContent" class="hidden space-y-5">
-                <div id="maintenanceControlBlock" class="bg-gradient-to-r from-purple-950/20 via-amber-950/10 to-purple-950/20 p-5 rounded-2xl border border-amber-500/20 space-y-4 shadow-inner" style="display: none;">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h3 class="text-sm font-bold text-amber-400 uppercase tracking-widest flex items-center gap-2">
-                                <i class="fa-solid fa-screwdriver-wrench text-xs"></i> Fitur Sistem Maintenance
-                            </h3>
-                            <p class="text-[11px] text-purple-300/50 mt-0.5">Blokir seluruh Reseller secara global.</p>
-                        </div>
-                        <label class="inline-flex items-center cursor-pointer select-none">
-                            <input type="checkbox" id="maintenanceToggle" onchange="toggleMaintenanceMode()" class="sr-only peer">
-                            <div class="w-11 h-6 bg-neutral-900 border border-purple-950 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-purple-400 after:border-purple-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-600 peer-checked:after:bg-white relative"></div>
-                        </label>
-                    </div>
-                    <div id="maintenanceStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
-                        🟢 Mode Normal Terbuka
-                    </div>
-                </div>
-
                 <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
                         <i class="fa-solid fa-key"></i> Buat Kode Login Baru
@@ -279,8 +255,35 @@
                 </div>
             </div>
 
-            <!-- TAB ABOUT -->
             <div id="aboutTabContent" class="hidden space-y-5">
+                <div id="developerSettingsBlock" class="bg-gradient-to-r from-purple-950/20 via-neutral-950 to-purple-950/20 p-5 rounded-2xl border border-purple-500/30 space-y-4 shadow-inner" style="display: none;">
+                    <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-gears text-xs"></i> Developer Settings Suite
+                    </h3>
+                    
+                    <div class="flex justify-between items-center pt-2 border-t border-purple-950/40">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 block">System Maintenance</span>
+                            <p class="text-[11px] text-purple-300/50 mt-0.5">Blokir seluruh Reseller secara global.</p>
+                        </div>
+                        <label class="inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" id="maintenanceToggle" onchange="toggleMaintenanceMode()" class="sr-only peer">
+                            <div class="w-11 h-6 bg-neutral-900 border border-purple-950 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-purple-400 after:border-purple-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-600 peer-checked:after:bg-white relative"></div>
+                        </label>
+                    </div>
+                    <div id="maintenanceStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+                        🟢 Mode Normal Terbuka
+                    </div>
+
+                    <div class="pt-3 border-t border-purple-950/40 space-y-2">
+                        <label for="appLinkInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1">Ubah Link Download Aplikasi (App)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="appLinkInput" placeholder="Masukkan URL APK File Baru" class="flex-1 px-4 py-2.5 bg-black border border-purple-950 rounded-xl text-xs text-purple-300 focus:outline-none focus:border-purple-500 font-mono">
+                            <button onclick="updateDownloadLink()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer shrink-0">Update</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
                     <h3 id="aboutTag" class="text-[10px] font-black text-purple-400 uppercase tracking-[0.25em] mb-5">System Architect</h3>
                     <div class="w-28 h-28 rounded-full bg-black/80 mx-auto flex items-center justify-center border-2 border-purple-500/40 shadow-[0_0_30px_rgba(147,51,234,0.35)] mb-4 relative overflow-hidden group">
@@ -319,7 +322,6 @@
                 </div>
             </div>
 
-            <!-- TAB NAVIGATION CONTROLLER -->
             <div class="flex bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden">
                 <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden xs:inline">Build Panel</span><span class="xs:hidden">Build</span>
@@ -337,7 +339,6 @@
         </div>
     </div>
 
-    <!-- CONFIRMATION MODAL -->
     <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
             <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)]"><i id="modalIcon" class="fa-solid fa-triangle-exclamation"></i></div>
@@ -350,12 +351,10 @@
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
         <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
     </div>
 
-    <!-- CORE LOGIC ENGINE (JAVASCRIPT) -->
     <script>
         window.userRole = ""; 
         window.activeUser = "";
@@ -387,13 +386,14 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             handleDurationChange();
-            if (db) listenToMaintenanceMode();
+            if (db) listenToSystemSettings();
             setTimeout(checkAutoLogin, 200); 
         });
 
-        // FIXED: Listener Cloud Server Real-time (Anti Auto-Logout)
-        function listenToMaintenanceMode() {
+        // Server Listener Real-time (Maintenance & Link Download)
+        function listenToSystemSettings() {
             try {
+                // Listener Status Maintenance
                 db.ref("system_settings/maintenance_mode").on('value', (snapshot) => {
                     const isMaint = snapshot.val() || false;
                     const toggle = document.getElementById("maintenanceToggle");
@@ -405,7 +405,6 @@
                             badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-amber-500/10 text-amber-400 border-amber-500/20 animate-pulse";
                             badge.innerHTML = "⚠️ Mode Maintenance Active";
                         }
-                        // Sesi login dipertahankan, hanya memblokir interaksi dengan mengarahkan layar ke maintenance screen
                         if (window.loggedKey && window.loggedKey !== "AZZAM-DEV") {
                             document.getElementById("generatorCard").classList.add("hidden");
                             showMaintenanceScreen();
@@ -416,12 +415,20 @@
                             badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
                             badge.innerHTML = "🟢 Mode Normal Terbuka";
                         }
-                        // Jika maintenance selesai dan user sudah memegang sesi login, pulihkan visual secara otomatis
                         if (window.loggedKey) {
                             document.getElementById("maintenanceCard").classList.add("hidden");
                             showGenerator();
                         }
                     }
+                });
+
+                // Listener URL Download Aplikasi
+                db.ref("system_settings/download_url").on('value', (snapshot) => {
+                    const url = snapshot.val() || "https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file";
+                    const appBtn = document.getElementById("appDownloadBtn");
+                    const appInput = document.getElementById("appLinkInput");
+                    if (appBtn) appBtn.href = url;
+                    if (appInput && document.activeElement !== appInput) appInput.value = url;
                 });
             } catch(e) { console.error(e); }
         }
@@ -704,6 +711,19 @@
             showToast(currentChecked ? "⚠️ Server Maintenance Active!" : "🟢 Server Normal!", "bg-neutral-900", "fa-solid fa-gears");
         }
 
+        async function updateDownloadLink() {
+            if (window.loggedKey !== "AZZAM-DEV") return;
+            const newUrl = document.getElementById("appLinkInput").value.trim();
+            if (newUrl === "") {
+                showToast("⚠️ URL Link tidak boleh kosong!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                return;
+            }
+            if (db) {
+                await db.ref("system_settings/download_url").set(newUrl).catch(()=>{});
+                showToast("🚀 Link Download App Sukses Diperbarui!", "bg-purple-950", "fa-solid fa-circle-check text-fuchsia-400");
+            }
+        }
+
         function renderHistory() {
             if (!db) return;
             db.ref("exam_key_history").off();
@@ -812,7 +832,6 @@
             document.getElementById("maintenanceCard").classList.remove("hidden");
         }
 
-        // FIXED: Tombol kembali mengecek jika user sudah memiliki token session aktif
         function backToLoginFromMaintenance() {
             document.getElementById("maintenanceCard").classList.add("hidden");
             if (window.loggedKey) {
@@ -870,11 +889,11 @@
         function applyRoleConfigurations() {
             const tabCreate = document.getElementById("tabCreate");
             const roleBadge = document.getElementById("roleBadge");
-            const mBlock = document.getElementById("maintenanceControlBlock");
+            const devBlock = document.getElementById("developerSettingsBlock");
             const expBox = document.getElementById("aboutExpiryBox");
 
             if(tabCreate) tabCreate.style.display = (window.userRole === "developer" || window.userRole === "admin") ? "flex" : "none";
-            if(mBlock) mBlock.style.display = (window.loggedKey === "AZZAM-DEV") ? "block" : "none";
+            if(devBlock) devBlock.style.display = (window.loggedKey === "AZZAM-DEV") ? "block" : "none";
             
             if(window.currentAccountExpiry !== "permanent") {
                 if(expBox) expBox.classList.remove("hidden");
