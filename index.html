@@ -89,7 +89,6 @@
 
     <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-14 box-border relative z-10">
 
-        <!-- ===== LOGIN CARD ===== -->
         <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto transition-all duration-300 hover:border-purple-500/30">
             <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-pulse">
                 <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
@@ -132,7 +131,6 @@
             </div>
         </div>
 
-        <!-- ===== MAINTENANCE CARD ===== -->
         <div id="maintenanceCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade">
             <div class="flex flex-col items-center justify-center space-y-6">
                 <div class="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-[0_0_30px_rgba(245,158,11,0.2)]">
@@ -151,7 +149,6 @@
             </div>
         </div>
 
-        <!-- ===== GENERATOR CARD ===== -->
         <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden transition-all duration-300 hover:border-purple-500/20">
             
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
@@ -169,7 +166,6 @@
                 </div>
             </div>
 
-            <!-- ====== TAB: BUILD PANEL ====== -->
             <div id="generatorTabContent" class="space-y-5">
                 <div>
                     <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
@@ -219,13 +215,10 @@
                     </a>
                 </div>
 
-                <!-- SUCCESS CARD -->
-                <div id="resultArea" class="mt-6 hidden opacity-0 transition-all duration-500">
-                    <!-- Header sukses -->
+                <div id="resultArea" class="mt-6 hidden opacity-0 transition-all duration-500 relative">
                     <div class="relative rounded-2xl overflow-hidden border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 via-black/60 to-purple-950/30 shadow-[0_0_30px_rgba(16,185,129,0.08)]">
                         
-                        <!-- Top banner -->
-                        <div class="flex items-center gap-3 px-5 py-3.5 border-b border-emerald-500/20 bg-emerald-500/5">
+                        <div class="flex items-center gap-3 px-5 py-3.5 border-b border-emerald-500/20 bg-emerald-500/5 pr-12">
                             <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs shrink-0">
                                 <i class="fa-solid fa-circle-check"></i>
                             </div>
@@ -233,10 +226,12 @@
                             <span class="ml-auto text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border border-emerald-500/20 animate-pulse">Siap Digunakan</span>
                         </div>
 
-                        <!-- Info rows -->
+                        <button onclick="closeResultArea('resultArea')" class="absolute top-3 right-4 text-emerald-400/50 hover:text-rose-400 transition-colors duration-150 cursor-pointer active:scale-90">
+                            <i class="fa-solid fa-xmark text-base"></i>
+                        </button>
+
                         <div class="px-5 py-4 space-y-3">
 
-                            <!-- Nama Akun / HWID -->
                             <div class="flex items-center justify-between gap-3">
                                 <div class="flex items-center gap-2.5 min-w-0">
                                     <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px] shrink-0">
@@ -249,7 +244,6 @@
 
                             <div class="h-px bg-purple-950/40"></div>
 
-                            <!-- Expired -->
                             <div class="flex items-center justify-between gap-3">
                                 <div class="flex items-center gap-2.5 min-w-0">
                                     <span class="w-6 h-6 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-[10px] shrink-0">
@@ -262,14 +256,12 @@
 
                             <div class="h-px bg-purple-950/40"></div>
 
-                            <!-- KEY row -->
                             <div class="flex items-center gap-2.5">
                                 <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px] shrink-0">
                                     <i class="fa-solid fa-key"></i>
                                 </span>
                                 <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest shrink-0">Key</span>
                             </div>
-                            <!-- Key display + copy -->
                             <div class="flex items-center gap-2 bg-black/70 border border-purple-950 rounded-xl px-4 py-3 shadow-inner">
                                 <div class="font-mono text-sm sm:text-base font-black text-purple-300 tracking-widest whitespace-nowrap overflow-x-auto no-scrollbar select-all flex-1 min-w-0" id="activationKeyDisplay">
                                     XXXXX-XXXXX-XXXXX-XXXXX
@@ -282,12 +274,10 @@
 
                         </div>
                     </div>
-                    <!-- hidden field for licenseDetails compat -->
                     <p id="licenseDetails" class="hidden"></p>
                 </div>
             </div>
 
-            <!-- ====== TAB: RIWAYAT KEY (hanya auto-generated) ====== -->
             <div id="historyTabContent" class="hidden space-y-4">
                 <div class="flex items-center justify-between ml-1 pb-1">
                     <div>
@@ -305,7 +295,6 @@
                 </div>
             </div>
 
-            <!-- ====== TAB: CREATE KEY (form only, tanpa monitoring) ====== -->
             <div id="create_akunTabContent" class="hidden space-y-5">
                 <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
@@ -341,12 +330,10 @@
                     </button>
                 </div>
 
-                <!-- SUCCESS CARD AKUN BARU -->
-                <div id="newAccountResultCard" class="hidden opacity-0 transition-all duration-500">
+                <div id="newAccountResultCard" class="hidden opacity-0 transition-all duration-500 relative">
                     <div class="relative rounded-2xl overflow-hidden border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 via-black/60 to-purple-950/30 shadow-[0_0_30px_rgba(16,185,129,0.08)]">
                         
-                        <!-- Top banner -->
-                        <div class="flex items-center gap-3 px-5 py-3.5 border-b border-emerald-500/20 bg-emerald-500/5">
+                        <div class="flex items-center gap-3 px-5 py-3.5 border-b border-emerald-500/20 bg-emerald-500/5 pr-12">
                             <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs shrink-0">
                                 <i class="fa-solid fa-circle-check"></i>
                             </div>
@@ -354,10 +341,12 @@
                             <span class="ml-auto text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border border-emerald-500/20 animate-pulse">Live</span>
                         </div>
 
-                        <!-- Info rows -->
+                        <button onclick="closeResultArea('newAccountResultCard')" class="absolute top-3 right-4 text-emerald-400/50 hover:text-rose-400 transition-colors duration-150 cursor-pointer active:scale-90">
+                            <i class="fa-solid fa-xmark text-base"></i>
+                        </button>
+
                         <div class="px-5 py-4 space-y-3">
 
-                            <!-- Nama Akun -->
                             <div class="flex items-center justify-between gap-3">
                                 <div class="flex items-center gap-2.5 shrink-0">
                                     <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px]">
@@ -370,7 +359,6 @@
 
                             <div class="h-px bg-purple-950/40"></div>
 
-                            <!-- Role -->
                             <div class="flex items-center justify-between gap-3">
                                 <div class="flex items-center gap-2.5 shrink-0">
                                     <span class="w-6 h-6 rounded-md bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 text-[10px]">
@@ -383,7 +371,6 @@
 
                             <div class="h-px bg-purple-950/40"></div>
 
-                            <!-- Expired -->
                             <div class="flex items-center justify-between gap-3">
                                 <div class="flex items-center gap-2.5 shrink-0">
                                     <span class="w-6 h-6 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-[10px]">
@@ -396,14 +383,12 @@
 
                             <div class="h-px bg-purple-950/40"></div>
 
-                            <!-- Key label -->
                             <div class="flex items-center gap-2.5">
                                 <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px]">
                                     <i class="fa-solid fa-key"></i>
                                 </span>
                                 <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Key Login</span>
                             </div>
-                            <!-- Key display + copy -->
                             <div class="flex items-center gap-2 bg-black/70 border border-purple-950 rounded-xl px-4 py-3 shadow-inner">
                                 <div id="cardNewKey" class="font-mono text-xs font-black text-purple-300 tracking-widest whitespace-nowrap overflow-x-auto no-scrollbar select-all flex-1 min-w-0">
                                     —
@@ -418,7 +403,6 @@
                     </div>
                 </div>
 
-                <!-- Info hint ke dev panel -->
                 <div class="bg-fuchsia-950/20 border border-fuchsia-500/20 rounded-2xl p-4 flex items-start gap-3">
                     <div class="w-8 h-8 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 shrink-0 mt-0.5">
                         <i class="fa-solid fa-circle-info text-xs"></i>
@@ -430,10 +414,8 @@
                 </div>
             </div>
 
-            <!-- ====== TAB: DEV PANEL ====== -->
             <div id="dev_panelTabContent" class="hidden space-y-5">
 
-                <!-- Custom Key Dev -->
                 <div id="devCustomKeyBlock" class="bg-gradient-to-br from-fuchsia-950/20 to-purple-950/20 p-5 rounded-2xl border border-fuchsia-500/30 space-y-4 shadow-md">
                     <h3 class="text-xs font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-user-shield text-sm"></i> Custom Key Akun Khusus Dev
@@ -474,7 +456,6 @@
                     </button>
                 </div>
 
-                <!-- ===== MONITORING CUSTOM KEY (dipindah ke sini) ===== -->
                 <div class="bg-gradient-to-br from-purple-950/20 to-black/40 p-5 rounded-2xl border border-purple-500/25 space-y-3 shadow-inner">
                     <div class="flex items-center justify-between">
                         <div>
@@ -492,7 +473,6 @@
                     </div>
                 </div>
 
-                <!-- Developer Settings Suite -->
                 <div class="bg-gradient-to-r from-purple-950/20 via-neutral-950 to-purple-950/20 p-5 rounded-2xl border border-purple-500/30 space-y-4 shadow-inner">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-gears text-xs"></i> Developer Settings Suite
@@ -543,7 +523,6 @@
                 </div>
             </div>
 
-            <!-- ====== TAB: ABOUT ====== -->
             <div id="aboutTabContent" class="hidden space-y-5">
                 <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
                     <h3 id="aboutTag" class="text-[10px] font-black text-purple-400 uppercase tracking-[0.25em] mb-5">System Architect</h3>
@@ -583,7 +562,6 @@
                 </div>
             </div>
 
-            <!-- ====== BOTTOM NAV TABS ====== -->
             <div class="flex flex-wrap bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden justify-center">
                 <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-2.5 px-1 rounded-xl text-[11px] font-bold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden md:inline">Build Panel</span><span class="md:hidden">Build</span>
@@ -604,7 +582,6 @@
         </div>
     </div>
 
-    <!-- ===== CONFIRM MODAL ===== -->
     <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
         <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-all duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
             <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)]"><i id="modalIcon" class="fa-solid fa-triangle-exclamation"></i></div>
@@ -617,7 +594,6 @@
         </div>
     </div>
 
-    <!-- ===== TOAST ===== -->
     <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
         <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
     </div>
@@ -859,6 +835,21 @@
             if(btnText) btnText.innerText = "Masuk Ke Sistem";
         }
 
+        // Fungsi baru untuk menutup Card Hasil secara manual dengan transisi fade-out
+        function closeResultArea(elementId) {
+            const targetEl = document.getElementById(elementId);
+            if (!targetEl) return;
+            
+            targetEl.classList.remove("tab-fade-in");
+            targetEl.classList.add("animate-premium-fade-out");
+            
+            setTimeout(() => {
+                targetEl.classList.add("hidden");
+                targetEl.classList.remove("animate-premium-fade-out");
+                targetEl.classList.add("opacity-0");
+            }, 350);
+        }
+
         function generateKey() {
             if (window.userRole === "member") {
                 const cooldownCheckpoint = localStorage.getItem("member_cooldown_time");
@@ -872,15 +863,18 @@
             const durationSelect = document.getElementById("durationSelect").value;
             const resultArea = document.getElementById("resultArea");
             const keyDisplay = document.getElementById("activationKeyDisplay");
-            const licenseDetails = document.getElementById("licenseDetails");
 
             if (hwidInput === "") {
                 showToast("⚠️ Masukkan HWID perangkat!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
                 return;
             }
 
+            // Sembunyikan & reset card lama terlebih dahulu secara instan sebelum regenerasi data baru
+            resultArea.classList.add("hidden");
+            resultArea.classList.remove("tab-fade-in", "animate-premium-fade-out");
+            resultArea.classList.add("opacity-0");
+
             let timestampHex = "FFFFFFFF";
-            let infoText = `<i class="fa-solid fa-circle-check text-fuchsia-400 mr-2"></i>Permanen (Lifetime)`;
             let cleanDurationText = "Lifetime";
             let val = parseInt(document.getElementById("customInputValue").value);
 
@@ -893,12 +887,10 @@
                 if (durationSelect === "custom_days") {
                     targetDate.setDate(targetDate.getDate() + val);
                     timestampHex = Math.floor(targetDate.getTime() / 1000).toString(16).toUpperCase().padStart(8, '0');
-                    infoText = `📅 Berlaku ${val} Hari | Hex: ${timestampHex}`;
                     cleanDurationText = `${val} Hari`;
                 } else if (durationSelect === "custom_hours") {
                     targetDate.setHours(targetDate.getHours() + val);
                     timestampHex = Math.floor(targetDate.getTime() / 1000).toString(16).toUpperCase().padStart(8, '0');
-                    infoText = `⏱️ Berlaku ${val} Jam | Hex: ${timestampHex}`;
                     cleanDurationText = `${val} Jam`;
                 }
             }
@@ -910,13 +902,9 @@
             for (let i = 0; i < fullKey.length; i += 5) formattedKey += fullKey.substring(i, i + 5) + "-";
             formattedKey = formattedKey.slice(0, -1);
 
-            // Isi key display
             keyDisplay.innerText = formattedKey;
-
-            // Isi card info fields
             document.getElementById("cardHwid").innerText = hwidInput;
 
-            // Expired label
             let expiredLabel = "♾️ Lifetime (Permanen)";
             if (durationSelect === "custom_days") {
                 const expDate = new Date(); expDate.setDate(expDate.getDate() + val);
@@ -927,9 +915,12 @@
             }
             document.getElementById("cardExpired").innerText = expiredLabel;
 
-            // Tampilkan card
+            // Munculkan card sukses baru dengan animasi
             resultArea.classList.remove("hidden");
-            setTimeout(() => { resultArea.classList.add("tab-fade-in"); resultArea.classList.remove("opacity-0"); }, 50);
+            setTimeout(() => { 
+                resultArea.classList.add("tab-fade-in"); 
+                resultArea.classList.remove("opacity-0"); 
+            }, 50);
 
             if (db) {
                 const now = new Date();
@@ -945,6 +936,7 @@
                 const labelIn = document.getElementById("newKeyLabel").value.trim();
                 const roleIn = document.getElementById("newRole").value;
                 const durationIn = document.getElementById("newAccountDuration").value;
+                const card = document.getElementById("newAccountResultCard");
 
                 if (labelIn === "") {
                     showToast("⚠️ Nama pemilik tidak boleh kosong!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
@@ -954,6 +946,11 @@
                     showToast("❌ Firebase Offline!", "bg-rose-950", "fa-solid fa-circle-xmark text-rose-400");
                     return;
                 }
+
+                // Sembunyikan & reset card lama terlebih dahulu secara instan
+                card.classList.add("hidden");
+                card.classList.remove("tab-fade-in", "animate-premium-fade-out");
+                card.classList.add("opacity-0");
                 
                 const randHex = Math.floor(Math.random() * 0xFFFFFFFFF).toString(16).toUpperCase().padStart(9, '0');
                 
@@ -969,7 +966,6 @@
                     key: generatedAccessKey, label: labelIn, role: roleIn, expiry: expiryVal
                 });
 
-                // Isi success card
                 const roleMap = {
                     developer: "👑 Full Developer",
                     "sub-developer": "🚀 Sub-Developer",
@@ -988,8 +984,7 @@
                 document.getElementById("cardNewExpiry").innerText = expiryLabel;
                 document.getElementById("cardNewKey").innerText = generatedAccessKey;
 
-                // Tampilkan card dengan animasi
-                const card = document.getElementById("newAccountResultCard");
+                // Tampilkan card dengan animasi kembali
                 card.classList.remove("hidden");
                 setTimeout(() => { card.classList.add("tab-fade-in"); card.classList.remove("opacity-0"); }, 50);
 
@@ -1102,7 +1097,6 @@
             if (!db || isListenersInitialized) return;
             isListenersInitialized = true;
 
-            // Riwayat key (auto-generated via Build Panel)
             db.ref("exam_key_history").on('value', (snapshot) => {
                 const container = document.getElementById("historyContainer");
                 if(!container) return;
@@ -1129,19 +1123,16 @@
                 container.innerHTML = htmlData;
             });
 
-            // Monitoring custom keys (di Dev Panel)
             db.ref("custom_keys").on('value', (snapshot) => {
                 const container = document.getElementById("accountContainer");
                 if(!container) return;
                 if(!snapshot.exists()){
                     container.innerHTML = `<p class="text-center text-xs text-purple-900/50 py-6 italic">Belum ada kode custom dirilis.</p>`;
-                    // Sembunyikan tombol drop all kalau kosong
                     const clearBtn = document.getElementById("clearCustomKeysBtn");
                     if (clearBtn) clearBtn.style.display = "none";
                     return;
                 }
 
-                // Tampilkan tombol drop all untuk dev/sub-dev
                 const clearBtn = document.getElementById("clearCustomKeysBtn");
                 if (clearBtn && (window.userRole === "developer" || window.userRole === "sub-developer")) {
                     clearBtn.style.display = "flex";
@@ -1268,7 +1259,6 @@
                 document.getElementById("tabCreate").className = activeClass;
             } else if (target === "dev_panel") {
                 document.getElementById("tabDev").className = activeClass;
-                // Refresh tombol clear custom keys saat masuk dev panel
                 const clearBtn = document.getElementById("clearCustomKeysBtn");
                 if (clearBtn) clearBtn.style.display = (window.userRole === "developer" || window.userRole === "sub-developer") ? "flex" : "none";
             } else if (target === "about") {
