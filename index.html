@@ -14,27 +14,53 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; min-height: 100vh; overflow-x: hidden; background: #000000; }
+        html, body { 
+            margin: 0; padding: 0; width: 100%; min-height: 100vh; 
+            overflow-x: hidden; background: #000000; 
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
         body { font-family: 'Outfit', sans-serif; background: radial-gradient(circle at 50% 0%, #2e1065 0%, #090514 60%, #000000 100%); position: relative; }
-        .orb-1 { position: absolute; top: -10%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(0,0,0,0) 70%); filter: blur(60px); animation: floating 12s infinite alternate ease-in-out; z-index: 0; }
-        .orb-2 { position: absolute; bottom: -10%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, rgba(0,0,0,0) 70%); filter: blur(60px); animation: floating 16s infinite alternate-reverse ease-in-out; z-index: 0; }
-        @keyframes floating { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 60px) scale(1.15); } }
         
-        .animate-premium-fade { animation: premiumFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        /* Menggunakan Layer Promotion (GPU) untuk mencegah lag saat scrolling */
+        .orb-1, .orb-2 { 
+            position: absolute; 
+            width: 600px; height: 600px; 
+            filter: blur(60px); 
+            z-index: 0; 
+            will-change: transform;
+            transform: translate3d(0,0,0);
+            backface-visibility: hidden;
+        }
+        .orb-1 { top: -10%; left: -10%; background: radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(0,0,0,0) 70%); animation: floating 12s infinite alternate ease-in-out; }
+        .orb-2 { bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, rgba(0,0,0,0) 70%); animation: floating 16s infinite alternate-reverse ease-in-out; }
+        
+        @keyframes floating { 0% { transform: translate3d(0, 0, 0) scale(1); } 100% { transform: translate3d(40px, 60px, 0) scale(1.15); } }
+        
+        .animate-premium-fade { animation: premiumFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; will-change: transform, opacity; }
         @keyframes premiumFadeUp { from { opacity: 0; transform: translateY(40px); filter: blur(10px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
         
-        .animate-premium-fade-out { animation: premiumFadeOut 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .animate-premium-fade-out { animation: premiumFadeOut 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; will-change: transform, opacity; }
         @keyframes premiumFadeOut { from { opacity: 1; transform: translateY(0); filter: blur(0); } to { opacity: 0; transform: translateY(-30px); filter: blur(10px); } }
 
-        .tab-fade-in { animation: tabFadeUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .tab-fade-in { animation: tabFadeUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; will-change: transform, opacity; }
         @keyframes tabFadeUp { 
             from { opacity: 0; transform: translateY(15px) scale(0.98); filter: blur(4px); } 
             to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } 
         }
 
-        .glass-panel { background: rgba(9, 5, 20, 0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(168, 85, 247, 0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05); }
-        .neon-btn { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 50%, #d946ef 100%); background-size: 200% auto; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .neon-btn:hover { background-position: right center; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(147, 51, 234, 0.4), 0 0 15px rgba(217, 70, 239, 0.2); }
+        /* Reduksi blur dari 24px ke 12px untuk kestabilan FPS FPS / Lancar Scroll */
+        .glass-panel { 
+            background: rgba(9, 5, 20, 0.6); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border: 1px solid rgba(168, 85, 247, 0.15); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05); 
+            will-change: transform;
+            transform: translate3d(0,0,0);
+        }
+        .neon-btn { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 50%, #d946ef 100%); background-size: 200% auto; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); will-change: transform; }
+        .neon-btn:hover { background-position: right center; transform: translateY(-3px) translate3d(0,0,0); box-shadow: 0 15px 30px rgba(147, 51, 234, 0.4), 0 0 15px rgba(217, 70, 239, 0.2); }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -47,7 +73,6 @@
 
     <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-8 box-border relative z-10 overflow-y-auto">
 
-        <!-- LOGIN CARD -->
         <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto transition-all duration-300 hover:border-purple-500/30">
             <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-pulse">
                 <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
@@ -90,7 +115,6 @@
             </div>
         </div>
 
-        <!-- MAINTENANCE CARD -->
         <div id="maintenanceCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade">
             <div class="flex flex-col items-center justify-center space-y-6">
                 <div class="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-[0_0_30px_rgba(245,158,11,0.2)]">
@@ -109,7 +133,6 @@
             </div>
         </div>
 
-        <!-- MAIN GENERATOR CARD -->
         <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden transition-all duration-300 hover:border-purple-500/20">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
                 <div class="flex items-center gap-4 text-center sm:text-left">
@@ -126,7 +149,6 @@
                 </div>
             </div>
 
-            <!-- TAB GENERATOR -->
             <div id="generatorTabContent" class="space-y-5">
                 <div>
                     <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
@@ -195,7 +217,6 @@
                 </div>
             </div>
 
-            <!-- TAB RIWAYAT -->
             <div id="historyTabContent" class="hidden space-y-4">
                 <div class="flex items-center justify-between ml-1 pb-1">
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
@@ -210,7 +231,6 @@
                 </div>
             </div>
 
-            <!-- TAB MANAGEMENT KEY -->
             <div id="create_akunTabContent" class="hidden space-y-5">
                 <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
@@ -246,28 +266,6 @@
                     </button>
                 </div>
 
-                <!-- Reset Device Lock Block -->
-                <div id="deviceControlBlock" class="bg-blue-950/10 p-5 rounded-2xl border border-blue-500/20 space-y-4 shadow-inner" style="display: none;">
-                    <h3 class="text-sm font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-mobile-screen text-xs"></i> Reset Device Lock Key
-                    </h3>
-                    <div class="flex gap-2">
-                        <input type="text" id="resetDeviceInput" placeholder="MASUKKAN KODE LOGIN RESELLER" class="flex-1 px-4 py-3 bg-black border border-blue-950 rounded-xl text-blue-400 focus:outline-none focus:border-blue-500 text-sm font-mono font-bold tracking-wider uppercase transition-all">
-                        <button onclick="resetKeyDeviceLock()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Reset ID</button>
-                    </div>
-                </div>
-
-                <div id="banControlBlock" class="bg-rose-950/10 p-5 rounded-2xl border border-rose-500/20 space-y-4 shadow-inner" style="display: none;">
-                    <h3 class="text-sm font-bold text-rose-400 uppercase tracking-widest flex items-center gap-2">
-                        <i class="fa-solid fa-ban text-xs"></i> Banned Key
-                    </h3>
-                    <div class="flex gap-2">
-                        <input type="text" id="banKeyInput" placeholder="MASUKKAN KODE LOGIN" class="flex-1 px-4 py-3 bg-black border border-rose-950 rounded-xl text-rose-400 focus:outline-none focus:border-rose-500 text-sm font-mono font-bold tracking-wider uppercase transition-all">
-                        <button onclick="addKeyToBanList()" class="bg-rose-600 hover:bg-rose-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Ban</button>
-                    </div>
-                    <div id="banListContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1 no-scrollbar"></div>
-                </div>
-
                 <div class="space-y-3">
                     <div class="flex items-center justify-between ml-1">
                         <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
@@ -281,15 +279,12 @@
                 </div>
             </div>
 
-            <!-- TAB ABOUT -->
             <div id="aboutTabContent" class="hidden space-y-5">
-                <!-- DEVELOPER SETTINGS SUITE -->
                 <div id="developerSettingsBlock" class="bg-gradient-to-r from-purple-950/20 via-neutral-950 to-purple-950/20 p-5 rounded-2xl border border-purple-500/30 space-y-4 shadow-inner" style="display: none;">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-gears text-xs"></i> Developer Settings Suite
                     </h3>
                     
-                    <!-- Maintenance Feature -->
                     <div class="flex justify-between items-center pt-2 border-t border-purple-950/40">
                         <div>
                             <span class="text-xs font-bold text-amber-400 block">System Maintenance</span>
@@ -304,7 +299,27 @@
                         🟢 Mode Normal Terbuka
                     </div>
 
-                    <!-- Change App Link Feature -->
+                    <div id="deviceControlBlock" class="bg-blue-950/10 p-4 rounded-xl border border-blue-500/20 space-y-3 shadow-inner" style="display: none;">
+                        <h3 class="text-xs font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-mobile-screen text-xs"></i> Reset Device Lock Key
+                        </h3>
+                        <div class="flex gap-2">
+                            <input type="text" id="resetDeviceInput" placeholder="MASUKKAN KODE LOGIN RESELLER" class="flex-1 px-4 py-2.5 bg-black border border-blue-950 rounded-xl text-blue-400 focus:outline-none focus:border-blue-500 text-xs font-mono font-bold tracking-wider uppercase transition-all">
+                            <button onclick="resetKeyDeviceLock()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 rounded-xl font-bold text-[11px] uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Reset ID</button>
+                        </div>
+                    </div>
+
+                    <div id="banControlBlock" class="bg-rose-950/10 p-4 rounded-xl border border-rose-500/20 space-y-3 shadow-inner" style="display: none;">
+                        <h3 class="text-xs font-bold text-rose-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-ban text-xs"></i> Banned Key
+                        </h3>
+                        <div class="flex gap-2">
+                            <input type="text" id="banKeyInput" placeholder="MASUKKAN KODE LOGIN" class="flex-1 px-4 py-2.5 bg-black border border-rose-950 rounded-xl text-rose-400 focus:outline-none focus:border-rose-500 text-xs font-mono font-bold tracking-wider uppercase transition-all">
+                            <button onclick="addKeyToBanList()" class="bg-rose-600 hover:bg-rose-500 text-white px-4 rounded-xl font-bold text-[11px] uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Ban</button>
+                        </div>
+                        <div id="banListContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1 no-scrollbar"></div>
+                    </div>
+
                     <div class="pt-3 border-t border-purple-950/40 space-y-2">
                         <label for="appLinkInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1">Ubah Link Download Aplikasi (App)</label>
                         <div class="flex gap-2">
@@ -314,7 +329,6 @@
                     </div>
                 </div>
 
-                <!-- Profile Architect Card -->
                 <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
                     <h3 id="aboutTag" class="text-[10px] font-black text-purple-400 uppercase tracking-[0.25em] mb-5">System Architect</h3>
                     <div class="w-28 h-28 rounded-full bg-black/80 mx-auto flex items-center justify-center border-2 border-purple-500/40 shadow-[0_0_30px_rgba(147,51,234,0.35)] mb-4 relative overflow-hidden group">
@@ -353,7 +367,6 @@
                 </div>
             </div>
 
-            <!-- TAB NAVIGATION CONTROLLER -->
             <div class="flex bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden">
                 <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden xs:inline">Build Panel</span><span class="xs:hidden">Build</span>
@@ -371,7 +384,6 @@
         </div>
     </div>
 
-    <!-- CONFIRMATION MODAL -->
     <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
         <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-all duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
             <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)]"><i id="modalIcon" class="fa-solid fa-triangle-exclamation"></i></div>
@@ -384,12 +396,10 @@
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
         <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
     </div>
 
-    <!-- CORE LOGIC ENGINE (JAVASCRIPT) -->
     <script>
         window.userRole = ""; 
         window.activeUser = "";
@@ -933,14 +943,14 @@
                 targetContent.classList.remove("hidden");
                 targetContent.classList.add("tab-fade-in");
                 document.getElementById("clearCustomKeysBtn").style.display = (window.loggedKey === "AZZAM-DEV") ? "flex" : "none";
-                document.getElementById("banControlBlock").style.display = (window.loggedKey === "AZZAM-DEV") ? "block" : "none";
-                document.getElementById("deviceControlBlock").style.display = (window.userRole === "developer" || window.userRole === "admin") ? "block" : "none";
                 renderCreatedKeys();
-                renderBanList();
             } else if (target === "about") {
                 document.getElementById("tabAbout").className = activeClass;
                 targetContent.classList.remove("hidden");
                 targetContent.classList.add("tab-fade-in");
+                document.getElementById("banControlBlock").style.display = (window.loggedKey === "AZZAM-DEV") ? "block" : "none";
+                document.getElementById("deviceControlBlock").style.display = (window.userRole === "developer" || window.userRole === "admin") ? "block" : "none";
+                renderBanList();
             }
         }
 
