@@ -136,7 +136,7 @@
                 </div>
 
                 <div class="pt-1">
-                    <button onclick="validateLogin()" class="neon-btn w-full py-3.5 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 cursor-pointer shadow-lg text-sm tracking-wide">
+                    <button onclick="validateLogin()" class="neon-btn w-full py-3.5 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 cubic-bezier(0.175, 0.885, 0.32, 1.275) shadow-lg text-sm tracking-wide cursor-pointer">
                         <i class="fa-solid fa-unlock-keyhole text-xs"></i> Masuk Ke Sistem
                     </button>
                 </div>
@@ -285,7 +285,6 @@
             </div>
 
             <div id="createAkunTabContent" class="hidden space-y-5 animate-premium-fade">
-                <!-- ID baru ditambahkan untuk kontrol hide/show via JS -->
                 <div id="maintenanceControlBlock" class="bg-gradient-to-r from-purple-950/20 via-amber-950/10 to-purple-950/20 p-5 rounded-2xl border border-amber-500/20 space-y-4 shadow-inner">
                     <div class="flex justify-between items-center">
                         <div>
@@ -322,7 +321,7 @@
                             <select id="newRole" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer">
                                 <option value="member">👤 Reseller</option>
                                 <option value="vip">💎 Reseller VIP</option>
-                                <option value="admin">🛠️ Admin Sistem</option>
+                                <option value="admin">🛠️ Admin</option>
                             </select>
                         </div>
                         <div>
@@ -339,6 +338,19 @@
                     <button onclick="createNewAccessKey()" class="neon-btn w-full py-3 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer mt-2 shadow-md">
                         <i class="fa-solid fa-square-plus"></i> Generate & Publikasikan Key
                     </button>
+                </div>
+
+                <div id="banControlBlock" class="bg-rose-950/10 p-5 rounded-2xl border border-rose-500/20 space-y-4 shadow-inner" style="display: none;">
+                    <h3 class="text-sm font-bold text-rose-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-ban text-xs"></i> Banned Key
+                    </h3>
+                    <div class="flex gap-2">
+                        <input type="text" id="banKeyInput" placeholder="MASUKKAN KEY YANG AKAN DIBAN" class="flex-1 px-4 py-3 bg-black border border-rose-950 rounded-xl text-rose-400 focus:outline-none focus:border-rose-500 text-sm font-mono font-bold tracking-wider uppercase">
+                        <button onclick="addKeyToBanList()" class="bg-rose-600 hover:bg-rose-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer">
+                            Ban Key
+                        </button>
+                    </div>
+                    <div id="banListContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1 no-scrollbar"></div>
                 </div>
 
                 <div class="space-y-3">
@@ -369,7 +381,7 @@
                     </div>
                     
                     <h2 id="aboutName" class="text-2xl font-black text-white tracking-wide flex items-center justify-center gap-2">Muh. Khaerul Azzam</h2>
-                    <p id="aboutSub" class="text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5">Developer Suite</p>
+                    <p id="aboutSub" class="text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5">Developer</p>
                     
                     <div id="aboutExpiryBox" class="mt-4 bg-purple-950/20 border border-purple-900/40 rounded-xl px-4 py-2.5 max-w-sm mx-auto text-xs font-semibold hidden animate-premium-fade">
                         <span class="text-purple-400/80">⏳ Masa Aktif:</span> 
@@ -415,7 +427,6 @@
         </div>
     </div>
 
-    <!-- UI MODAL PREMIUM: CUSTOM DIALOG BACKDROP GLASSMORPHISM -->
     <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
         <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
             <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)] animate-pulse">
@@ -462,6 +473,10 @@
             return [...baselineKeys, ...customKeys];
         }
 
+        function getBanList() {
+            return JSON.parse(localStorage.getItem("suite_banned_keys")) || [];
+        }
+
         function isMaintenanceActive() {
             return localStorage.getItem("system_maintenance_mode") === "true";
         }
@@ -487,6 +502,12 @@
         function checkAutoLogin() {
             const savedKey = localStorage.getItem("vault_access_key");
             if (savedKey) {
+                const banList = getBanList();
+                if (banList.includes(savedKey.toUpperCase())) {
+                    localStorage.removeItem("vault_access_key");
+                    return;
+                }
+
                 const allKeys = getMergedKeys();
                 const matchKey = allKeys.find(k => k.key.toUpperCase() === savedKey.toUpperCase());
                 if (matchKey) {
@@ -580,7 +601,15 @@
                 if (wipeCustomBtn) {
                     wipeCustomBtn.style.display = (loggedKey === "AZZAM-DEV") ? "flex" : "none";
                 }
+
+                // Tampilkan atau sembunyikan modul ban berdasarkan identitas AZZAM-DEV
+                const banBlock = document.getElementById("banControlBlock");
+                if (banBlock) {
+                    banBlock.style.display = (loggedKey === "AZZAM-DEV") ? "block" : "none";
+                }
+
                 renderCreatedKeys();
+                renderBanList();
                 initMaintenanceUI(); 
             } else if (target === "about") {
                 document.getElementById("tabAbout").className = activeClass;
@@ -593,6 +622,14 @@
             const autoSaveActive = document.getElementById("autoSaveCheck").checked;
             const loginCard = document.getElementById("loginCard");
             const loadingCard = document.getElementById("loadingCard");
+
+            // VALIDASI BAN LIST SECURITY
+            const banList = getBanList();
+            if (banList.includes(inputKey)) {
+                showToast("❌ Akses Ditolak: Kunci Otorisasi Ini Telah Dibanned Permanen!", "bg-gradient-to-r from-black via-red-950 to-black border-rose-600/50", "fa-solid fa-user-slash text-rose-500");
+                localStorage.removeItem("vault_access_key");
+                return;
+            }
 
             const allKeys = getMergedKeys();
             const keyFound = allKeys.find(k => k.key.toUpperCase() === inputKey);
@@ -648,6 +685,61 @@
             }
         }
 
+        // FUNGSI KHUSUS BLACKLIST / BAN SISTEM
+        function addKeyToBanList() {
+            if (loggedKey !== "AZZAM-DEV") return;
+            const keyToBan = document.getElementById("banKeyInput").value.trim().toUpperCase();
+
+            if (keyToBan === "") {
+                showToast("⚠️ Masukkan Key target yang valid!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+                return;
+            }
+            if (keyToBan === "AZZAM-DEV") {
+                showToast("❌ Error: Developer Utama tidak bisa dibanned!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-skull-crossbones text-rose-500");
+                return;
+            }
+
+            let banList = getBanList();
+            if (!banList.includes(keyToBan)) {
+                banList.unshift(keyToBan);
+                localStorage.setItem("suite_banned_keys", JSON.stringify(banList));
+                document.getElementById("banKeyInput").value = "";
+                showToast(`🚫 Key ${keyToBan} Berhasil Masuk Blacklist!`, "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-user-slash text-rose-400");
+                renderBanList();
+            } else {
+                showToast("⚠️ Key tersebut sudah dibanned sebelumnya.", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
+            }
+        }
+
+        function removeKeyFromBanList(keyToUnban) {
+            if (loggedKey !== "AZZAM-DEV") return;
+            let banList = getBanList();
+            banList = banList.filter(k => k !== keyToUnban);
+            localStorage.setItem("suite_banned_keys", JSON.stringify(banList));
+            showToast(`🔓 Akses Key ${keyToUnban} Diaktifkan Kembali!`, "bg-gradient-to-r from-black via-purple-950 to-black border-emerald-500/30", "fa-solid fa-user-check text-emerald-400");
+            renderBanList();
+        }
+
+        function renderBanList() {
+            const container = document.getElementById("banListContainer");
+            if (!container) return;
+            let banList = getBanList();
+
+            if (banList.length === 0) {
+                container.innerHTML = `<p class="text-center text-[11px] text-rose-400/40 py-2 italic">Daftar blacklist kosong.</p>`;
+                return;
+            }
+
+            container.innerHTML = banList.map(bKey => `
+                <div class="bg-rose-950/20 border border-rose-950/60 rounded-xl p-2.5 flex items-center justify-between gap-3">
+                    <span class="font-mono text-xs font-bold text-rose-400 tracking-wider truncate select-all">${bKey}</span>
+                    <button onclick="removeKeyFromBanList('${bKey}')" class="px-2.5 py-1 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold rounded-lg transition-colors cursor-pointer">
+                        Unban
+                    </button>
+                </div>
+            `).join('');
+        }
+
         function triggerLogout() {
             localStorage.removeItem("vault_access_key");
             document.getElementById("loginKey").value = "";
@@ -691,10 +783,10 @@
 
             if (loggedKey === "AZZAM-DEV") {
                 expiryBox.classList.add("hidden"); 
-                if (mBlock) mBlock.style.display = "block"; // Tampilkan maintenance jika Developer Utama
+                if (mBlock) mBlock.style.display = "block"; 
             } else {
                 expiryBox.classList.remove("hidden");
-                if (mBlock) mBlock.style.display = "none"; // Sembunyikan maintenance jika bukan Developer Utama
+                if (mBlock) mBlock.style.display = "none"; 
                 
                 if (currentAccountExpiry === "permanent") {
                     expiryValue.className = "text-purple-400 font-bold uppercase tracking-wider";
@@ -757,7 +849,7 @@
                 dynamicIcon.className = "fa-solid fa-user-gear text-purple-400";
                 aboutName.innerHTML = 'Muh. Khaerul Azzam <i class="fa-solid fa-circle-check text-blue-500 text-lg shadow-[0_0_15px_rgba(59,130,246,0.6)]" title="Verified Developer"></i>';
                 aboutSub.className = "text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5";
-                aboutSub.innerText = "Developer Suite";
+                aboutSub.innerText = "Developer";
                 aboutDesc.innerText = "Berdedikasi dalam merancang arsitektur sistem manajemen lisensi aman, enkripsi data, serta optimasi antarmuka digital Key Generator.";
                 aboutSocial.classList.remove("hidden"); 
             }
