@@ -19,17 +19,23 @@
         .orb-1 { position: absolute; top: -10%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(0,0,0,0) 70%); filter: blur(60px); animation: floating 12s infinite alternate ease-in-out; z-index: 0; }
         .orb-2 { position: absolute; bottom: -10%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, rgba(0,0,0,0) 70%); filter: blur(60px); animation: floating 16s infinite alternate-reverse ease-in-out; z-index: 0; }
         @keyframes floating { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 60px) scale(1.15); } }
+        
         .animate-premium-fade { animation: premiumFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         @keyframes premiumFadeUp { from { opacity: 0; transform: translateY(40px); filter: blur(10px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
         
-        /* Animasi Transisi Keluar Saat Sukses Login */
         .animate-premium-fade-out { animation: premiumFadeOut 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         @keyframes premiumFadeOut { from { opacity: 1; transform: translateY(0); filter: blur(0); } to { opacity: 0; transform: translateY(-30px); filter: blur(10px); } }
+
+        .tab-fade-in { animation: tabFadeUp 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        @keyframes tabFadeUp { 
+            from { opacity: 0; transform: translateY(15px) scale(0.98); filter: blur(4px); } 
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } 
+        }
 
         .glass-panel { background: rgba(9, 5, 20, 0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(168, 85, 247, 0.15); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05); }
         .neon-btn { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 50%, #d946ef 100%); background-size: 200% auto; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .neon-btn:hover { background-position: right center; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(147, 51, 234, 0.4), 0 0 15px rgba(217, 70, 239, 0.2); }
-        .neon-btn:active { transform: translateY(-1px); }
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -42,8 +48,8 @@
     <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-8 box-border relative z-10 overflow-y-auto">
 
         <!-- LOGIN CARD -->
-        <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto">
-            <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+        <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto transition-all duration-300 hover:border-purple-500/30">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-pulse">
                 <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
                     <i class="fa-solid fa-key"></i>
                 </div>
@@ -61,20 +67,23 @@
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50 group-focus-within:text-purple-400 transition-colors">
                             <i class="fa-solid fa-shield-halved text-sm"></i>
                         </span>
-                        <input type="text" id="loginKey" placeholder="MASUKKAN KODE AKSES" 
-                            class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/40 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all text-sm font-bold tracking-wider uppercase">
+                        <input type="password" id="loginKey" placeholder="MASUKKAN KODE AKSES" 
+                            class="w-full pl-11 pr-12 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/40 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-all text-sm font-bold tracking-wider uppercase">
+                        <button type="button" onclick="toggleLoginKeyVisibility()" class="absolute inset-y-0 right-0 flex items-center pr-4 text-purple-400/50 hover:text-purple-400 transition-colors cursor-pointer active:scale-90 duration-150">
+                            <i id="eyeIcon" class="fa-solid fa-eye text-sm"></i>
+                        </button>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between pt-1 pb-1 px-1">
                     <label class="flex items-center gap-2.5 cursor-pointer select-none group">
-                        <input type="checkbox" id="autoSaveCheck" class="w-4 h-4 rounded accent-purple-500 bg-black/80 border-purple-950 text-purple-600 focus:ring-purple-500/30 focus:ring-offset-black">
+                        <input type="checkbox" id="autoSaveCheck" class="w-4 h-4 rounded accent-purple-500 bg-black/80 border-purple-950 text-purple-600 focus:ring-purple-500/30 focus:ring-offset-black transition-all">
                         <span class="text-xs font-semibold text-purple-300/60 group-hover:text-purple-300 transition-colors">Ingat Kode Aktivasi</span>
                     </label>
                 </div>
 
                 <div class="pt-1">
-                    <button id="loginBtn" onclick="validateLogin()" class="neon-btn w-full py-3.5 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                    <button id="loginBtn" onclick="validateLogin()" class="neon-btn w-full py-3.5 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-95">
                         <i id="loginBtnIcon" class="fa-solid fa-unlock-keyhole text-xs"></i> <span id="loginBtnText">Masuk Ke Sistem</span>
                     </button>
                 </div>
@@ -93,7 +102,7 @@
                     <p class="text-purple-300/60 text-sm mt-4 leading-relaxed">Mohon maaf atas ketidaknyamanannya. Generator sedang dioptimasi oleh Developer. Silakan coba lagi nanti.</p>
                 </div>
                 <div class="pt-2 w-full">
-                    <button onclick="backToLoginFromMaintenance()" class="w-full py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-colors cursor-pointer">
+                    <button onclick="backToLoginFromMaintenance()" class="w-full py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-all duration-200 active:scale-95 cursor-pointer">
                         <i class="fa-solid fa-arrow-left mr-1.5"></i> Kembali Ke Dashboard
                     </button>
                 </div>
@@ -101,7 +110,7 @@
         </div>
 
         <!-- MAIN GENERATOR CARD -->
-        <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden">
+        <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden transition-all duration-300 hover:border-purple-500/20">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
                 <div class="flex items-center gap-4 text-center sm:text-left">
                     <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
@@ -126,7 +135,7 @@
                             <i class="fa-solid fa-microchip text-sm"></i>
                         </span>
                         <input type="text" id="hwidInput" placeholder="CONTOH: X9F2-B4D1-E8A0" 
-                            class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/50 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all uppercase font-mono tracking-wider text-sm">
+                            class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/50 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-all uppercase font-mono tracking-wider text-sm">
                     </div>
                 </div>
 
@@ -134,7 +143,7 @@
                     <div>
                         <label for="durationSelect" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Tipe Durasi</label>
                         <div class="relative">
-                            <select id="durationSelect" onchange="handleDurationChange()" class="w-full pl-4 pr-10 py-3.5 bg-black border border-purple-950 rounded-xl text-white font-medium focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all cursor-pointer appearance-none text-sm">
+                            <select id="durationSelect" onchange="handleDurationChange()" class="w-full pl-4 pr-10 py-3.5 bg-black border border-purple-950 rounded-xl text-white font-medium focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-all cursor-pointer appearance-none text-sm">
                                 <option value="permanent">♾️ Lifetime (Permanen)</option>
                                 <option value="custom_days">📅 Rentang Hari (Custom)</option>
                                 <option value="custom_hours">⏱️ Rentang Jam (Custom)</option>
@@ -158,25 +167,25 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-3">
-                    <button onclick="generateKey()" class="neon-btn flex-1 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer">
+                    <button onclick="generateKey()" class="neon-btn flex-1 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer transition-all duration-200 active:scale-95">
                         <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Build Activation Key
                     </button>
                     
-                    <a id="appDownloadBtn" href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group">
+                    <a id="appDownloadBtn" href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group active:scale-95">
                         <i class="fa-solid fa-cloud-arrow-down text-base group-hover:translate-y-0.5 transition-transform"></i> App
                     </a>
                 </div>
 
-                <div id="resultArea" class="mt-6 pt-5 border-t border-purple-950/60 hidden opacity-0 transition-opacity duration-500">
+                <div id="resultArea" class="mt-6 pt-5 border-t border-purple-950/60 hidden opacity-0 transition-all duration-500">
                     <div class="flex items-center justify-between mb-2 ml-1">
                         <label class="block text-xs font-bold text-fuchsia-400 uppercase tracking-widest">Generated Key</label>
-                        <span class="text-[10px] bg-fuchsia-500/10 text-fuchsia-400 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider border border-fuchsia-500/20">Siap Digunakan</span>
+                        <span class="text-[10px] bg-fuchsia-500/10 text-fuchsia-400 px-2 py-0.5 rounded-md font-bold uppercase tracking-wider border border-fuchsia-500/20 animate-pulse">Siap Digunakan</span>
                     </div>
                     <div class="flex items-center justify-between gap-3 bg-black border border-purple-950/80 rounded-2xl p-4 relative overflow-hidden shadow-inner">
                         <div class="font-mono text-base sm:text-lg font-bold text-purple-300 tracking-wide sm:tracking-widest whitespace-nowrap overflow-x-auto no-scrollbar select-all flex-1 pr-2 min-w-0" id="activationKeyDisplay">
                             XXXXX-XXXXX-XXXXX-XXXXX
                         </div>
-                        <button onclick="copyToClipboard()" class="text-purple-400 hover:text-white w-10 h-10 rounded-xl bg-neutral-950 border border-purple-950 hover:border-purple-800 flex items-center justify-center transition-colors cursor-pointer shrink-0">
+                        <button onclick="copyToClipboard()" class="text-purple-400 hover:text-white w-10 h-10 rounded-xl bg-neutral-950 border border-purple-950 hover:border-purple-800 flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer shrink-0">
                             <i id="copyIcon" class="fa-regular fa-copy text-sm"></i>
                         </button>
                     </div>
@@ -192,7 +201,7 @@
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-list-check"></i> Total Database Key
                     </label>
-                    <button id="clearHistoryBtn" onclick="triggerWipeModal('history')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors">
+                    <button id="clearHistoryBtn" onclick="triggerWipeModal('history')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-all duration-200 active:scale-95">
                         <i class="fa-solid fa-trash-can"></i> Hapus Semua
                     </button>
                 </div>
@@ -202,7 +211,7 @@
             </div>
 
             <!-- TAB MANAGEMENT KEY -->
-            <div id="createAkunTabContent" class="hidden space-y-5">
+            <div id="create_akunTabContent" class="hidden space-y-5">
                 <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
                         <i class="fa-solid fa-key"></i> Buat Kode Login Baru
@@ -210,13 +219,13 @@
                     <div class="grid grid-cols-1 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Nama Pemilik Key</label>
-                            <input type="text" id="newKeyLabel" placeholder="Contoh: Admin Regional" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white focus:outline-none focus:border-purple-500 text-sm font-semibold">
+                            <input type="text" id="newKeyLabel" placeholder="Contoh: Admin Regional" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white focus:outline-none focus:border-purple-500 focus:shadow-[0_0_15px_rgba(168,85,247,0.15)] text-sm font-semibold transition-all">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Role Akses</label>
-                            <select id="newRole" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer">
+                            <select id="newRole" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer transition-all">
                                 <option value="member">👤 Reseller</option>
                                 <option value="vip">💎 Reseller VIP</option>
                                 <option value="admin">🛠️ Admin</option>
@@ -224,7 +233,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Masa Aktif</label>
-                            <select id="newAccountDuration" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer">
+                            <select id="newAccountDuration" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer transition-all">
                                 <option value="permanent">♾️ Lifetime (Selamanya)</option>
                                 <option value="1">📅 1 Hari</option>
                                 <option value="7">📅 7 Hari</option>
@@ -232,19 +241,19 @@
                             </select>
                         </div>
                     </div>
-                    <button onclick="createNewAccessKey()" class="neon-btn w-full py-3 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer mt-2 shadow-md">
+                    <button onclick="createNewAccessKey()" class="neon-btn w-full py-3 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer mt-2 shadow-md transition-all duration-200 active:scale-95">
                         <i class="fa-solid fa-square-plus"></i> Generate & Publikasi
                     </button>
                 </div>
 
-                <!-- Reset Device Lock Block (Dev & Admin Only) -->
+                <!-- Reset Device Lock Block -->
                 <div id="deviceControlBlock" class="bg-blue-950/10 p-5 rounded-2xl border border-blue-500/20 space-y-4 shadow-inner" style="display: none;">
                     <h3 class="text-sm font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-mobile-screen text-xs"></i> Reset Device Lock Key
                     </h3>
                     <div class="flex gap-2">
-                        <input type="text" id="resetDeviceInput" placeholder="MASUKKAN KODE LOGIN RESELLER" class="flex-1 px-4 py-3 bg-black border border-blue-950 rounded-xl text-blue-400 focus:outline-none focus:border-blue-500 text-sm font-mono font-bold tracking-wider uppercase">
-                        <button onclick="resetKeyDeviceLock()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer">Reset ID</button>
+                        <input type="text" id="resetDeviceInput" placeholder="MASUKKAN KODE LOGIN RESELLER" class="flex-1 px-4 py-3 bg-black border border-blue-950 rounded-xl text-blue-400 focus:outline-none focus:border-blue-500 text-sm font-mono font-bold tracking-wider uppercase transition-all">
+                        <button onclick="resetKeyDeviceLock()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Reset ID</button>
                     </div>
                 </div>
 
@@ -253,8 +262,8 @@
                         <i class="fa-solid fa-ban text-xs"></i> Banned Key
                     </h3>
                     <div class="flex gap-2">
-                        <input type="text" id="banKeyInput" placeholder="MASUKKAN KODE LOGIN" class="flex-1 px-4 py-3 bg-black border border-rose-950 rounded-xl text-rose-400 focus:outline-none focus:border-rose-500 text-sm font-mono font-bold tracking-wider uppercase">
-                        <button onclick="addKeyToBanList()" class="bg-rose-600 hover:bg-rose-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer">Ban</button>
+                        <input type="text" id="banKeyInput" placeholder="MASUKKAN KODE LOGIN" class="flex-1 px-4 py-3 bg-black border border-rose-950 rounded-xl text-rose-400 focus:outline-none focus:border-rose-500 text-sm font-mono font-bold tracking-wider uppercase transition-all">
+                        <button onclick="addKeyToBanList()" class="bg-rose-600 hover:bg-rose-500 text-white px-5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Ban</button>
                     </div>
                     <div id="banListContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1 no-scrollbar"></div>
                 </div>
@@ -264,7 +273,7 @@
                         <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                             <i class="fa-solid fa-users-gear"></i> Monitoring Akun
                         </label>
-                        <button id="clearCustomKeysBtn" onclick="triggerWipeModal('custom_keys')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors">
+                        <button id="clearCustomKeysBtn" onclick="triggerWipeModal('custom_keys')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-all duration-200 active:scale-95">
                             <i class="fa-solid fa-skull-crossbones"></i> Drop Semua
                         </button>
                     </div>
@@ -274,7 +283,7 @@
 
             <!-- TAB ABOUT -->
             <div id="aboutTabContent" class="hidden space-y-5">
-                <!-- DEVELOPER SETTINGS SUITE (KHUSUS AZZAM-DEV) -->
+                <!-- DEVELOPER SETTINGS SUITE -->
                 <div id="developerSettingsBlock" class="bg-gradient-to-r from-purple-950/20 via-neutral-950 to-purple-950/20 p-5 rounded-2xl border border-purple-500/30 space-y-4 shadow-inner" style="display: none;">
                     <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-gears text-xs"></i> Developer Settings Suite
@@ -299,8 +308,8 @@
                     <div class="pt-3 border-t border-purple-950/40 space-y-2">
                         <label for="appLinkInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1">Ubah Link Download Aplikasi (App)</label>
                         <div class="flex gap-2">
-                            <input type="text" id="appLinkInput" placeholder="Masukkan URL APK File Baru" class="flex-1 px-4 py-2.5 bg-black border border-purple-950 rounded-xl text-xs text-purple-300 focus:outline-none focus:border-purple-500 font-mono">
-                            <button onclick="updateDownloadLink()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer shrink-0">Update</button>
+                            <input type="text" id="appLinkInput" placeholder="Masukkan URL APK File Baru" class="flex-1 px-4 py-2.5 bg-black border border-purple-950 rounded-xl text-xs text-purple-300 focus:outline-none focus:border-purple-500 font-mono transition-all">
+                            <button onclick="updateDownloadLink()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shrink-0">Update</button>
                         </div>
                     </div>
                 </div>
@@ -326,18 +335,18 @@
                     <p id="aboutDesc" class="text-xs text-purple-300/60 mt-4 max-w-sm mx-auto leading-relaxed font-medium">Berdedikasi dalam merancang arsitektur sistem manajemen lisensi aman, enkripsi data, serta optimasi antarmuka digital Key Generator.</p>
 
                     <div id="aboutSocial" class="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-purple-950/60 text-left">
-                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center">
+                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center transition-all hover:border-purple-500/30">
                             <span class="text-[9px] font-bold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1.5"><i class="fa-brands fa-tiktok text-xs"></i> Tiktok</span>
                             <span class="text-xs font-mono font-bold text-slate-200 select-all truncate">mhmmdkhrullazzam</span>
                         </div>
-                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center">
+                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center transition-all hover:border-purple-500/30">
                             <span class="text-[9px] font-bold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1.5"><i class="fa-brands fa-instagram text-xs"></i> Instagram</span>
                             <span class="text-xs font-mono font-bold text-slate-200 select-all truncate">mhmmdkhrulazzam</span>
                         </div>
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-purple-950/30 flex justify-center">
-                        <button onclick="triggerLogout()" class="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-xs font-bold rounded-xl flex items-center gap-2 cursor-pointer transition-all">
+                        <button onclick="triggerLogout()" class="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-xs font-bold rounded-xl flex items-center gap-2 cursor-pointer transition-all duration-200 active:scale-95">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out / Hapus Sesi
                         </button>
                     </div>
@@ -363,14 +372,14 @@
     </div>
 
     <!-- CONFIRMATION MODAL -->
-    <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
+    <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-all duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
             <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)]"><i id="modalIcon" class="fa-solid fa-triangle-exclamation"></i></div>
             <h3 id="modalTitle" class="text-xl font-black text-white tracking-tight mt-4">CRITICAL WARNING</h3>
             <p id="modalDescription" class="text-purple-300/70 text-xs sm:text-sm mt-3 leading-relaxed font-medium"></p>
             <div class="flex gap-3 mt-6 pt-2">
-                <button onclick="closeWipeModal()" class="flex-1 py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-colors cursor-pointer">Batal</button>
-                <button id="modalConfirmBtn" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white border border-rose-500/40 text-xs font-bold rounded-xl tracking-wider uppercase transition-all shadow-md cursor-pointer">OKE, LANJUTKAN</button>
+                <button onclick="closeWipeModal()" class="flex-1 py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-all duration-200 active:scale-95 cursor-pointer">Batal</button>
+                <button id="modalConfirmBtn" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white border border-rose-500/40 text-xs font-bold rounded-xl tracking-wider uppercase transition-all duration-200 active:scale-95 shadow-md cursor-pointer">OKE, LANJUTKAN</button>
             </div>
         </div>
     </div>
@@ -412,7 +421,6 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Setup Unique Perangkat Peramban
             window.myDeviceId = localStorage.getItem("suite_device_id");
             if (!window.myDeviceId) {
                 window.myDeviceId = "HW-" + Math.floor(Math.random() * 0xFFFFFFFFF).toString(16).toUpperCase();
@@ -424,10 +432,20 @@
             setTimeout(checkAutoLogin, 200); 
         });
 
-        // Server Listener Real-time (Maintenance & Link Download)
+        function toggleLoginKeyVisibility() {
+            const loginKeyField = document.getElementById("loginKey");
+            const eyeIcon = document.getElementById("eyeIcon");
+            if (loginKeyField.type === "password") {
+                loginKeyField.type = "text";
+                eyeIcon.className = "fa-solid fa-eye-slash text-sm text-fuchsia-400";
+            } else {
+                loginKeyField.type = "password";
+                eyeIcon.className = "fa-solid fa-eye text-sm text-purple-400/50";
+            }
+        }
+
         function listenToSystemSettings() {
             try {
-                // Listener Status Maintenance
                 db.ref("system_settings/maintenance_mode").on('value', (snapshot) => {
                     const isMaint = snapshot.val() || false;
                     const toggle = document.getElementById("maintenanceToggle");
@@ -456,7 +474,6 @@
                     }
                 });
 
-                // Listener URL Download Aplikasi
                 db.ref("system_settings/download_url").on('value', (snapshot) => {
                     const url = snapshot.val() || "https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file";
                     const appBtn = document.getElementById("appDownloadBtn");
@@ -479,20 +496,8 @@
         function fetchWithTimeout(refPath, timeoutMs = 8000) {
             return new Promise((resolve, reject) => {
                 if (!db) return resolve(null);
-                
-                let timer = setTimeout(() => { 
-                    reject(new Error("Cloud Connection Timeout (RTO)")); 
-                }, timeoutMs);
-                
-                db.ref(refPath).once('value')
-                    .then((snapshot) => { 
-                        clearTimeout(timer); 
-                        resolve(snapshot); 
-                    })
-                    .catch((err) => { 
-                        clearTimeout(timer); 
-                        reject(err); 
-                    });
+                let timer = setTimeout(() => { reject(new Error("Cloud Connection Timeout (RTO)")); }, timeoutMs);
+                db.ref(refPath).once('value').then((snapshot) => { clearTimeout(timer); resolve(snapshot); }).catch((err) => { clearTimeout(timer); reject(err); });
             });
         }
 
@@ -504,7 +509,6 @@
             
             try {
                 const inputKey = document.getElementById("loginKey").value.trim().toUpperCase();
-                
                 if (inputKey === "") {
                     showToast("⚠️ Mohon input Kode Aktivasi!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
                     return;
@@ -523,27 +527,21 @@
                         const banSnap = await fetchWithTimeout(`banned_keys/${inputKey}`, 5000);
                         isBanned = banSnap ? banSnap.exists() : false;
                     }
-
                     if (isBanned) {
                         showToast("❌ Kunci Telah Dibanned Permanen!", "bg-rose-950", "fa-solid fa-user-slash text-rose-500");
                         localStorage.removeItem("vault_access_key");
                         resetLoginButton();
                         return;
                     }
-
                     if (!keyFound && db) {
                         const cloudSnap = await fetchWithTimeout(`custom_keys/${inputKey}`, 8000);
-                        if (cloudSnap && cloudSnap.exists()) {
-                            keyFound = cloudSnap.val();
-                        }
+                        if (cloudSnap && cloudSnap.exists()) keyFound = cloudSnap.val();
                     }
-
                     if (db) {
                         const maintSnap = await fetchWithTimeout("system_settings/maintenance_mode", 4000);
                         isMaintenance = maintSnap ? (maintSnap.val() || false) : false;
                     }
                 } catch (firebaseError) {
-                    console.error(firebaseError);
                     showToast(`❌ Cloud Server: ${firebaseError.message}`, "bg-rose-950", "fa-solid fa-circle-exclamation text-rose-400");
                     resetLoginButton();
                     return;
@@ -555,7 +553,6 @@
                         resetLoginButton();
                         return;
                     }
-
                     if (keyFound.key.toUpperCase() !== "AZZAM-DEV" && isMaintenance) {
                         showMaintenanceScreen();
                         showToast("⚠️ Sistem sedang maintenance.", "bg-amber-950", "fa-solid fa-screwdriver-wrench text-amber-400");
@@ -563,7 +560,6 @@
                         return;
                     }
 
-                    // --- FITUR 1 KEY 1 DEVICE ENGINE ---
                     if (keyFound.role !== "developer" && keyFound.role !== "admin" && db) {
                         try {
                             const deviceSnap = await fetchWithTimeout(`device_locks/${inputKey}`, 5000);
@@ -574,11 +570,9 @@
                                     return;
                                 }
                             } else {
-                                // Mengunci Perangkat di Login Pertama Kali
                                 await db.ref(`device_locks/${inputKey}`).set(window.myDeviceId);
                             }
                         } catch (deviceError) {
-                            console.error(deviceError);
                             showToast("⚠️ Proteksi Hardware ID Gagal Diverifikasi.", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-500");
                             resetLoginButton();
                             return;
@@ -611,12 +605,10 @@
                             showToast(`👤 Akses Berhasil!`, "bg-purple-950", "fa-solid fa-circle-check text-emerald-400");
                         }
                     }, 450);
-
                 } else {
                     showToast("❌ Kode Aktivasi salah/tidak terdaftar!", "bg-rose-950", "fa-solid fa-circle-xmark text-rose-400");
                 }
             } catch (fatalError) {
-                console.error(fatalError);
                 showToast("⚠️ Terjadi kesalahan sistem internal.", "bg-neutral-950", "fa-solid fa-bug text-rose-500");
             } finally {
                 resetLoginButton();
@@ -686,21 +678,19 @@
             keyDisplay.innerText = formattedKey;
             licenseDetails.innerHTML = infoText;
             resultArea.classList.remove("hidden");
-            setTimeout(() => { resultArea.classList.remove("opacity-0"); }, 50);
+            setTimeout(() => { resultArea.classList.add("tab-fade-in"); resultArea.classList.remove("opacity-0"); }, 50);
 
             if (db) {
                 const now = new Date();
                 const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' | ' + now.toLocaleDateString('id-ID');
                 db.ref("exam_key_history").push({ hwid: hwidInput, key: formattedKey, duration: cleanDurationText, time: timeString }).catch(()=>{});
             }
-
             if (window.userRole === "member") localStorage.setItem("member_cooldown_time", Date.now() + 24 * 60 * 60 * 1000);
         }
 
         async function createNewAccessKey() {
             try {
                 if (window.userRole !== "developer" && window.userRole !== "admin") return;
-                
                 const labelIn = document.getElementById("newKeyLabel").value.trim();
                 const roleIn = document.getElementById("newRole").value;
                 const durationIn = document.getElementById("newAccountDuration").value;
@@ -709,7 +699,6 @@
                     showToast("⚠️ Nama pemilik tidak boleh kosong!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
                     return;
                 }
-                
                 if (!db) {
                     showToast("❌ Firebase Offline!", "bg-rose-950", "fa-solid fa-circle-xmark text-rose-400");
                     return;
@@ -721,17 +710,12 @@
                 const expiryVal = durationIn !== "permanent" ? (Date.now() + parseInt(durationIn) * 24 * 60 * 60 * 1000) : "permanent";
 
                 await db.ref(`custom_keys/${generatedAccessKey}`).set({
-                    key: generatedAccessKey, 
-                    label: labelIn, 
-                    role: roleIn, 
-                    expiry: expiryVal
+                    key: generatedAccessKey, label: labelIn, role: roleIn, expiry: expiryVal
                 });
 
                 document.getElementById("newKeyLabel").value = "";
                 showToast(`🎉 Key Baru Berhasil Dirilis!`, "bg-purple-950", "fa-solid fa-key text-fuchsia-400");
-                
             } catch (error) {
-                console.error(error);
                 showToast("⚠️ Gagal push key baru ke server.", "bg-rose-950", "fa-solid fa-bug text-rose-400");
             }
         }
@@ -808,7 +792,7 @@
                 snapshot.forEach((childSnapshot) => {
                     const item = childSnapshot.val();
                     htmlData = `
-                        <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition-all duration-300 hover:border-purple-500/20">
                             <div class="min-w-0 flex-1">
                                 <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
                                     <span class="font-mono text-[11px] font-bold text-purple-400">${item.hwid}</span>
@@ -816,7 +800,7 @@
                                 </div>
                                 <div class="font-mono text-xs font-bold text-slate-300 break-all select-all">${item.key}</div>
                             </div>
-                            <div class="text-[9px] bg-purple-950/30 border border-purple-500/20 text-purple-300 px-2 py-1 rounded-md font-bold">${item.duration}</div>
+                            <div class="text-[9px] bg-purple-950/30 border border-purple-500/20 text-purple-300 px-2 py-1 rounded-md font-bold self-start sm:self-center">${item.duration}</div>
                         </div>
                     ` + htmlData;
                 });
@@ -842,11 +826,11 @@
 
                     let deleteBtnHtml = "";
                     if (window.userRole === "developer") {
-                        deleteBtnHtml = `<button onclick="removeAccount('${acc.key}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 text-rose-400 flex items-center justify-center transition-colors cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>`;
+                        deleteBtnHtml = `<button onclick="removeAccount('${acc.key}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 text-rose-400 flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>`;
                     }
 
                     htmlData += `
-                        <div class="bg-black/50 border border-purple-950/60 rounded-xl p-3.5 flex items-center justify-between gap-3">
+                        <div class="bg-black/50 border border-purple-950/60 rounded-xl p-3.5 flex items-center justify-between gap-3 transition-all duration-300 hover:border-purple-500/20">
                             <div class="min-w-0 flex-1">
                                 <div class="flex items-center gap-2 mb-1">
                                     <span class="font-bold text-sm text-white">${acc.label}</span>
@@ -877,7 +861,7 @@
                     htmlData += `
                         <div class="bg-rose-950/20 border border-rose-950/60 rounded-xl p-2.5 flex items-center justify-between gap-3">
                             <span class="font-mono text-xs font-bold text-rose-400 select-all">${bKey}</span>
-                            <button onclick="removeKeyFromBanList('${bKey}')" class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold rounded-lg cursor-pointer">Unban</button>
+                            <button onclick="removeKeyFromBanList('${bKey}')" class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold rounded-lg cursor-pointer transition-all duration-200 active:scale-95">Unban</button>
                         </div>
                     `;
                 });
@@ -926,30 +910,28 @@
 
         function switchTab(target) {
             const tabs = ["tabGen", "tabHist", "tabCreate", "tabAbout"];
-            const contents = ["generatorTabContent", "historyTabContent", "createAkunTabContent", "aboutTabContent"];
-            const inactiveClass = "flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20 cursor-pointer transition-all";
-            const activeClass = "flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)] cursor-pointer transition-all";
+            const contents = ["generatorTabContent", "historyTabContent", "create_akunTabContent", "aboutTabContent"];
+            const inactiveClass = "flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20 cursor-pointer transition-all duration-200 active:scale-95";
+            const activeClass = "flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)] cursor-pointer transition-all duration-200";
 
-            tabs.forEach(t => {
-                const el = document.getElementById(t);
-                if(el) el.className = inactiveClass;
-            });
-            contents.forEach(c => {
-                const el = document.getElementById(c);
-                if(el) el.classList.add("hidden");
-            });
+            tabs.forEach(t => { const el = document.getElementById(t); if(el) el.className = inactiveClass; });
+            contents.forEach(c => { const el = document.getElementById(c); if(el) { el.classList.add("hidden"); el.classList.remove("tab-fade-in"); } });
 
+            const targetContent = document.getElementById(target + "TabContent");
             if (target === "generator") {
                 document.getElementById("tabGen").className = activeClass;
-                document.getElementById("generatorTabContent").classList.remove("hidden");
+                targetContent.classList.remove("hidden");
+                targetContent.classList.add("tab-fade-in");
             } else if (target === "history") {
                 document.getElementById("tabHist").className = activeClass;
-                document.getElementById("historyTabContent").classList.remove("hidden");
+                targetContent.classList.remove("hidden");
+                targetContent.classList.add("tab-fade-in");
                 document.getElementById("clearHistoryBtn").style.display = (window.loggedKey === "AZZAM-DEV") ? "flex" : "none";
                 renderHistory();
             } else if (target === "create_akun") {
                 document.getElementById("tabCreate").className = activeClass;
-                document.getElementById("createAkunTabContent").classList.remove("hidden");
+                targetContent.classList.remove("hidden");
+                targetContent.classList.add("tab-fade-in");
                 document.getElementById("clearCustomKeysBtn").style.display = (window.loggedKey === "AZZAM-DEV") ? "flex" : "none";
                 document.getElementById("banControlBlock").style.display = (window.loggedKey === "AZZAM-DEV") ? "block" : "none";
                 document.getElementById("deviceControlBlock").style.display = (window.userRole === "developer" || window.userRole === "admin") ? "block" : "none";
@@ -957,7 +939,8 @@
                 renderBanList();
             } else if (target === "about") {
                 document.getElementById("tabAbout").className = activeClass;
-                document.getElementById("aboutTabContent").classList.remove("hidden");
+                targetContent.classList.remove("hidden");
+                targetContent.classList.add("tab-fade-in");
             }
         }
 
