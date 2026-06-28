@@ -192,8 +192,8 @@
                         <i class="fa-solid fa-terminal"></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-black text-white tracking-tight">CBT Key Architect</h1>
-                        <p class="text-purple-300/50 text-xs mt-0.5 font-medium">Generator Lisensi Enkripsi untuk Aplikasi CBT</p>
+                        <h1 class="text-2xl font-black text-white tracking-tight">Key Aktvasi Generator</h1>
+                        <p class="text-purple-300/50 text-xs mt-0.5 font-medium">Generator Lisensi Enkripsi untuk Aplikasi CBT EXAM BROWSER</p>
                     </div>
                 </div>
                 
@@ -242,7 +242,7 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-3">
-                    <button onclick="generateKey()" class="neon-btn flex-1 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 cursor-pointer shadow-lg text-sm tracking-wide">
+                    <button onclick="generateKey()" class="neon-btn flex-1 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 cubic-bezier(0.175, 0.885, 0.32, 1.275) shadow-lg text-sm tracking-wide cursor-pointer">
                         <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Build Activation Key
                     </button>
                     
@@ -271,10 +271,13 @@
             </div>
 
             <div id="historyTabContent" class="hidden space-y-4">
-                <div class="flex items-center ml-1 pb-1">
+                <div class="flex items-center justify-between ml-1 pb-1">
                     <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
                         <i class="fa-solid fa-list-check"></i> Total Database Key
                     </label>
+                    <button id="clearHistoryBtn" onclick="triggerWipeModal('history')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors">
+                        <i class="fa-solid fa-trash-can"></i> Hapus Semua Riwayat
+                    </button>
                 </div>
                 <div id="historyContainer" class="space-y-3 max-h-80 overflow-y-auto pr-1 no-scrollbar">
                     <p id="emptyHistory" class="text-center text-xs text-purple-900/60 py-10 italic">Belum ada riwayat pembuatan key.</p>
@@ -282,13 +285,14 @@
             </div>
 
             <div id="createAkunTabContent" class="hidden space-y-5 animate-premium-fade">
-                <div class="bg-gradient-to-r from-purple-950/20 via-amber-950/10 to-purple-950/20 p-5 rounded-2xl border border-amber-500/20 space-y-4 shadow-inner">
+                <!-- ID baru ditambahkan untuk kontrol hide/show via JS -->
+                <div id="maintenanceControlBlock" class="bg-gradient-to-r from-purple-950/20 via-amber-950/10 to-purple-950/20 p-5 rounded-2xl border border-amber-500/20 space-y-4 shadow-inner">
                     <div class="flex justify-between items-center">
                         <div>
                             <h3 class="text-sm font-bold text-amber-400 uppercase tracking-widest flex items-center gap-2">
                                 <i class="fa-solid fa-screwdriver-wrench text-xs"></i> Fitur Sistem Kontrol Maintenance
                             </h3>
-                            <p class="text-[11px] text-purple-300/50 mt-0.5">Jika aktif, Member akan terblokir sementara dari akses login/generator.</p>
+                            <p class="text-[11px] text-purple-300/50 mt-0.5">Jika aktif, Member/Admin lain akan terblokir dari akses login atau generator.</p>
                         </div>
                         <label class="inline-flex items-center cursor-pointer select-none">
                             <input type="checkbox" id="maintenanceToggle" onchange="toggleMaintenanceMode()" class="sr-only peer">
@@ -296,7 +300,7 @@
                         </label>
                     </div>
                     <div id="maintenanceStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
-                        🟢 Mode Normal (Akses Member Dibuka)
+                        🟢 Mode Normal (Akses Terbuka)
                     </div>
                 </div>
 
@@ -308,7 +312,7 @@
                     <div class="grid grid-cols-1 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Nama / Label Pemilik Key</label>
-                            <input type="text" id="newKeyLabel" placeholder="Contoh: Reseller Jawa Barat" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white focus:outline-none focus:border-purple-500 text-sm font-semibold">
+                            <input type="text" id="newKeyLabel" placeholder="Contoh: Admin Regional Barat" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white focus:outline-none focus:border-purple-500 text-sm font-semibold">
                         </div>
                     </div>
 
@@ -316,8 +320,9 @@
                         <div>
                             <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Role Akses</label>
                             <select id="newRole" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer">
-                                <option value="member">👤 Member / Reseller</option>
-                                <option value="developer">⚡ Sub-Developer</option>
+                                <option value="member">👤 Reseller</option>
+                                <option value="vip">💎 Reseller VIP</option>
+                                <option value="admin">🛠️ Admin Sistem</option>
                             </select>
                         </div>
                         <div>
@@ -337,9 +342,14 @@
                 </div>
 
                 <div class="space-y-3">
-                    <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1 flex items-center gap-2">
-                        <i class="fa-solid fa-users-gear"></i> Monitoring Kode Akses Terdaftar
-                    </label>
+                    <div class="flex items-center justify-between ml-1">
+                        <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-users-gear"></i> Monitoring Kode Akses Terdaftar
+                        </label>
+                        <button id="clearCustomKeysBtn" onclick="triggerWipeModal('custom_keys')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-colors">
+                            <i class="fa-solid fa-skull-crossbones"></i> Drop All Access
+                        </button>
+                    </div>
                     <div id="accountContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1 no-scrollbar"></div>
                 </div>
             </div>
@@ -360,6 +370,12 @@
                     
                     <h2 id="aboutName" class="text-2xl font-black text-white tracking-wide flex items-center justify-center gap-2">Muh. Khaerul Azzam</h2>
                     <p id="aboutSub" class="text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5">Developer Suite</p>
+                    
+                    <div id="aboutExpiryBox" class="mt-4 bg-purple-950/20 border border-purple-900/40 rounded-xl px-4 py-2.5 max-w-sm mx-auto text-xs font-semibold hidden animate-premium-fade">
+                        <span class="text-purple-400/80">⏳ Masa Aktif:</span> 
+                        <span id="aboutExpiryValue" class="text-fuchsia-400 font-mono ml-1">Loading...</span>
+                    </div>
+
                     <p id="aboutDesc" class="text-xs text-purple-300/60 mt-4 max-w-sm mx-auto leading-relaxed font-medium">Berdedikasi dalam merancang arsitektur sistem manajemen lisensi aman, enkripsi data, serta optimasi antarmuka digital Key Generator.</p>
 
                     <div id="aboutSocial" class="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-purple-950/60 text-left">
@@ -399,6 +415,25 @@
         </div>
     </div>
 
+    <!-- UI MODAL PREMIUM: CUSTOM DIALOG BACKDROP GLASSMORPHISM -->
+    <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-transform duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
+            <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)] animate-pulse">
+                <i id="modalIcon" class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 id="modalTitle" class="text-xl font-black text-white tracking-tight mt-4">CRITICAL WARNING</h3>
+            <p id="modalDescription" class="text-purple-300/70 text-xs sm:text-sm mt-3 leading-relaxed font-medium">Apakah Anda yakin ingin mengeksekusi perintah database ini?</p>
+            <div class="flex gap-3 mt-6 pt-2">
+                <button onclick="closeWipeModal()" class="flex-1 py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-colors cursor-pointer">
+                    Batal
+                </button>
+                <button id="modalConfirmBtn" onclick="" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white border border-rose-500/40 text-xs font-bold rounded-xl tracking-wider uppercase transition-all shadow-md cursor-pointer">
+                    OKE, LANJUTKAN
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
         <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
     </div>
@@ -407,7 +442,9 @@
         let toastTimeout;
         let userRole = ""; 
         let activeUser = "";
+        let loggedKey = ""; 
         let currentAccountExpiry = null;
+        let activeWipeTarget = "";
 
         const baselineKeys = [
             { key: "AZZAM-DEV", label: "mhmmdkhrulazzam", role: "developer", expiry: "permanent" },
@@ -436,7 +473,13 @@
                 if(toggle) toggle.checked = true;
                 if(badge) {
                     badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-amber-500/10 text-amber-400 border-amber-500/20 animate-pulse";
-                    badge.innerHTML = "⚠️ Mode Maintenance Aktif (Member Terblokir)";
+                    badge.innerHTML = "⚠️ Mode Maintenance Active (Akses Terblokir)";
+                }
+            } else {
+                if(toggle) toggle.checked = false;
+                if(badge) {
+                    badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+                    badge.innerHTML = "🟢 Mode Normal (Akses Terbuka)";
                 }
             }
         }
@@ -452,9 +495,8 @@
                         return;
                     }
                     
-                    // Filter Maintenance saat Autologin
-                    if (matchKey.role === "member" && isMaintenanceActive()) {
-                        localStorage.removeItem("vault_access_key"); // Hapus sesi otomatis jika sedang MT
+                    if (matchKey.key.toUpperCase() !== "AZZAM-DEV" && isMaintenanceActive()) {
+                        localStorage.removeItem("vault_access_key"); 
                         showMaintenanceScreen();
                         return;
                     }
@@ -482,19 +524,24 @@
         }
 
         function toggleMaintenanceMode() {
-            if (userRole !== "developer") return;
+            if (loggedKey !== "AZZAM-DEV") {
+                showToast("❌ Ditolak: Hanya Developer Utama yang berhak mengubah status!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-ban text-rose-400");
+                initMaintenanceUI(); 
+                return;
+            }
+
             const toggle = document.getElementById("maintenanceToggle");
             const badge = document.getElementById("maintenanceStatusBadge");
 
             if(toggle.checked) {
                 localStorage.setItem("system_maintenance_mode", "true");
                 badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-amber-500/10 text-amber-400 border-amber-500/20 animate-pulse";
-                badge.innerHTML = "⚠️ Mode Maintenance Aktif (Member Terblokir)";
-                showToast("⚠️ Maintenance Diaktifkan! Member tidak bisa masuk.", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-screwdriver-wrench text-amber-400");
+                badge.innerHTML = "⚠️ Mode Maintenance Active (Akses Terblokir)";
+                showToast("⚠️ Maintenance Diaktifkan! Akses luar ditutup.", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-screwdriver-wrench text-amber-400");
             } else {
                 localStorage.setItem("system_maintenance_mode", "false");
                 badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                badge.innerHTML = "🟢 Mode Normal (Akses Member Dibuka)";
+                badge.innerHTML = "🟢 Mode Normal (Akses Terbuka)";
                 showToast("🟢 Maintenance Dimatikan. Sistem kembali normal.", "bg-gradient-to-r from-black via-purple-950 to-black border-emerald-500/30", "fa-solid fa-circle-check text-emerald-400");
             }
         }
@@ -514,17 +561,27 @@
             } else if (target === "history") {
                 document.getElementById("tabHist").className = activeClass;
                 document.getElementById("historyTabContent").classList.remove("hidden");
+                
+                const wipeHistBtn = document.getElementById("clearHistoryBtn");
+                if (wipeHistBtn) {
+                    wipeHistBtn.style.display = (loggedKey === "AZZAM-DEV") ? "flex" : "none";
+                }
                 renderHistory();
             } else if (target === "create_akun") {
-                if (userRole !== "developer") {
-                    showToast("❌ Akses Ditolak: Khusus Akun Developer!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-ban text-rose-400");
+                if (userRole !== "developer" && userRole !== "admin") {
+                    showToast("❌ Akses Ditolak: Memerlukan Otoritas Admin / Developer!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-ban text-rose-400");
                     switchTab("generator");
                     return;
                 }
                 document.getElementById("tabCreate").className = activeClass;
                 document.getElementById("createAkunTabContent").classList.remove("hidden");
+                
+                const wipeCustomBtn = document.getElementById("clearCustomKeysBtn");
+                if (wipeCustomBtn) {
+                    wipeCustomBtn.style.display = (loggedKey === "AZZAM-DEV") ? "flex" : "none";
+                }
                 renderCreatedKeys();
-                initMaintenanceUI(); // Pastikan state UI toggle sinkron saat tab dibuka
+                initMaintenanceUI(); 
             } else if (target === "about") {
                 document.getElementById("tabAbout").className = activeClass;
                 document.getElementById("aboutTabContent").classList.remove("hidden");
@@ -546,8 +603,7 @@
                     return;
                 }
 
-                // Proteksi Utama Maintenance Mode untuk Akun Member
-                if (keyFound.role === "member" && isMaintenanceActive()) {
+                if (keyFound.key.toUpperCase() !== "AZZAM-DEV" && isMaintenanceActive()) {
                     showMaintenanceScreen();
                     showToast("⚠️ Sistem sedang dalam perbaikan berkala.", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-screwdriver-wrench text-amber-400");
                     return;
@@ -555,6 +611,7 @@
 
                 userRole = keyFound.role;
                 activeUser = keyFound.label;
+                loggedKey = keyFound.key.toUpperCase(); 
                 currentAccountExpiry = keyFound.expiry;
                 
                 if (autoSaveActive) {
@@ -575,7 +632,11 @@
                     showGenerator();
                     
                     if (userRole === "developer") {
-                        showToast(isAutoLogin ? `⚡ Auto-Login Dev: ${activeUser}` : `⚡ Otorisasi Dev (${activeUser}) Sukses!`, "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/30", "fa-solid fa-user-shield text-purple-400");
+                        showToast(isAutoLogin ? `⚡ Welcome Back Developer` : `⚡ Otorisasi Root Developer Utama Sukses!`, "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/30", "fa-solid fa-user-shield text-purple-400");
+                    } else if (userRole === "admin") {
+                        showToast(isAutoLogin ? `🛠️ Admin System: ${activeUser}` : `🛠️ Hak Akses Admin Terverifikasi!`, "bg-gradient-to-r from-black via-blue-950 to-black border-blue-500/30", "fa-solid fa-user-gear text-blue-400");
+                    } else if (userRole === "vip") {
+                        showToast(isAutoLogin ? `💎 Auto-Login VIP: ${activeUser}` : `💎 Akses VIP (${activeUser}) Diterima!`, "bg-gradient-to-r from-black via-fuchsia-950 to-black border-fuchsia-500/30", "fa-solid fa-gem text-fuchsia-400");
                     } else {
                         showToast(isAutoLogin ? `👤 Auto-Login Member: ${activeUser}` : `👤 Akses Member (${activeUser}) Diterima!`, "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-user text-amber-400");
                     }
@@ -583,7 +644,7 @@
             } else if (inputKey === "") {
                 showToast("⚠️ Mohon input Kode Aktivasi Anda!", "bg-gradient-to-r from-black via-amber-950 to-black border-amber-500/30", "fa-solid fa-triangle-exclamation text-amber-400");
             } else {
-                showToast("❌ Kode Aktivasi salah atau tidak terdaftar!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-circle-xmark text-rose-400");
+                showToast("❌ Kode Aktivasi salah atau tidak terdaftar!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-400/70", "fa-solid fa-circle-xmark text-rose-400");
             }
         }
 
@@ -595,6 +656,9 @@
             const loginCard = document.getElementById("loginCard");
             loginCard.classList.remove("hidden");
             loginCard.classList.add("animate-premium-fade");
+            userRole = "";
+            loggedKey = "";
+            activeUser = "";
             showToast("🔒 Sesi berhasil dihapus.", "bg-gradient-to-r from-black via-slate-950 to-black border-slate-800", "fa-solid fa-power-off text-rose-400");
         }
 
@@ -602,6 +666,7 @@
             const durationSelect = document.getElementById("durationSelect");
             const roleBadge = document.getElementById("roleBadge");
             const tabCreate = document.getElementById("tabCreate");
+            const mBlock = document.getElementById("maintenanceControlBlock");
 
             const aboutTag = document.getElementById("aboutTag");
             const aboutImg = document.getElementById("aboutImg");
@@ -611,19 +676,40 @@
             const aboutSocial = document.getElementById("aboutSocial");
             const dynamicIcon = document.getElementById("dynamicIcon");
 
+            const expiryBox = document.getElementById("aboutExpiryBox");
+            const expiryValue = document.getElementById("aboutExpiryValue");
+
             aboutImg.style.opacity = '1';
             durationSelect.disabled = false;
 
+            let expiryStatusText = "Active (Lifetime)";
+            if (currentAccountExpiry !== "permanent") {
+                let diff = currentAccountExpiry - Date.now();
+                let daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                expiryStatusText = `Aktif (${daysLeft} Hari Lagi)`;
+            }
+
+            if (loggedKey === "AZZAM-DEV") {
+                expiryBox.classList.add("hidden"); 
+                if (mBlock) mBlock.style.display = "block"; // Tampilkan maintenance jika Developer Utama
+            } else {
+                expiryBox.classList.remove("hidden");
+                if (mBlock) mBlock.style.display = "none"; // Sembunyikan maintenance jika bukan Developer Utama
+                
+                if (currentAccountExpiry === "permanent") {
+                    expiryValue.className = "text-purple-400 font-bold uppercase tracking-wider";
+                    expiryValue.innerHTML = "♾️ Selamanya (Lifetime)";
+                } else {
+                    const expDate = new Date(currentAccountExpiry);
+                    const formattedDate = expDate.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                    const formattedTime = expDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                    expiryValue.className = "text-fuchsia-400 font-mono font-bold";
+                    expiryValue.innerHTML = `${formattedDate} - ${formattedTime} WIB`;
+                }
+            }
+
             if (userRole === "member") {
                 tabCreate.style.display = "none"; 
-                
-                let expiryStatusText = "Active (Lifetime)";
-                if (currentAccountExpiry !== "permanent") {
-                    let diff = currentAccountExpiry - Date.now();
-                    let daysLeft = Math.ceil(diff / (1000 * 60 * 60 * 24));
-                    expiryStatusText = `Aktif (${daysLeft} Hari Lagi)`;
-                }
-
                 roleBadge.className = "bg-amber-500/10 text-amber-300 px-3 py-1.5 rounded-full border border-amber-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
                 roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping"></span> ${activeUser} | ${expiryStatusText}`;
 
@@ -633,12 +719,38 @@
                 aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-amber-500 text-lg shadow-[0_0_15px_rgba(245,158,11,0.6)]" title="Verified Member"></i>`;
                 aboutSub.className = "text-xs text-amber-400 font-bold tracking-widest uppercase mt-1.5";
                 aboutSub.innerText = "Member Suite";
-                aboutDesc.innerText = "Terverifikasi sebagai pengguna sistem Premium. Memiliki akses penuh pembuatan seluruh varian tipe key dengan batasan limit harian.";
+                aboutDesc.innerText = "Terverifikasi sebagai pengguna sistem Premium. Memiliki akses penuh pembuatan seluruh varian tipe key dengan batasan limit harian (1 Key / Hari).";
                 aboutSocial.classList.add("hidden"); 
+            } else if (userRole === "vip") {
+                tabCreate.style.display = "none"; 
+                roleBadge.className = "bg-fuchsia-500/10 text-fuchsia-300 px-3 py-1.5 rounded-full border border-fuchsia-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
+                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> ${activeUser} | Reseller VIP`;
+
+                aboutTag.innerText = "VIP Unlimited Access";
+                aboutImg.src = "member.jpg"; 
+                dynamicIcon.className = "fa-solid fa-gem text-fuchsia-400";
+                aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-fuchsia-500 text-lg shadow-[0_0_15px_rgba(217,70,239,0.6)]" title="Verified VIP Member"></i>`;
+                aboutSub.className = "text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5";
+                aboutSub.innerText = "Reseller VIP";
+                aboutDesc.innerText = "Terverifikasi sebagai pengguna sistem VIP Khusus. Anda memegang hak akses pembuatan seluruh varian tipe key tanpa batasan cooldown limit harian.";
+                aboutSocial.classList.add("hidden"); 
+            } else if (userRole === "admin") {
+                tabCreate.style.display = "flex"; 
+                roleBadge.className = "bg-blue-500/10 text-blue-300 px-3 py-1.5 rounded-full border border-blue-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
+                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping"></span> Admin: ${activeUser}`;
+
+                aboutTag.innerText = "System Administrator";
+                aboutImg.src = "member.jpg"; 
+                dynamicIcon.className = "fa-solid fa-user-gear text-blue-400";
+                aboutName.innerHTML = `${activeUser} <i class="fa-solid fa-circle-check text-blue-500 text-lg shadow-[0_0_15px_rgba(59,130,246,0.6)]" title="Verified Admin"></i>`;
+                aboutSub.className = "text-xs text-blue-400 font-bold tracking-widest uppercase mt-1.5";
+                aboutSub.innerText = "Admin Suite";
+                aboutDesc.innerText = "Terverifikasi memiliki lisensi Administrator Sistem. Berwenang mengelola sub-kunci otorisasi login, memantau pendaftaran key, serta mencetak lisensi tanpa batas harian.";
+                aboutSocial.classList.add("hidden");
             } else {
                 tabCreate.style.display = "flex"; 
                 roleBadge.className = "bg-purple-500/10 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
-                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> Dev: ${activeUser}`;
+                roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> Developer: Azzam`;
 
                 aboutTag.innerText = "System Architect";
                 aboutImg.src = "foto.jpg";
@@ -863,7 +975,7 @@
         }
 
         function createNewAccessKey() {
-            if (userRole !== "developer") return;
+            if (userRole !== "developer" && userRole !== "admin") return;
             const labelIn = document.getElementById("newKeyLabel").value.trim();
             const roleIn = document.getElementById("newRole").value;
             const durationIn = document.getElementById("newAccountDuration").value;
@@ -874,7 +986,8 @@
             }
 
             const randHex = Math.floor(Math.random() * 0xFFFFFFFFF).toString(16).toUpperCase().padStart(9, '0');
-            const generatedAccessKey = `CBT-${roleIn.substring(0,4).toUpperCase()}-${randHex}`;
+            const prefix = roleIn === "admin" ? "ADM" : (roleIn === "vip" ? "VIP" : "MBR");
+            const generatedAccessKey = `Azzam-${prefix}-${randHex}`;
             let customKeys = JSON.parse(localStorage.getItem("suite_custom_keys")) || [];
             
             customKeys.unshift({ key: generatedAccessKey, label: labelIn, role: roleIn, expiry: durationIn !== "permanent" ? (new Date().getTime() + parseInt(durationIn)*24*60*60*1000) : "permanent" });
@@ -885,7 +998,7 @@
         }
 
         function removeAccount(keyToDel) {
-            if (userRole !== "developer") return;
+            if (userRole !== "developer" && userRole !== "admin") return;
             let customKeys = JSON.parse(localStorage.getItem("suite_custom_keys")) || [];
             customKeys = customKeys.filter(acc => acc.key !== keyToDel);
             localStorage.setItem("suite_custom_keys", JSON.stringify(customKeys));
@@ -902,12 +1015,23 @@
             }
             container.innerHTML = customKeys.map(acc => {
                 let statusLabel = acc.expiry === "permanent" ? `<span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-bold uppercase">Lifetime</span>` : (acc.expiry - Date.now() <= 0 ? `<span class="text-[9px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20 font-bold uppercase">Expired</span>` : `<span class="text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold uppercase">${Math.ceil((acc.expiry - Date.now())/(1000*60*60*24))} Hari</span>`);
+                
+                let readableRole = "👤 Reseller";
+                let roleColor = "border-purple-950 text-purple-400/60";
+                if(acc.role === "admin") {
+                    readableRole = "🛠️ Admin";
+                    roleColor = "border-blue-950 text-blue-400";
+                } else if(acc.role === "vip") {
+                    readableRole = "💎 VIP";
+                    roleColor = "border-fuchsia-950 text-fuchsia-400";
+                }
+
                 return `
                     <div class="bg-black/50 border border-purple-950/60 rounded-xl p-3.5 flex items-center justify-between gap-3 transition-all hover:border-purple-900/40">
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center gap-2 mb-1">
                                 <span class="font-bold text-sm text-white tracking-wide truncate">${acc.label}</span>
-                                <span class="text-[10px] text-purple-400/60 font-bold px-1.5 py-0.5 bg-black rounded-md border border-purple-950">${acc.role === "developer" ? "⚡ Dev" : "👤 Member"}</span>
+                                <span class="text-[10px] font-bold px-1.5 py-0.5 bg-black rounded-md border ${roleColor}">${readableRole}</span>
                             </div>
                             <div class="text-xs text-purple-300/50 font-medium font-mono truncate">Key: <span class="text-fuchsia-400 font-bold select-all">${acc.key}</span></div>
                         </div>
@@ -915,6 +1039,58 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        function triggerWipeModal(target) {
+            if (loggedKey !== "AZZAM-DEV") {
+                showToast("❌ Ditolak: Hanya Developer Utama yang berhak melakukan wipe!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-ban text-rose-400");
+                return;
+            }
+
+            activeWipeTarget = target;
+            const modal = document.getElementById("customConfirmModal");
+            const title = document.getElementById("modalTitle");
+            const desc = document.getElementById("modalDescription");
+            const icon = document.getElementById("modalIcon");
+            const confirmBtn = document.getElementById("modalConfirmBtn");
+
+            if (target === 'history') {
+                title.innerText = "🚨 PERINGATAN DEVELOPER!";
+                desc.innerText = "Apakah Anda yakin ingin menghapus SELURUH riwayat pembuatan key dari database lokal? Tindakan ini bersifat permanen.";
+                icon.className = "fa-solid fa-triangle-exclamation text-rose-500";
+                confirmBtn.onclick = executeWipeKeyHistory;
+            } else if (target === 'custom_keys') {
+                title.innerText = "🚨 TINDAKAN CRITICAL DEVELOPER!";
+                desc.innerText = "Anda akan menghapus SELURUH kode akses reseller/admin terdaftar. Semua akun buatan akan kehilangan hak login secara instan!";
+                icon.className = "fa-solid fa-skull-crossbones text-rose-500";
+                confirmBtn.onclick = executeWipeCustomAccessKeys;
+            }
+
+            modal.classList.remove("pointer-events-none");
+            modal.classList.replace("opacity-0", "opacity-100");
+            modal.firstElementChild.classList.replace("scale-95", "scale-100");
+        }
+
+        function closeWipeModal() {
+            const modal = document.getElementById("customConfirmModal");
+            modal.classList.replace("opacity-100", "opacity-0");
+            modal.firstElementChild.classList.replace("scale-100", "scale-95");
+            setTimeout(() => { modal.classList.add("pointer-events-none"); }, 300);
+            activeWipeTarget = "";
+        }
+
+        function executeWipeKeyHistory() {
+            localStorage.removeItem("exam_key_history");
+            renderHistory();
+            closeWipeModal();
+            showToast("💥 Riwayat key berhasil di-wipe total!", "bg-gradient-to-r from-black via-slate-950 to-black border-rose-500/30", "fa-solid fa-circle-check text-rose-400");
+        }
+
+        function executeWipeCustomAccessKeys() {
+            localStorage.removeItem("suite_custom_keys");
+            renderCreatedKeys();
+            closeWipeModal();
+            showToast("💀 Seluruh database kunci akses eksternal telah dihancurkan!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-600/40", "fa-solid fa-skull-crossbones text-rose-500");
         }
 
         function copyToClipboard() {
