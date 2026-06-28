@@ -23,9 +23,10 @@
             font-family: 'Outfit', sans-serif;
             background: radial-gradient(circle at 50% 0%, #2e1065 0%, #090514 60%, #000000 100%);
             position: relative;
+            transition: background 0.5s ease, color 0.5s ease;
         }
 
-        /* Ambient Cyber Glowing Orbs (Purple & Black Vibe) */
+        /* Ambient Cyber Glowing Orbs */
         .orb-1 {
             position: absolute;
             top: -10%;
@@ -36,6 +37,7 @@
             filter: blur(60px);
             animation: floating 12s infinite alternate ease-in-out;
             z-index: 0;
+            transition: background 0.5s ease;
         }
 
         .orb-2 {
@@ -48,6 +50,7 @@
             filter: blur(60px);
             animation: floating 16s infinite alternate-reverse ease-in-out;
             z-index: 0;
+            transition: background 0.5s ease;
         }
 
         @keyframes floating {
@@ -64,13 +67,14 @@
             to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* Glassmorphism Utilities - Deep Black Purple tint */
+        /* Glassmorphism Utilities */
         .glass-panel {
             background: rgba(9, 5, 20, 0.6);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(168, 85, 247, 0.15);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            transition: all 0.5s ease;
         }
 
         .neon-btn {
@@ -87,13 +91,61 @@
             transform: translateY(-1px);
         }
 
-        /* Custom Scrollbar */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
+        }
+
+        /* ================= LIGHT THEME OVERRIDES ================= */
+        body.light-theme {
+            background: radial-gradient(circle at 50% 0%, #f3e8ff 0%, #e2e8f0 60%, #f8fafc 100%);
+            color: #0f172a;
+        }
+        body.light-theme .orb-1 { background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, rgba(0,0,0,0) 70%); }
+        body.light-theme .orb-2 { background: radial-gradient(circle, rgba(217, 70, 239, 0.1) 0%, rgba(0,0,0,0) 70%); }
+        body.light-theme .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+        body.light-theme .text-white { color: #0f172a !important; }
+        body.light-theme .text-slate-200 { color: #1e293b !important; }
+        body.light-theme .text-slate-300 { color: #334155 !important; }
+        body.light-theme .text-slate-400 { color: #475569 !important; }
+        
+        body.light-theme .bg-black { background-color: #ffffff !important; }
+        body.light-theme .bg-black\/60 { background-color: rgba(255, 255, 255, 0.9) !important; }
+        body.light-theme .bg-black\/80 { background-color: #f8fafc !important; }
+        body.light-theme .bg-black\/50 { background-color: rgba(255, 255, 255, 0.7) !important; }
+        body.light-theme .bg-black\/40 { background-color: rgba(255, 255, 255, 0.8) !important; }
+        body.light-theme .bg-black\/30 { background-color: rgba(241, 245, 249, 0.8) !important; }
+        body.light-theme .bg-neutral-950 { background-color: #f1f5f9 !important; }
+        
+        body.light-theme .border-purple-950,
+        body.light-theme .border-purple-950\/80,
+        body.light-theme .border-purple-950\/60,
+        body.light-theme .border-purple-950\/40,
+        body.light-theme .border-purple-950\/30 { border-color: #d8b4fe !important; }
+        body.light-theme .border-neutral-800 { border-color: #cbd5e1 !important; }
+        
+        body.light-theme .text-purple-300 { color: #6b21a8 !important; }
+        body.light-theme .text-purple-300\/60,
+        body.light-theme .text-purple-300\/50,
+        body.light-theme .text-purple-300\/70,
+        body.light-theme .text-purple-400\/50,
+        body.light-theme .text-purple-400\/60 { color: #7e22ce !important; }
+        
+        body.light-theme .placeholder-purple-900\/40::placeholder, 
+        body.light-theme .placeholder-purple-900\/50::placeholder { color: #a855f7 !important; }
+        
+        body.light-theme #toast { 
+            background: rgba(255, 255, 255, 0.95) !important; 
+            border: 1px solid #d8b4fe !important; 
+            color: #0f172a !important; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
         }
     </style>
 </head>
@@ -105,14 +157,14 @@
     <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-8 box-border relative z-10 overflow-y-auto">
 
         <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto">
-            <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)]">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] transition-colors">
                 <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
                     <i class="fa-solid fa-key animate-pulse"></i>
                 </div>
             </div>
 
             <div class="text-center mt-10 mb-6">
-                <h1 class="text-3xl font-black text-white tracking-tight bg-gradient-to-r from-white via-purple-200 to-slate-400 bg-clip-text text-transparent">Key Authentication</h1>
+                <h1 class="text-3xl font-black text-white tracking-tight bg-gradient-to-r from-purple-500 via-fuchsia-500 to-purple-500 bg-clip-text text-transparent !bg-clip-text">Key Authentication</h1>
                 <p class="text-purple-300/60 text-sm mt-2 font-medium">Masukkan kunci lisensi akses suite otorisasi Anda.</p>
             </div>
 
@@ -138,23 +190,6 @@
                 <div class="pt-1">
                     <button onclick="validateLogin()" class="neon-btn w-full py-3.5 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer">
                         <i class="fa-solid fa-unlock-keyhole text-xs"></i> Masuk Ke Sistem
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="maintenanceCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade border-rose-500/30">
-            <div class="flex flex-col items-center justify-center space-y-6">
-                <div class="w-20 h-20 rounded-2xl bg-black border border-rose-500/40 shadow-[0_0_30px_rgba(244,63,94,0.2)] flex items-center justify-center text-rose-500 text-3xl">
-                    <i class="fa-solid fa-triangle-exclamation animate-bounce"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-black text-white tracking-tight">System Under Maintenance</h2>
-                    <p class="text-sm text-rose-300/60 mt-3 leading-relaxed">Server sedang dalam pemeliharaan berkala oleh Developer Utama. Seluruh aktivitas pembuatan key ditangguhkan sementara.</p>
-                </div>
-                <div class="pt-2 w-full">
-                    <button onclick="backToLoginFromMaint()" class="w-full py-3 bg-neutral-950 border border-neutral-800 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:border-purple-500/30 transition-all cursor-pointer">
-                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Cek Ulang Status Sistem
                     </button>
                 </div>
             </div>
@@ -245,7 +280,7 @@
                         <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Build Activation Key
                     </button>
                     
-                    <a href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group" title="Download Aplikasi Exambro">
+                    <a href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black text-fuchsia-400 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group" title="Download Aplikasi Exambro">
                         <i class="fa-solid fa-cloud-arrow-down text-base group-hover:translate-y-0.5 transition-transform"></i> App
                     </a>
                 </div>
@@ -259,7 +294,7 @@
                         <div class="font-mono text-base sm:text-lg font-bold text-purple-300 tracking-wide sm:tracking-widest whitespace-nowrap overflow-x-auto no-scrollbar select-all flex-1 pr-2 min-w-0" id="activationKeyDisplay">
                             XXXXX-XXXXX-XXXXX-XXXXX
                         </div>
-                        <button onclick="copyToClipboard()" class="text-purple-400 hover:text-white w-10 h-10 rounded-xl bg-neutral-950 border border-purple-950 hover:border-purple-800 flex items-center justify-center transition-colors cursor-pointer shrink-0" title="Salin Kode">
+                        <button onclick="copyToClipboard()" class="text-purple-400 w-10 h-10 rounded-xl bg-neutral-950 border border-purple-950 flex items-center justify-center transition-colors cursor-pointer shrink-0" title="Salin Kode">
                             <i id="copyIcon" class="fa-regular fa-copy text-sm"></i>
                         </button>
                     </div>
@@ -281,7 +316,7 @@
             </div>
 
             <div id="aboutTabContent" class="hidden space-y-5 animate-premium-fade">
-                <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
+                <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
                     <div class="absolute -right-12 -top-12 w-32 h-32 bg-purple-600/10 rounded-full blur-xl pointer-events-none"></div>
                     <div class="absolute -left-12 -bottom-12 w-32 h-32 bg-fuchsia-600/5 rounded-full blur-xl pointer-events-none"></div>
 
@@ -322,10 +357,10 @@
                         <div class="h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent flex-1"></div>
                     </div>
 
-                    <div id="devMaintenanceBox" class="mb-4 hidden text-left bg-black/40 p-4 border border-rose-500/20 rounded-xl shadow-inner">
-                        <label class="block text-xs font-bold text-rose-400 uppercase tracking-widest mb-3 ml-1"><i class="fa-solid fa-shield-halved mr-1"></i> Developer Shield Center</label>
-                        <button id="maintToggleBtn" onclick="toggleSystemMaintenance()" class="w-full py-3.5 bg-neutral-950 hover:bg-neutral-900 text-rose-400 border border-rose-500/20 hover:border-rose-500/50 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
-                            <i class="fa-solid fa-toggle-off text-sm"></i> Status: Sistem Normal (Aktif)
+                    <div id="themeToggleBox" class="mb-4 text-left bg-black/40 p-4 border border-purple-950/40 rounded-xl shadow-inner transition-colors">
+                        <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-3 ml-1"><i class="fa-solid fa-palette mr-1"></i> Pengaturan Tampilan</label>
+                        <button onclick="toggleTheme()" id="themeToggleBtn" class="w-full py-3.5 bg-neutral-950 hover:bg-neutral-900 text-purple-400 border border-purple-950/60 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-moon text-sm"></i> Mode Gelap (Aktif)
                         </button>
                     </div>
 
@@ -337,7 +372,7 @@
                 </div>
             </div>
 
-            <div class="flex bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden">
+            <div class="flex bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden transition-colors">
                 <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
                     <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden xs:inline">Build Panel</span><span class="xs:hidden">Build</span>
                 </button>
@@ -362,7 +397,6 @@
         let activeUser = "";
         let loggedKey = ""; 
 
-        // Kunci bawaan statis
         const baselineKeys = [
             { key: "Activation", label: "Azzam", role: "developer" },
             { key: "MEMBER-1", label: "Reseller 1", role: "member" },
@@ -373,13 +407,43 @@
         document.addEventListener("DOMContentLoaded", function() {
             handleDurationChange();
             setTimeout(checkAutoLogin, 200); 
-            // Loop interval pendeteksi maintenance real-time jika user lain sedang di dalam panel
-            setInterval(realtimeMaintenanceCheck, 1500);
+            loadSavedTheme(); // Load Tema tersimpan
         });
 
-        function isMaintenanceActive() {
-            return localStorage.getItem("sys_maintenance_mode") === "true";
+        // ================= FITUR TEMA (LIGHT/DARK MODE) =================
+        function toggleTheme() {
+            const isLight = document.body.classList.toggle('light-theme');
+            localStorage.setItem("theme_preference", isLight ? "light" : "dark");
+            updateThemeUI(isLight);
+            
+            showToast(isLight ? "☀️ Mode Terang Diaktifkan" : "🌙 Mode Gelap Diaktifkan", 
+                      isLight ? "bg-white border-purple-200" : "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/20", 
+                      isLight ? "fa-solid fa-sun text-purple-500" : "fa-solid fa-moon text-purple-400");
         }
+
+        function updateThemeUI(isLight) {
+            const btn = document.getElementById("themeToggleBtn");
+            if(btn) {
+                if(isLight) {
+                    btn.innerHTML = `<i class="fa-solid fa-sun text-sm"></i> Mode Terang (Aktif)`;
+                    btn.className = "w-full py-3.5 bg-purple-100 hover:bg-purple-200 text-purple-700 border border-purple-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm";
+                } else {
+                    btn.innerHTML = `<i class="fa-solid fa-moon text-sm"></i> Mode Gelap (Aktif)`;
+                    btn.className = "w-full py-3.5 bg-neutral-950 hover:bg-neutral-900 text-purple-400 border border-purple-950/60 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer";
+                }
+            }
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem("theme_preference");
+            if(savedTheme === "light") {
+                document.body.classList.add('light-theme');
+                updateThemeUI(true);
+            } else {
+                updateThemeUI(false);
+            }
+        }
+        // ================================================================
 
         function checkAutoLogin() {
             const savedKey = localStorage.getItem("vault_access_key");
@@ -393,65 +457,10 @@
             }
         }
 
-        function realtimeMaintenanceCheck() {
-            if (userRole !== "" && userRole !== "developer" && isMaintenanceActive()) {
-                // Tendang paksa pengguna non-developer jika maintenance diaktifkan oleh Azzam
-                userRole = "";
-                loggedKey = "";
-                activeUser = "";
-                document.getElementById("generatorCard").classList.add("hidden");
-                document.getElementById("loadingCard").classList.add("hidden");
-                document.getElementById("loginCard").classList.add("hidden");
-                document.getElementById("maintenanceCard").classList.remove("hidden");
-                showToast("⚠️ Sistem memasuki mode Pemeliharaan!", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/30", "fa-solid fa-triangle-exclamation text-rose-400");
-            }
-        }
-
-        function backToLoginFromMaint() {
-            if (!isMaintenanceActive()) {
-                document.getElementById("maintenanceCard").classList.add("hidden");
-                const loginCard = document.getElementById("loginCard");
-                loginCard.classList.remove("hidden");
-                loginCard.classList.add("animate-premium-fade");
-                showToast("✅ Sistem kembali online!", "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/20", "fa-solid fa-circle-check text-purple-400");
-            } else {
-                showToast("❌ Pemeliharaan masih berlangsung...", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/20", "fa-solid fa-hourglass-half text-rose-400");
-            }
-        }
-
-        function toggleSystemMaintenance() {
-            if (userRole !== "developer") return;
-            
-            const btn = document.getElementById("maintToggleBtn");
-            const currentStatus = isMaintenanceActive();
-            const newStatus = !currentStatus;
-
-            localStorage.setItem("sys_maintenance_mode", newStatus ? "true" : "false");
-            updateMaintenanceButtonUI(newStatus);
-
-            if (newStatus) {
-                showToast("🔴 Maintenance DIKUNCI (User Lain Diblokir)", "bg-gradient-to-r from-black via-rose-950 to-black border-rose-500/40", "fa-solid fa-lock text-rose-400");
-            } else {
-                showToast("🟢 Sistem Dibuka Kembali untuk Umum", "bg-gradient-to-r from-black via-purple-950 to-black border-purple-500/40", "fa-solid fa-lock-open text-purple-400");
-            }
-        }
-
-        function updateMaintenanceButtonUI(isActive) {
-            const btn = document.getElementById("maintToggleBtn");
-            if (!btn) return;
-            if (isActive) {
-                btn.className = "w-full py-3.5 bg-rose-950/40 text-rose-400 border border-rose-500 hover:bg-rose-950/60 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-[0_0_15px_rgba(244,63,94,0.15)]";
-                btn.innerHTML = `<i class="fa-solid fa-toggle-on text-sm animate-pulse"></i> Status: MAINTENANCE ACTIVE`;
-            } else {
-                btn.className = "w-full py-3.5 bg-neutral-950 hover:bg-neutral-900 text-slate-400 border border-neutral-800 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer";
-                btn.innerHTML = `<i class="fa-solid fa-toggle-off text-sm"></i> Status: Sistem Normal (Aktif)`;
-            }
-        }
-
         function switchTab(target) {
             const tabs = ["tabGen", "tabHist", "tabAbout"];
             const contents = ["generatorTabContent", "historyTabContent", "aboutTabContent"];
-            const inactiveClass = "flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20";
+            const inactiveClass = "flex-1 py-3 px-1 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-500 hover:bg-purple-950/20";
             const activeClass = "flex-1 py-3 px-1 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]";
 
             tabs.forEach(t => {
@@ -482,13 +491,6 @@
             const keyFound = baselineKeys.find(k => k.key.toUpperCase() === inputKey);
 
             if (keyFound) {
-                // CEK MAINTENANCE MODE (Kecuali untuk AZZAM-DEV)
-                if (keyFound.role !== "developer" && isMaintenanceActive()) {
-                    loginCard.classList.add("hidden");
-                    document.getElementById("maintenanceCard").classList.remove("hidden");
-                    return;
-                }
-
                 userRole = keyFound.role;
                 activeUser = keyFound.label;
                 loggedKey = keyFound.key.toUpperCase(); 
@@ -544,7 +546,6 @@
         function applyRoleConfigurations() {
             const durationSelect = document.getElementById("durationSelect");
             const roleBadge = document.getElementById("roleBadge");
-            const devBox = document.getElementById("devMaintenanceBox");
 
             const aboutTag = document.getElementById("aboutTag");
             const aboutImg = document.getElementById("aboutImg");
@@ -556,7 +557,6 @@
 
             aboutImg.style.opacity = '1';
             durationSelect.disabled = false;
-            devBox.classList.add("hidden");
 
             if (userRole === "member") {
                 roleBadge.className = "bg-amber-500/10 text-amber-300 px-3 py-1.5 rounded-full border border-amber-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
@@ -597,9 +597,6 @@
             } else if (userRole === "developer") {
                 roleBadge.className = "bg-purple-500/10 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm";
                 roleBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> Developer: Azzam`;
-
-                devBox.classList.remove("hidden");
-                updateMaintenanceButtonUI(isMaintenanceActive());
 
                 aboutTag.innerText = "System Architect";
                 aboutImg.src = "foto.jpg";
@@ -663,7 +660,11 @@
             const toastIcon = document.getElementById("toastIcon");
             
             clearTimeout(toastTimeout);
-            toast.className = `fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border backdrop-blur-xl ${bgColorClass}`;
+            
+            // Remove previous bg classes but keep structural classes
+            toast.className = `fixed top-6 left-1/2 px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border backdrop-blur-xl ${bgColorClass} text-white`;
+            
+            // For light mode override logic (CSS handles text color overriding for .light-theme, but let's make sure it looks neat)
             toastText.innerText = message;
             toastIcon.className = `${iconClass} text-base`;
 
@@ -808,15 +809,15 @@
                 return;
             }
             container.innerHTML = history.map(item => `
-                <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition-all hover:border-purple-900/60">
+                <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition-all hover:border-purple-500/40">
                     <div class="min-w-0 flex-1">
                         <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
-                            <span class="font-mono text-[11px] font-bold text-purple-400 tracking-wide truncate max-w-[140px]" title="HWID">${item.hwid}</span>
-                            <span class="text-[10px] text-purple-300/40 font-medium">${item.time}</span>
+                            <span class="font-mono text-[11px] font-bold text-purple-500 tracking-wide truncate max-w-[140px]" title="HWID">${item.hwid}</span>
+                            <span class="text-[10px] text-purple-400/60 font-medium">${item.time}</span>
                         </div>
                         <div class="font-mono text-xs font-bold text-slate-300 break-all tracking-wide select-all">${item.key}</div>
                     </div>
-                    <div class="text-[9px] bg-purple-950/30 border border-purple-500/20 text-purple-300 px-2 py-1 rounded-md font-bold self-start sm:self-center shrink-0 tracking-wide">
+                    <div class="text-[9px] bg-purple-900/30 border border-purple-500/20 text-purple-500 px-2 py-1 rounded-md font-bold self-start sm:self-center shrink-0 tracking-wide">
                         ${item.duration}
                     </div>
                 </div>
