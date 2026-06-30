@@ -2,169 +2,1354 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>Cyber Profile | M. Khaerul Azzam</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Key Generator & Activation Suite</title>
     
-    <style>
-        /* Sistem Anti-Salin Global (Memblokir seleksi teks & menu tekan lama di iOS/Android) */
-        * { 
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <style>
+        html, body { 
+            margin: 0; padding: 0; width: 100%; min-height: 100vh; 
+            overflow-x: hidden; background: #000000; 
+            scroll-behavior: smooth;
+        }
         body { 
             font-family: 'Outfit', sans-serif; 
-            background: #020617; 
-            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 70%);
+            background: radial-gradient(circle at 50% 0%, #2e1065 0%, #090514 60%, #000000 100%); 
             background-attachment: fixed;
-            touch-action: none; /* Memblokir gesture zoom bawaan browser */
-            transition: filter 0.2s ease; /* Efek transisi halus saat layar nge-blur */
+            position: relative; 
         }
-
-        .cyber-card { 
-            background: rgba(10, 10, 15, 0.8); 
-            backdrop-filter: blur(20px); 
-            border: 1px solid rgba(0, 240, 255, 0.2); 
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 240, 255, 0.1);
-        }
-
-        .neon-text { text-shadow: 0 0 10px rgba(0, 240, 255, 0.6); }
         
-        .status-pulse {
-            animation: pulse 2s infinite;
+        .orb-1, .orb-2 { 
+            position: fixed;
+            width: 600px; height: 600px; 
+            filter: blur(60px); 
+            z-index: 0; 
+            will-change: transform;
+            transform: translate3d(0,0,0);
+            backface-visibility: hidden;
+            pointer-events: none;
+            contain: strict;
         }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+        .orb-1 { top: -10%; left: -10%; background: radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, rgba(0,0,0,0) 70%); animation: floating 12s infinite alternate ease-in-out; }
+        .orb-2 { bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, rgba(0,0,0,0) 70%); animation: floating 16s infinite alternate-reverse ease-in-out; }
+        
+        @keyframes floating { 0% { transform: translate3d(0, 0, 0) scale(1); } 100% { transform: translate3d(40px, 60px, 0) scale(1.1); } }
+        
+        .animate-premium-fade { animation: premiumFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
+        @keyframes premiumFadeUp { from { opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); } to { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); } }
+        
+        .animate-premium-fade-out { animation: premiumFadeOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
+        @keyframes premiumFadeOut { from { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); } to { opacity: 0; transform: translate3d(0, -20px, 0); filter: blur(8px); } }
+
+        .tab-fade-in { animation: tabFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
+        @keyframes tabFadeUp { 
+            from { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.99); filter: blur(4px); } 
+            to { opacity: 1; transform: translate3d(0,0,0) scale(1); filter: blur(0); } 
         }
 
-        .mod-item-list:hover {
-            background: rgba(0, 240, 255, 0.05);
-            border-color: rgba(0, 240, 255, 0.3);
-            transform: translateX(4px);
+        .glass-panel { 
+            background: rgba(9, 5, 20, 0.65); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border: 1px solid rgba(168, 85, 247, 0.15); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.05); 
+            will-change: transform;
+            transform: translate3d(0,0,0);
         }
+        .neon-btn { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 50%, #d946ef 100%); background-size: 200% auto; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-position 0.4s ease; will-change: transform; }
+        .neon-btn:hover { background-position: right center; transform: translate3d(0, -2px, 0); box-shadow: 0 15px 30px rgba(147, 51, 234, 0.35); }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Anti-Screenshot via cetak dokumen (Sembunyikan konten jika diprint ke PDF) */
-        @media print {
-            body { display: none !important; }
+        .dev-section-divider {
+            display: flex; align-items: center; gap: 10px; margin: 4px 0;
+        }
+        .dev-section-divider span {
+            font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em;
+            white-space: nowrap;
+        }
+        .dev-section-divider::before, .dev-section-divider::after {
+            content: ''; flex: 1; height: 1px; background: rgba(168,85,247,0.15);
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="text-slate-200 selection:bg-purple-500/30 selection:text-purple-200">
 
-    <div class="cyber-card max-w-sm w-full rounded-[2rem] p-6 relative overflow-hidden transition-all duration-500">
-        
-        <div class="text-center">
-            <div class="relative inline-block group">
-                <div class="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                <img src="foto.jpg" alt="Azzam" class="w-24 h-24 rounded-full border-2 border-cyan-400 relative shadow-2xl object-cover aspect-square" onerror="this.src='https://ui-avatars.com/api/?name=MK&background=00f0ff&color=000'">
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+
+    <div class="w-full min-h-screen flex flex-col justify-start items-center px-4 pt-14 pb-14 box-border relative z-10">
+
+        <div id="loginCard" class="animate-premium-fade max-w-md w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto transition-all duration-300 hover:border-purple-500/30">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 flex items-center justify-center w-20 h-20 rounded-2xl bg-black border border-purple-500/40 shadow-[0_0_30px_rgba(168,85,247,0.3)] animate-pulse">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 flex items-center justify-center text-white text-xl shadow-inner">
+                    <i class="fa-solid fa-key"></i>
+                </div>
             </div>
-            <h1 class="text-xl font-black text-white mt-4 uppercase tracking-tight">Azzam</h1>
-            <div class="text-[10px] text-cyan-400 font-bold tracking-[0.3em] mt-1 uppercase neon-text">Patcher // System Mod</div>
-        </div>
 
-        <div class="mt-6">
-            <div class="text-[9px] text-purple-400 font-bold tracking-[0.3em] uppercase mb-3 opacity-70">Active_Patch_Modules</div>
-            <div class="space-y-2 max-h-[290px] overflow-y-auto pr-1 custom-scrollbar">
-                
-                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
-                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-shield-halved w-5 text-cyan-400"></i>SCREENSHOT BYPASS</span>
-                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
-                </div>
-                
-                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
-                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-layer-group w-5 text-cyan-400"></i>FLOATING APP SYSTEM</span>
-                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
-                </div>
-                
-                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
-                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-thumbtack w-5 text-cyan-400"></i>UNPIN & PIN APP CONTROL</span>
-                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
-                </div>
-                
-                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
-                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-brands fa-google w-5 text-cyan-400"></i>AUTO SAVE GOOGLE</span>
-                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+            <div class="text-center mt-10 mb-6">
+                <h1 class="text-3xl font-black text-white tracking-tight bg-gradient-to-r from-white via-purple-200 to-slate-400 bg-clip-text text-transparent">Key Authentication</h1>
+                <p class="text-purple-300/60 text-sm mt-2 font-medium">Masukkan kunci lisensi akses suite otorisasi Anda.</p>
+            </div>
+
+            <div class="space-y-5">
+                <div>
+                    <label for="loginKey" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Activation Key / Kode Akses</label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50 group-focus-within:text-purple-400 transition-colors">
+                            <i class="fa-solid fa-shield-halved text-sm"></i>
+                        </span>
+                        <input type="password" id="loginKey" placeholder="MASUKKAN KODE AKSES" 
+                            class="w-full pl-11 pr-12 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/40 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-all text-sm font-bold tracking-wider uppercase">
+                        <button type="button" onclick="toggleLoginKeyVisibility()" class="absolute inset-y-0 right-0 flex items-center pr-4 text-purple-400/50 hover:text-purple-400 transition-colors cursor-pointer active:scale-90 duration-150">
+                            <i id="eyeIcon" class="fa-solid fa-eye text-sm"></i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
-                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-copy w-5 text-cyan-400"></i>SALIN TEKS SYSTEM</span>
-                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                <div class="flex items-center justify-between pt-1 pb-1 px-1">
+                    <label class="flex items-center gap-2.5 cursor-pointer select-none group">
+                        <input type="checkbox" id="autoSaveCheck" class="w-4 h-4 rounded accent-purple-500 bg-black/80 border-purple-950 text-purple-600 focus:ring-purple-500/30 focus:ring-offset-black transition-all">
+                        <span class="text-xs font-semibold text-purple-300/60 group-hover:text-purple-300 transition-colors">Ingat Kode Aktivasi</span>
+                    </label>
                 </div>
 
-                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
-                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-ghost w-5 text-cyan-400"></i>STEALTH EXIT (NO LOG)</span>
-                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                <div class="pt-1">
+                    <button id="loginBtn" onclick="validateLogin()" class="neon-btn w-full py-3.5 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-95">
+                        <i id="loginBtnIcon" class="fa-solid fa-unlock-keyhole text-xs"></i> <span id="loginBtnText">Masuk Ke Sistem</span>
+                    </button>
                 </div>
-
-                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
-                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-ban w-5 text-cyan-400"></i>REMOVE PINALTY FEATURE</span>
-                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
-                </div>
-
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 mt-6">
-            <a href="https://instagram.com/mhmmdkhrulazzam" class="bg-black/40 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 py-2.5 rounded-xl text-center transition-all duration-300">
-                <i class="fa-brands fa-instagram text-cyan-400 mb-0.5 block text-sm"></i>
-                <div class="text-[9px] text-cyan-200 uppercase font-bold tracking-wider">Instagram</div>
-            </a>
-            <a href="https://tiktok.com/@mhmmdkhrullazzam" class="bg-black/40 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/10 py-2.5 rounded-xl text-center transition-all duration-300">
-                <i class="fa-brands fa-tiktok text-purple-400 mb-0.5 block text-sm"></i>
-                <div class="text-[9px] text-purple-200 uppercase font-bold tracking-wider">Tiktok</div>
-            </a>
+        <div id="bannedCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade" style="border-color: rgba(244, 63, 94, 0.3);">
+            <div class="flex flex-col items-center justify-center space-y-6">
+                <div class="w-20 h-20 rounded-2xl bg-rose-500/10 border border-rose-500/40 flex items-center justify-center text-rose-400 text-3xl shadow-[0_0_30px_rgba(244,63,94,0.25)]">
+                    <i class="fa-solid fa-ban"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-white tracking-tight">Akses Diblokir</h1>
+                    <p class="text-rose-400 text-xs font-bold tracking-widest uppercase mt-1.5">Key Telah Dibanned Permanen</p>
+                    <p class="text-purple-300/60 text-sm mt-4 leading-relaxed">Kunci akses Anda telah diblokir secara permanen oleh Developer. Silakan hubungi Administrator untuk informasi lebih lanjut.</p>
+                </div>
+                <div class="w-full bg-rose-950/20 border border-rose-500/20 rounded-2xl p-4 flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
+                        <i class="fa-solid fa-key text-xs"></i>
+                    </div>
+                    <div class="text-left min-w-0">
+                        <p class="text-[10px] font-bold text-rose-400 uppercase tracking-wider">Key yang Dibanned</p>
+                        <p id="bannedKeyDisplay" class="font-mono text-xs font-bold text-rose-300 mt-0.5 truncate select-all">—</p>
+                    </div>
+                </div>
+                <div class="pt-2 w-full">
+                    <button onclick="backToLoginFromBanned()" class="w-full py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-all duration-200 active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Kembali ke Halaman Login
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="maintenanceCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade">
+            <div class="flex flex-col items-center justify-center space-y-6">
+                <div class="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+                    <i class="fa-solid fa-screwdriver-wrench animate-bounce"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black text-white tracking-tight">System Maintenance</h1>
+                    <p class="text-amber-400 text-xs font-bold tracking-widest uppercase mt-1.5">Server Sedang Diperbarui</p>
+                    <p class="text-purple-300/60 text-sm mt-4 leading-relaxed">Mohon maaf atas ketidaknyamanannya. Generator sedang dioptimasi oleh Developer. Silakan coba lagi nanti.</p>
+                </div>
+                <div class="pt-2 w-full">
+                    <button onclick="backToLoginFromMaintenance()" class="w-full py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-all duration-200 active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Kembali ke Halaman Login
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="generatorCard" class="max-w-xl w-full glass-panel rounded-3xl p-6 sm:p-10 relative my-auto hidden transition-all duration-300 hover:border-purple-500/20">
+            
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-5 mb-6 border-b border-purple-950/60">
+                <div class="flex items-center gap-4 text-center sm:text-left">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-black text-white tracking-tight">Key Aktivasi Generator</h1>
+                        <p class="text-purple-300/50 text-xs mt-0.5 font-medium">Generator Lisensi Enkripsi untuk Aplikasi CBT EXAM BROWSER</p>
+                    </div>
+                </div>
+                <div id="roleBadge" class="bg-purple-500/10 text-purple-300 px-3 py-1.5 rounded-full border border-purple-500/20 text-xs font-semibold tracking-wide flex items-center gap-1.5 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 animate-ping"></span> v2.5 Live
+                </div>
+            </div>
+
+            <div id="generatorTabContent" class="space-y-5">
+                <div>
+                    <label for="hwidInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Hardware ID (HWID)</label>
+                    <div class="relative group">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50 group-focus-within:text-purple-400 transition-colors">
+                            <i class="fa-solid fa-microchip text-sm"></i>
+                        </span>
+                        <input type="text" id="hwidInput" placeholder="CONTOH: X9F2-B4D1-E8A0" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white placeholder-purple-900/50 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-all uppercase font-mono tracking-wider text-sm">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="durationSelect" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Tipe Durasi</label>
+                        <div class="relative">
+                            <select id="durationSelect" onchange="handleDurationChange()" class="w-full pl-4 pr-10 py-3.5 bg-black border border-purple-950 rounded-xl text-white font-medium focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] transition-all cursor-pointer appearance-none text-sm">
+                                <option value="permanent">♾️ Lifetime (Permanen)</option>
+                                <option value="custom_days">📅 Rentang Hari (Custom)</option>
+                                <option value="custom_hours">⏱️ Rentang Jam (Custom)</option>
+                            </select>
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-purple-400 pointer-events-none text-xs">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div id="customInputWrapper" class="transition-all duration-300" style="display: none;">
+                        <label id="customInputLabel" for="customInputValue" class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2.5 ml-1">Kuantitas</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-purple-400/50">
+                                <i id="customInputIcon" class="fa-solid fa-calendar-days text-sm"></i>
+                            </span>
+                            <input type="number" id="customInputValue" value="30" min="1" 
+                                class="w-full pl-11 pr-4 py-3.5 bg-black/60 border border-purple-950 rounded-xl text-white font-semibold focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-3">
+                    <button onclick="generateKey()" class="neon-btn flex-1 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer transition-all duration-200 active:scale-95">
+                        <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Build Activation Key
+                    </button>
+                    <a id="appDownloadBtn" href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group active:scale-95">
+                        <i class="fa-solid fa-cloud-arrow-down text-base group-hover:translate-y-0.5 transition-transform"></i> App
+                    </a>
+                </div>
+
+                <div id="resultArea" class="mt-6 hidden opacity-0 transition-all duration-500 relative">
+                    <div class="relative rounded-2xl overflow-hidden border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 via-black/60 to-purple-950/30 shadow-[0_0_30px_rgba(16,185,129,0.08)]">
+                        <div class="flex items-center gap-3 px-5 py-3.5 border-b border-emerald-500/20 bg-emerald-500/5 pr-12">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs shrink-0">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <span class="text-xs font-black text-emerald-400 uppercase tracking-widest">Berhasil Membuat Key Aktivasi</span>
+                            <span class="ml-auto text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border border-emerald-500/20 animate-pulse">Siap Digunakan</span>
+                        </div>
+                        <button onclick="closeResultArea('resultArea')" class="absolute top-3 right-4 text-emerald-400/50 hover:text-rose-400 transition-colors duration-150 cursor-pointer active:scale-90">
+                            <i class="fa-solid fa-xmark text-base"></i>
+                        </button>
+                        <div class="px-5 py-4 space-y-3">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2.5 min-w-0">
+                                    <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px] shrink-0"><i class="fa-solid fa-microchip"></i></span>
+                                    <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest shrink-0">Nama Akun</span>
+                                </div>
+                                <span id="cardHwid" class="font-mono text-xs font-bold text-slate-200 text-right truncate max-w-[55%]">—</span>
+                            </div>
+                            <div class="h-px bg-purple-950/40"></div>
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2.5 min-w-0">
+                                    <span class="w-6 h-6 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-[10px] shrink-0"><i class="fa-solid fa-clock"></i></span>
+                                    <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest shrink-0">Expired</span>
+                                </div>
+                                <span id="cardExpired" class="text-xs font-bold text-amber-400 text-right">—</span>
+                            </div>
+                            <div class="h-px bg-purple-950/40"></div>
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px] shrink-0"><i class="fa-solid fa-key"></i></span>
+                                <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest shrink-0">Key</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-black/70 border border-purple-950 rounded-xl px-4 py-3 shadow-inner">
+                                <div class="font-mono text-sm sm:text-base font-black text-purple-300 tracking-widest whitespace-nowrap overflow-x-auto no-scrollbar select-all flex-1 min-w-0" id="activationKeyDisplay">XXXXX-XXXXX-XXXXX-XXXXX</div>
+                                <button onclick="copyToClipboard()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-[10px] font-bold uppercase tracking-wider transition-all duration-200 active:scale-90 cursor-pointer shrink-0 border border-purple-500/40">
+                                    <i id="copyIcon" class="fa-regular fa-copy text-xs"></i>
+                                    <span id="copyBtnText">Salin</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="licenseDetails" class="hidden"></p>
+                </div>
+            </div>
+
+            <div id="historyTabContent" class="hidden space-y-4">
+                <div class="flex items-center justify-between ml-1 pb-1">
+                    <div>
+                        <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left"></i> Riwayat Key Aktivasi
+                        </label>
+                        <p class="text-[10px] text-purple-300/40 mt-1 font-medium">Key yang digenerate lewat Build Panel</p>
+                    </div>
+                    <button id="clearHistoryBtn" onclick="triggerWipeModal('history')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-all duration-200 active:scale-95">
+                        <i class="fa-solid fa-trash-can"></i> Hapus Semua
+                    </button>
+                </div>
+                <div id="historyContainer" class="space-y-3 max-h-80 overflow-y-auto pr-1 no-scrollbar">
+                    <p id="emptyHistory" class="text-center text-xs text-purple-900/60 py-10 italic">Belum ada riwayat pembuatan key.</p>
+                </div>
+            </div>
+
+            <div id="create_akunTabContent" class="hidden space-y-5">
+                <div class="bg-black/30 p-5 rounded-2xl border border-purple-950/60 space-y-4">
+                    <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-key"></i> Buat Kode Login Baru
+                    </h3>
+                    <p class="text-[10px] text-purple-300/40 -mt-1 font-medium">Monitoring akun dapat dilihat di tab <span class="text-fuchsia-400 font-bold">Dev Panel → Monitoring Custom Key</span></p>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Nama Pemilik Key</label>
+                            <input type="text" id="newKeyLabel" placeholder="Contoh: Admin Regional" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white focus:outline-none focus:border-purple-500 text-sm font-semibold transition-all">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Role Akses</label>
+                            <select id="newRole" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer transition-all">
+                                <option value="member">👤 Reseller</option>
+                                <option value="vip">💎 Reseller VIP</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-purple-400 uppercase tracking-widest mb-2 ml-1">Masa Aktif</label>
+                            <select id="newAccountDuration" class="w-full px-4 py-3 bg-black border border-purple-950 rounded-xl text-white text-sm focus:outline-none focus:border-purple-500 cursor-pointer transition-all">
+                                <option value="permanent">♾️ Lifetime (Selamanya)</option>
+                                <option value="1">📅 1 Hari</option>
+                                <option value="7">📅 7 Hari</option>
+                                <option value="30">📅 30 Hari</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="createNewAccessKey()" class="neon-btn w-full py-3 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer mt-2 shadow-md transition-all duration-200 active:scale-95">
+                        <i class="fa-solid fa-square-plus"></i> Generate & Publikasi
+                    </button>
+                </div>
+
+                <div id="newAccountResultCard" class="hidden opacity-0 transition-all duration-500 relative">
+                    <div class="relative rounded-2xl overflow-hidden border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 via-black/60 to-purple-950/30 shadow-[0_0_30px_rgba(16,185,129,0.08)]">
+                        <div class="flex items-center gap-3 px-5 py-3.5 border-b border-emerald-500/20 bg-emerald-500/5 pr-12">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs shrink-0"><i class="fa-solid fa-circle-check"></i></div>
+                            <span class="text-xs font-black text-emerald-400 uppercase tracking-widest">Akun Berhasil Dibuat!</span>
+                            <span class="ml-auto text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider border border-emerald-500/20 animate-pulse">Live</span>
+                        </div>
+                        <button onclick="closeResultArea('newAccountResultCard')" class="absolute top-3 right-4 text-emerald-400/50 hover:text-rose-400 transition-colors duration-150 cursor-pointer active:scale-90">
+                            <i class="fa-solid fa-xmark text-base"></i>
+                        </button>
+                        <div class="px-5 py-4 space-y-3">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2.5 shrink-0">
+                                    <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px]"><i class="fa-solid fa-user"></i></span>
+                                    <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Nama Akun</span>
+                                </div>
+                                <span id="cardNewLabel" class="text-sm font-bold text-white text-right truncate max-w-[55%]">—</span>
+                            </div>
+                            <div class="h-px bg-purple-950/40"></div>
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2.5 shrink-0">
+                                    <span class="w-6 h-6 rounded-md bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 text-[10px]"><i class="fa-solid fa-shield-halved"></i></span>
+                                    <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Role</span>
+                                </div>
+                                <span id="cardNewRole" class="text-xs font-bold text-fuchsia-400 text-right">—</span>
+                            </div>
+                            <div class="h-px bg-purple-950/40"></div>
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2.5 shrink-0">
+                                    <span class="w-6 h-6 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-[10px]"><i class="fa-solid fa-clock"></i></span>
+                                    <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Expired</span>
+                                </div>
+                                <span id="cardNewExpiry" class="text-xs font-bold text-amber-400 text-right">—</span>
+                            </div>
+                            <div class="h-px bg-purple-950/40"></div>
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-6 h-6 rounded-md bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-[10px]"><i class="fa-solid fa-key"></i></span>
+                                <span class="text-[10px] font-bold text-purple-400 uppercase tracking-widest">Key Login</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-black/70 border border-purple-950 rounded-xl px-4 py-3 shadow-inner">
+                                <div id="cardNewKey" class="font-mono text-xs font-black text-purple-300 tracking-widest whitespace-nowrap overflow-x-auto no-scrollbar select-all flex-1 min-w-0">—</div>
+                                <button onclick="copyNewAccountKey()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-[10px] font-bold uppercase tracking-wider transition-all duration-200 active:scale-90 cursor-pointer shrink-0 border border-purple-500/40">
+                                    <i id="copyNewIcon" class="fa-regular fa-copy text-xs"></i>
+                                    <span id="copyNewBtnText">Salin</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-fuchsia-950/20 border border-fuchsia-500/20 rounded-2xl p-4 flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center text-fuchsia-400 shrink-0 mt-0.5">
+                        <i class="fa-solid fa-circle-info text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-fuchsia-400">Monitoring Custom Key</p>
+                        <p class="text-[11px] text-purple-300/50 mt-1 leading-relaxed">Semua key yang dibuat di sini bisa dipantau dan dikelola dari tab <span class="text-fuchsia-400 font-bold">Dev Panel</span>, di bagian <span class="text-fuchsia-400 font-bold">Monitoring Custom Key</span>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dev_panelTabContent" class="hidden space-y-5">
+                <div id="devCustomKeyBlock" class="bg-gradient-to-br from-fuchsia-950/20 to-purple-950/20 p-5 rounded-2xl border border-fuchsia-500/30 space-y-4 shadow-md">
+                    <h3 class="text-xs font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield text-sm"></i> Custom Key Akun Khusus Dev
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1.5 ml-1">Custom Login Key</label>
+                            <input type="text" id="devCustomKeyInput" placeholder="CONTOH: AZZAM-VIP-DEV" class="w-full px-3 py-2.5 bg-black border border-purple-950 rounded-xl text-white font-mono font-bold tracking-wider uppercase text-xs focus:outline-none focus:border-fuchsia-500 transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1.5 ml-1">Nama Pemilik</label>
+                            <input type="text" id="devCustomLabelInput" placeholder="Nama Owner / Dev Baru" class="w-full px-3 py-2.5 bg-black border border-purple-950 rounded-xl text-white text-xs font-semibold focus:outline-none focus:border-fuchsia-500 transition-all">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1.5 ml-1">Role Akses Dev</label>
+                            <select id="devCustomRoleSelect" class="w-full px-3 py-2.5 bg-black border border-purple-950 rounded-xl text-white text-xs focus:outline-none focus:border-fuchsia-500 cursor-pointer transition-all">
+                                <option value="developer">👑 Full Developer</option>
+                                <option value="sub-developer">🚀 Sub-Developer</option>
+                                <option value="admin">🛠️ Admin</option>
+                                <option value="vip">💎 Reseller VIP</option>
+                                <option value="member">👤 Reseller</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-purple-400 uppercase tracking-wider mb-1.5 ml-1">Masa Aktif Akun</label>
+                            <select id="devCustomDurationSelect" class="w-full px-3 py-2.5 bg-black border border-purple-950 rounded-xl text-white text-xs focus:outline-none focus:border-fuchsia-500 cursor-pointer transition-all">
+                                <option value="permanent">♾️ Lifetime (Selamanya)</option>
+                                <option value="1">📅 1 Hari</option>
+                                <option value="7">📅 7 Hari</option>
+                                <option value="30">📅 30 Hari</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="createDevCustomKey()" class="w-full py-2.5 bg-gradient-to-r from-fuchsia-600 to-purple-700 hover:from-fuchsia-500 hover:to-purple-600 text-white rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Rilis Akun Dev Custom
+                    </button>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-950/20 to-black/40 p-5 rounded-2xl border border-purple-500/25 space-y-3 shadow-inner">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xs font-bold text-purple-300 uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-users-gear text-purple-400"></i> Monitoring Custom Key
+                            </h3>
+                            <p class="text-[10px] text-purple-300/40 mt-0.5">Semua key manual (reseller, VIP, admin, dev custom)</p>
+                        </div>
+                        <button id="clearCustomKeysBtn" onclick="triggerWipeModal('custom_keys')" style="display: none;" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-[10px] font-bold rounded-lg flex items-center gap-1 cursor-pointer transition-all duration-200 active:scale-95">
+                            <i class="fa-solid fa-skull-crossbones"></i> Drop Semua
+                        </button>
+                    </div>
+                    <div id="accountContainer" class="space-y-2.5 max-h-64 overflow-y-auto pr-1 no-scrollbar">
+                        <p class="text-center text-xs text-purple-900/50 py-6 italic">Belum ada kode custom dirilis.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-purple-950/20 via-neutral-950 to-purple-950/20 p-5 rounded-2xl border border-purple-500/30 space-y-4 shadow-inner">
+                    <h3 class="text-sm font-bold text-fuchsia-400 uppercase tracking-widest flex items-center gap-2">
+                        <i class="fa-solid fa-gears text-xs"></i> Developer Settings Suite
+                    </h3>
+                    <div class="flex justify-between items-center pt-2 border-t border-purple-950/40">
+                        <div>
+                            <span class="text-xs font-bold text-amber-400 block">System Maintenance</span>
+                            <p class="text-[11px] text-purple-300/50 mt-0.5">Blokir seluruh Reseller secara global.</p>
+                        </div>
+                        <label class="inline-flex items-center cursor-pointer select-none">
+                            <input type="checkbox" id="maintenanceToggle" onchange="toggleMaintenanceMode()" class="sr-only peer">
+                            <div class="w-11 h-6 bg-neutral-900 border border-purple-950 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-purple-400 after:border-purple-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-600 peer-checked:after:bg-white relative"></div>
+                        </label>
+                    </div>
+                    <div id="maintenanceStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+                        🟢 Mode Normal Terbuka
+                    </div>
+
+                    <div id="deviceControlBlock" class="bg-blue-950/10 p-4 rounded-xl border border-blue-500/20 space-y-3 shadow-inner">
+                        <h3 class="text-xs font-bold text-blue-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-mobile-screen text-xs"></i> Reset Device Lock Key
+                        </h3>
+                        <div class="flex gap-2">
+                            <input type="text" id="resetDeviceInput" placeholder="MASUKKAN KODE LOGIN RESELLER" class="flex-1 px-4 py-2.5 bg-black border border-blue-950 rounded-xl text-blue-400 focus:outline-none focus:border-blue-500 text-xs font-mono font-bold tracking-wider uppercase transition-all">
+                            <button onclick="resetKeyDeviceLock()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 rounded-xl font-bold text-[11px] uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Reset ID</button>
+                        </div>
+                    </div>
+
+                    <div id="banControlBlock" class="bg-rose-950/10 p-4 rounded-xl border border-rose-500/20 space-y-3 shadow-inner">
+                        <h3 class="text-xs font-bold text-rose-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-ban text-xs"></i> Banned Key
+                        </h3>
+                        <div class="flex gap-2">
+                            <input type="text" id="banKeyInput" placeholder="MASUKKAN KODE LOGIN" class="flex-1 px-4 py-2.5 bg-black border border-rose-950 rounded-xl text-rose-400 focus:outline-none focus:border-rose-500 text-xs font-mono font-bold tracking-wider uppercase transition-all">
+                            <button onclick="addKeyToBanList()" class="bg-rose-600 hover:bg-rose-500 text-white px-4 rounded-xl font-bold text-[11px] uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer">Ban</button>
+                        </div>
+                        <div id="banListContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1 no-scrollbar"></div>
+                    </div>
+
+                    <div class="pt-3 border-t border-purple-950/40 space-y-2">
+                        <label for="appLinkInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1">Ubah Link Download Aplikasi (App)</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="appLinkInput" placeholder="Masukkan URL APK File Baru" class="flex-1 px-4 py-2.5 bg-black border border-purple-950 rounded-xl text-xs text-purple-300 focus:outline-none focus:border-blue-500 font-mono transition-all">
+                            <button onclick="updateDownloadLink()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shrink-0">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="aboutTabContent" class="hidden space-y-5">
+                <div class="bg-black/40 border border-purple-950/40 rounded-2xl p-6 text-center relative overflow-hidden transition-all hover:border-purple-900/60 shadow-[inset_0_1px_10px_rgba(168,85,247,0.05)]">
+                    <h3 id="aboutTag" class="text-[10px] font-black text-purple-400 uppercase tracking-[0.25em] mb-5">System Architect</h3>
+                    <div class="w-28 h-28 rounded-full bg-black/80 mx-auto flex items-center justify-center border-2 border-purple-500/40 shadow-[0_0_30px_rgba(147,51,234,0.35)] mb-4 relative overflow-hidden group">
+                        <div id="avatarFallbackIcon" class="absolute inset-0 flex items-center justify-center bg-purple-950/40 text-purple-400 text-3xl">
+                            <i id="dynamicIcon" class="fa-solid fa-user-gear"></i>
+                        </div>
+                        <img id="aboutImg" src="foto.jpg" alt="" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110" onerror="this.style.opacity='0';">
+                    </div>
+                    <h2 id="aboutName" class="text-2xl font-black text-white tracking-wide flex items-center justify-center gap-2">Muh. Khaerul Azzam</h2>
+                    <p id="aboutSub" class="text-xs text-fuchsia-400 font-bold tracking-widest uppercase mt-1.5">Developer</p>
+                    <div id="aboutExpiryBox" class="mt-4 bg-purple-950/20 border border-purple-900/40 rounded-xl px-4 py-2.5 max-w-sm mx-auto text-xs font-semibold hidden animate-premium-fade">
+                        <span class="text-purple-400/80">⏳ Masa Aktif:</span>
+                        <span id="aboutExpiryValue" class="text-fuchsia-400 font-mono ml-1">Loading...</span>
+                    </div>
+                    <p id="aboutDesc" class="text-xs text-purple-300/60 mt-4 max-w-sm mx-auto leading-relaxed font-medium">Berdedikasi dalam merancang arsitektur sistem manajemen lisensi aman, enkripsi data, serta optimasi antarmuka digital Key Generator.</p>
+                    <div id="aboutSocial" class="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-purple-950/60 text-left">
+                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center transition-all hover:border-purple-500/30">
+                            <span class="text-[9px] font-bold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1.5"><i class="fa-brands fa-tiktok text-xs"></i> Tiktok</span>
+                            <span class="text-xs font-mono font-bold text-slate-200 select-all truncate">mhmmdkhrullazzam</span>
+                        </div>
+                        <div class="bg-black/30 p-3 rounded-xl border border-purple-950/40 flex flex-col justify-center transition-all hover:border-purple-500/30">
+                            <span class="text-[9px] font-bold text-purple-400 uppercase tracking-wider mb-1 flex items-center gap-1.5"><i class="fa-brands fa-instagram text-xs"></i> Instagram</span>
+                            <span class="text-xs font-mono font-bold text-slate-200 select-all truncate">mhmmdkhrulazzam</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-950/30 flex justify-center">
+                        <button onclick="triggerLogout()" class="px-4 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 text-xs font-bold rounded-xl flex items-center gap-2 cursor-pointer transition-all duration-200 active:scale-95">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out / Hapus Sesi
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap bg-black/50 p-1.5 rounded-2xl border border-purple-950/60 mt-8 gap-1 shadow-inner relative overflow-hidden justify-center">
+                <button onclick="switchTab('generator')" id="tabGen" class="flex-1 py-2.5 px-1 rounded-xl text-[11px] font-bold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 cursor-pointer transition-all duration-300 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)]">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> <span class="hidden md:inline">Build Panel</span><span class="md:hidden">Build</span>
+                </button>
+                <button onclick="switchTab('history')" id="tabHist" class="flex-1 py-2.5 px-1 rounded-xl text-[11px] font-semibold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20">
+                    <i class="fa-solid fa-clock-rotate-left"></i> <span class="hidden md:inline">Riwayat Key</span><span class="md:hidden">Riwayat</span>
+                </button>
+                <button onclick="switchTab('create_akun')" id="tabCreate" style="display: none;" class="flex-1 py-2.5 px-1 rounded-xl text-[11px] font-semibold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20">
+                    <i class="fa-solid fa-key"></i> <span class="hidden md:inline">Create Key</span><span class="md:hidden">Keys</span>
+                </button>
+                <button onclick="switchTab('dev_panel')" id="tabDev" style="display: none;" class="flex-1 py-2.5 px-1 rounded-xl text-[11px] font-semibold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20">
+                    <i class="fa-solid fa-gears"></i> <span class="hidden md:inline">Dev Panel</span><span class="md:hidden">Dev</span>
+                </button>
+                <button onclick="switchTab('about')" id="tabAbout" class="flex-1 py-2.5 px-1 rounded-xl text-[11px] font-semibold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 cursor-pointer transition-all duration-300 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20">
+                    <i class="fa-solid fa-user-gear"></i> About
+                </button>
+            </div>
         </div>
     </div>
 
+    <div id="customConfirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="max-w-md w-full glass-panel border border-rose-500/30 rounded-3xl p-6 text-center transform scale-95 transition-all duration-300 shadow-[0_0_50px_rgba(244,63,94,0.15)]">
+            <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500 text-2xl mx-auto shadow-[0_0_20px_rgba(244,63,94,0.2)]"><i id="modalIcon" class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3 id="modalTitle" class="text-xl font-black text-white tracking-tight mt-4">CRITICAL WARNING</h3>
+            <p id="modalDescription" class="text-purple-300/70 text-xs sm:text-sm mt-3 leading-relaxed font-medium"></p>
+            <div class="flex gap-3 mt-6 pt-2">
+                <button onclick="closeWipeModal()" class="flex-1 py-3 bg-neutral-900 hover:bg-neutral-950 border border-purple-950 rounded-xl text-xs font-bold text-purple-300 tracking-wider uppercase transition-all duration-200 active:scale-95 cursor-pointer">Batal</button>
+                <button id="modalConfirmBtn" class="flex-1 py-3 bg-gradient-to-r from-rose-600 to-red-700 hover:from-rose-500 hover:to-red-600 text-white border border-rose-500/40 text-xs font-bold rounded-xl tracking-wider uppercase transition-all duration-200 active:scale-95 shadow-md cursor-pointer">OKE, LANJUTKAN</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/10 backdrop-blur-xl" style="opacity: 0; pointer-events: none; transform: translate(-50%, -20px);">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-base"></i> <span id="toastText">Notifikasi</span>
+    </div>
+
     <script>
-        // 1. BLOKIR KLIK KANAN, COPY, CUT, & SELEKSI DATA
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('copy', e => e.preventDefault());
-        document.addEventListener('cut', e => e.preventDefault());
-        document.addEventListener('selectstart', e => e.preventDefault());
+        window.userRole = ""; 
+        window.activeUser = "";
+        window.loggedKey = ""; 
+        window.currentAccountExpiry = null;
+        window.myDeviceId = "";
+        let isListenersInitialized = false;
 
-        // 2. BLOKIR SHORTCUT KEYBOARD (DevTools, Save, Print, & Keys Screenshot)
-        document.addEventListener('keydown', (e) => {
-            if (
-                (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'i' || e.key === 'p')) ||
-                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-                e.key === 'F12' || 
-                e.key === 'PrintScreen'
-            ) {
-                e.preventDefault();
-                return false;
+        const baselineKeys = [
+            { key: "AZZAM-DEV", label: "mhmmdkhrulazzam", role: "developer", expiry: "permanent" },
+            { key: "MEMBER-2026", label: "Reseller", role: "member", expiry: "permanent" }
+        ];
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAM1ZNUdgDsxG0a4AE4_3voeIM9UTgXs5w",
+            authDomain: "cbt-key-suite.firebaseapp.com",
+            databaseURL: "https://cbt-key-suite-default-rtdb.asia-southeast1.firebasedatabase.app",
+            storageBucket: "cbt-key-suite.firebasestorage.app",
+            messagingSenderId: "646851767976",
+            appId: "1:646851767976:web:e65faf7f052caadcef5c9d"
+        };
+
+        let db = null;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+        } catch (error) {
+            console.warn("⚠️ Mode Offline Terpaksa Aktif.", error);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            window.myDeviceId = localStorage.getItem("suite_device_id");
+            if (!window.myDeviceId) {
+                window.myDeviceId = "HW-" + Math.floor(Math.random() * 0xFFFFFFFFF).toString(16).toUpperCase();
+                localStorage.setItem("suite_device_id", window.myDeviceId);
             }
+            handleDurationChange();
+            if (db) listenToSystemSettings();
+            setTimeout(checkAutoLogin, 200); 
         });
 
-        // 3. BLOKIR PINCH TO ZOOM (Mobile)
-        document.addEventListener('touchmove', function (e) {
-            if (e.scale !== undefined && e.scale !== 1) { 
-                e.preventDefault(); 
+        function toggleLoginKeyVisibility() {
+            const loginKeyField = document.getElementById("loginKey");
+            const eyeIcon = document.getElementById("eyeIcon");
+            if (loginKeyField.type === "password") {
+                loginKeyField.type = "text";
+                eyeIcon.className = "fa-solid fa-eye-slash text-sm text-fuchsia-400";
+            } else {
+                loginKeyField.type = "password";
+                eyeIcon.className = "fa-solid fa-eye text-sm text-purple-400/50";
             }
-        }, { passive: false });
+        }
 
-        // 4. BLOKIR SCROLL MOUSE + CTRL (Desktop Zoom)
-        document.addEventListener('wheel', function (e) {
-            if (e.ctrlKey) {
-                e.preventDefault();
+        function listenToSystemSettings() {
+            try {
+                db.ref("system_settings/maintenance_mode").on('value', (snapshot) => {
+                    const isMaint = snapshot.val() || false;
+                    const toggle = document.getElementById("maintenanceToggle");
+                    const badge = document.getElementById("maintenanceStatusBadge");
+                    if (isMaint) {
+                        if (toggle) toggle.checked = true;
+                        if (badge) {
+                            badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-amber-500/10 text-amber-400 border-amber-500/20 animate-pulse";
+                            badge.innerHTML = "⚠️ Mode Maintenance Active";
+                        }
+                        if (window.loggedKey && window.userRole !== "developer" && window.userRole !== "sub-developer") {
+                            document.getElementById("generatorCard").classList.add("hidden");
+                            showMaintenanceScreen();
+                        }
+                    } else {
+                        if (toggle) toggle.checked = false;
+                        if (badge) {
+                            badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-md inline-block tracking-wide uppercase border bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+                            badge.innerHTML = "🟢 Mode Normal Terbuka";
+                        }
+                        if (window.loggedKey) {
+                            document.getElementById("maintenanceCard").classList.add("hidden");
+                            showGenerator();
+                        }
+                    }
+                });
+
+                db.ref("system_settings/download_url").on('value', (snapshot) => {
+                    const url = snapshot.val() || "https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file";
+                    const appBtn = document.getElementById("appDownloadBtn");
+                    const appInput = document.getElementById("appLinkInput");
+                    if (appBtn) appBtn.href = url;
+                    if (appInput && document.activeElement !== appInput) appInput.value = url;
+                });
+            } catch(e) { console.error(e); }
+        }
+
+        async function checkAutoLogin() {
+            const savedKey = localStorage.getItem("vault_access_key");
+            if (savedKey) {
+                document.getElementById("loginKey").value = savedKey;
+                document.getElementById("autoSaveCheck").checked = true;
+                validateLogin(true);
             }
-        }, { passive: false });
+        }
 
-        // 5. TRICK ANTI-SCREENSHOT BACKGROUND (Otomatis blur total saat membuka panel notifikasi/pindah aplikasi)
-        window.addEventListener('blur', () => {
-            document.body.style.filter = 'blur(25px)';
-        });
-        window.addEventListener('focus', () => {
-            document.body.style.filter = 'none';
-        });
+        function fetchWithTimeout(refPath, timeoutMs = 8000) {
+            return new Promise((resolve, reject) => {
+                if (!db) return resolve(null);
+                let timer = setTimeout(() => { reject(new Error("Cloud Connection Timeout (RTO)")); }, timeoutMs);
+                db.ref(refPath).once('value').then((snapshot) => { clearTimeout(timer); resolve(snapshot); }).catch((err) => { clearTimeout(timer); reject(err); });
+            });
+        }
+
+        async function validateLogin(isAutoLogin = false) {
+            const loginBtn = document.getElementById("loginBtn");
+            const btnIcon = document.getElementById("loginBtnIcon");
+            const btnText = document.getElementById("loginBtnText");
+            const loginCard = document.getElementById("loginCard");
+            
+            try {
+                const inputKey = document.getElementById("loginKey").value.trim().toUpperCase();
+                if (inputKey === "") {
+                    showToast("⚠️ Mohon input Kode Aktivasi!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                    return;
+                }
+
+                if(loginBtn) loginBtn.disabled = true;
+                if(btnIcon) btnIcon.className = "fa-solid fa-spinner animate-spin text-xs";
+                if(btnText) btnText.innerText = "Memvalidasi Akses...";
+
+                let isBanned = false;
+                let keyFound = baselineKeys.find(k => k.key.toUpperCase() === inputKey);
+                let isMaintenance = false;
+
+                try {
+                    if (db) {
+                        const banSnap = await fetchWithTimeout(`banned_keys/${inputKey}`, 5000);
+                        isBanned = banSnap ? banSnap.exists() : false;
+                    }
+                    if (isBanned) {
+                        document.getElementById("bannedKeyDisplay").innerText = inputKey;
+                        loginCard.classList.add("hidden");
+                        showBannedScreen();
+                        localStorage.removeItem("vault_access_key");
+                        resetLoginButton();
+                        return;
+                    }
+                    if (!keyFound && db) {
+                        const cloudSnap = await fetchWithTimeout(`custom_keys/${inputKey}`, 8000);
+                        if (cloudSnap && cloudSnap.exists()) keyFound = cloudSnap.val();
+                    }
+                    if (db) {
+                        const maintSnap = await fetchWithTimeout("system_settings/maintenance_mode", 4000);
+                        isMaintenance = maintSnap ? (maintSnap.val() || false) : false;
+                    }
+                } catch (firebaseError) {
+                    showToast(`❌ Cloud Server: ${firebaseError.message}`, "bg-rose-950", "fa-solid fa-circle-exclamation text-rose-400");
+                    resetLoginButton();
+                    return;
+                }
+
+                if (keyFound) {
+                    if (keyFound.expiry !== "permanent" && Date.now() > keyFound.expiry) {
+                        showToast("❌ Masa Aktif Kunci Telah Habis!", "bg-rose-950", "fa-solid fa-user-clock text-rose-400");
+                        resetLoginButton();
+                        return;
+                    }
+                    if (keyFound.role !== "developer" && keyFound.role !== "sub-developer" && isMaintenance) {
+                        showMaintenanceScreen();
+                        showToast("⚠️ Sistem sedang maintenance.", "bg-amber-950", "fa-solid fa-screwdriver-wrench text-amber-400");
+                        resetLoginButton();
+                        return;
+                    }
+
+                    if (keyFound.role !== "developer" && keyFound.role !== "sub-developer" && keyFound.role !== "admin" && db) {
+                        try {
+                            const deviceSnap = await fetchWithTimeout(`device_locks/${inputKey}`, 5000);
+                            if (deviceSnap && deviceSnap.exists()) {
+                                if (deviceSnap.val() !== window.myDeviceId) {
+                                    showToast("❌ Akses Ditolak! Key terikat di HP/Perangkat lain.", "bg-rose-950", "fa-solid fa-mobile-screen-button text-rose-500");
+                                    resetLoginButton();
+                                    return;
+                                }
+                            } else {
+                                await db.ref(`device_locks/${inputKey}`).set(window.myDeviceId);
+                            }
+                        } catch (deviceError) {
+                            showToast("⚠️ Proteksi Hardware ID Gagal Diverifikasi.", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-500");
+                            resetLoginButton();
+                            return;
+                        }
+                    }
+
+                    window.userRole = keyFound.role;
+                    window.activeUser = keyFound.label;
+                    window.loggedKey = keyFound.key.toUpperCase(); 
+                    window.currentAccountExpiry = keyFound.expiry;
+                    
+                    if (document.getElementById("autoSaveCheck").checked) {
+                        localStorage.setItem("vault_access_key", inputKey);
+                    } else {
+                        localStorage.removeItem("vault_access_key");
+                    }
+                    
+                    loginCard.classList.remove("animate-premium-fade");
+                    loginCard.classList.add("animate-premium-fade-out");
+                    
+                    setTimeout(() => {
+                        loginCard.classList.add("hidden");
+                        loginCard.classList.remove("animate-premium-fade-out");
+                        applyRoleConfigurations(); 
+                        initGlobalFirebaseStreams();
+                        showGenerator();
+                        if (window.userRole === "developer" || window.userRole === "sub-developer") {
+                            const titleText = window.userRole === "developer" ? "Root Dev" : "Sub-Dev";
+                            showToast(`⚡ Otorisasi ${titleText} Sukses!`, "bg-purple-950", "fa-solid fa-shield-check text-purple-400");
+                        } else {
+                            showToast(`👤 Akses Berhasil!`, "bg-purple-950", "fa-solid fa-circle-check text-emerald-400");
+                        }
+                    }, 450);
+                } else {
+                    showToast("❌ Kode Aktivasi salah/tidak terdaftar!", "bg-rose-950", "fa-solid fa-circle-xmark text-rose-400");
+                }
+            } catch (fatalError) {
+                showToast("⚠️ Terjadi kesalahan sistem internal.", "bg-neutral-950", "fa-solid fa-bug text-rose-500");
+            } finally {
+                resetLoginButton();
+            }
+        }
+
+        function resetLoginButton() {
+            const loginBtn = document.getElementById("loginBtn");
+            const btnIcon = document.getElementById("loginBtnIcon");
+            const btnText = document.getElementById("loginBtnText");
+            if(loginBtn) loginBtn.disabled = false;
+            if(btnIcon) btnIcon.className = "fa-solid fa-unlock-keyhole text-xs";
+            if(btnText) btnText.innerText = "Masuk Ke Sistem";
+        }
+
+        function closeResultArea(elementId) {
+            const targetEl = document.getElementById(elementId);
+            if (!targetEl) return;
+            targetEl.classList.remove("tab-fade-in");
+            targetEl.classList.add("animate-premium-fade-out");
+            setTimeout(() => {
+                targetEl.classList.add("hidden");
+                targetEl.classList.remove("animate-premium-fade-out");
+                targetEl.classList.add("opacity-0");
+            }, 350);
+        }
+
+        function showBannedScreen() {
+            document.getElementById("loginCard").classList.add("hidden");
+            document.getElementById("maintenanceCard").classList.add("hidden");
+            document.getElementById("generatorCard").classList.add("hidden");
+            const bannedCard = document.getElementById("bannedCard");
+            bannedCard.classList.remove("hidden");
+        }
+
+        function backToLoginFromBanned() {
+            document.getElementById("bannedCard").classList.add("hidden");
+            const loginCard = document.getElementById("loginCard");
+            loginCard.classList.remove("hidden");
+            loginCard.classList.add("animate-premium-fade");
+        }
+
+        function backToLoginFromMaintenance() {
+            document.getElementById("maintenanceCard").classList.add("hidden");
+            const loginCard = document.getElementById("loginCard");
+            loginCard.classList.remove("hidden");
+            loginCard.classList.add("animate-premium-fade");
+            window.loggedKey = "";
+            window.userRole = "";
+            window.activeUser = "";
+            localStorage.removeItem("vault_access_key");
+        }
+
+        function generateKey() {
+            if (window.userRole === "member") {
+                const cooldownCheckpoint = localStorage.getItem("member_cooldown_time");
+                if (cooldownCheckpoint && parseInt(cooldownCheckpoint) > Date.now()) {
+                    showToast(`⏳ Cooldown! Batas 1 Key / Hari.`, "bg-neutral-950", "fa-solid fa-hourglass-half text-amber-400");
+                    return;
+                }
+            }
+
+            const hwidInput = document.getElementById("hwidInput").value.trim().toUpperCase();
+            const durationSelect = document.getElementById("durationSelect").value;
+            const resultArea = document.getElementById("resultArea");
+            const keyDisplay = document.getElementById("activationKeyDisplay");
+
+            if (hwidInput === "") {
+                showToast("⚠️ Masukkan HWID perangkat!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                return;
+            }
+
+            resultArea.classList.add("hidden");
+            resultArea.classList.remove("tab-fade-in", "animate-premium-fade-out");
+            resultArea.classList.add("opacity-0");
+
+            let timestampHex = "FFFFFFFF";
+            let cleanDurationText = "Lifetime";
+            let val = parseInt(document.getElementById("customInputValue").value);
+
+            if (durationSelect !== "permanent") {
+                if (isNaN(val) || val <= 0) {
+                    showToast("⚠️ Kuantitas waktu tidak valid!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                    return;
+                }
+                const targetDate = new Date();
+                if (durationSelect === "custom_days") {
+                    targetDate.setDate(targetDate.getDate() + val);
+                    timestampHex = Math.floor(targetDate.getTime() / 1000).toString(16).toUpperCase().padStart(8, '0');
+                    cleanDurationText = `${val} Hari`;
+                } else if (durationSelect === "custom_hours") {
+                    targetDate.setHours(targetDate.getHours() + val);
+                    timestampHex = Math.floor(targetDate.getTime() / 1000).toString(16).toUpperCase().padStart(8, '0');
+                    cleanDurationText = `${val} Jam`;
+                }
+            }
+
+            const secretKey = "resellerexammod2026";
+            const hash = CryptoJS.HmacSHA256(hwidInput + timestampHex, secretKey).toString(CryptoJS.enc.Hex).toUpperCase();
+            const fullKey = timestampHex + hash.substring(0, 12);
+            let formattedKey = "";
+            for (let i = 0; i < fullKey.length; i += 5) formattedKey += fullKey.substring(i, i + 5) + "-";
+            formattedKey = formattedKey.slice(0, -1);
+
+            keyDisplay.innerText = formattedKey;
+            document.getElementById("cardHwid").innerText = hwidInput;
+
+            let expiredLabel = "♾️ Lifetime (Permanen)";
+            if (durationSelect === "custom_days") {
+                const expDate = new Date(); expDate.setDate(expDate.getDate() + val);
+                expiredLabel = `📅 ${val} Hari  (s/d ${expDate.toLocaleDateString('id-ID', {day:'2-digit', month:'short', year:'numeric'})})`;
+            } else if (durationSelect === "custom_hours") {
+                const expDate = new Date(); expDate.setHours(expDate.getHours() + val);
+                expiredLabel = `⏱️ ${val} Jam  (s/d ${expDate.toLocaleString('id-ID', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'})})`;
+            }
+            document.getElementById("cardExpired").innerText = expiredLabel;
+
+            resultArea.classList.remove("hidden");
+            setTimeout(() => { 
+                resultArea.classList.add("tab-fade-in"); 
+                resultArea.classList.remove("opacity-0"); 
+            }, 50);
+
+            if (db) {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' | ' + now.toLocaleDateString('id-ID');
+                db.ref("exam_key_history").push({ hwid: hwidInput, key: formattedKey, duration: cleanDurationText, time: timeString }).catch(()=>{});
+            }
+            if (window.userRole === "member") localStorage.setItem("member_cooldown_time", Date.now() + 24 * 60 * 60 * 1000);
+        }
+
+        async function createNewAccessKey() {
+            try {
+                if (window.userRole !== "developer" && window.userRole !== "sub-developer" && window.userRole !== "admin") return;
+                const labelIn = document.getElementById("newKeyLabel").value.trim();
+                const roleIn = document.getElementById("newRole").value;
+                const durationIn = document.getElementById("newAccountDuration").value;
+                const card = document.getElementById("newAccountResultCard");
+
+                if (labelIn === "") {
+                    showToast("⚠️ Nama pemilik tidak boleh kosong!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                    return;
+                }
+                if (!db) {
+                    showToast("❌ Firebase Offline!", "bg-rose-950", "fa-solid fa-circle-xmark text-rose-400");
+                    return;
+                }
+
+                card.classList.add("hidden");
+                card.classList.remove("tab-fade-in", "animate-premium-fade-out");
+                card.classList.add("opacity-0");
+                
+                const randHex = Math.floor(Math.random() * 0xFFFFFFFFF).toString(16).toUpperCase().padStart(9, '0');
+                let prefix = "MBR";
+                if(roleIn === "admin") prefix = "ADM";
+                else if(roleIn === "sub-developer") prefix = "SDEV";
+                else if(roleIn === "vip") prefix = "VIP";
+
+                const generatedAccessKey = `AZZAM-${prefix}-${randHex}`;
+                const expiryVal = durationIn !== "permanent" ? (Date.now() + parseInt(durationIn) * 24 * 60 * 60 * 1000) : "permanent";
+
+                const now = new Date();
+                const createTimeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' | ' + now.toLocaleDateString('id-ID');
+                const creatorName = window.activeUser || "Unknown Dev";
+
+                await db.ref(`custom_keys/${generatedAccessKey}`).set({
+                    key: generatedAccessKey, 
+                    label: labelIn, 
+                    role: roleIn, 
+                    expiry: expiryVal,
+                    createdBy: creatorName,
+                    createdAt: createTimeString
+                });
+
+                const roleMap = { developer: "👑 Full Developer", "sub-developer": "🚀 Sub-Developer", admin: "🛠️ Admin", vip: "💎 Reseller VIP", member: "👤 Reseller" };
+                let expiryLabel = "♾️ Lifetime (Selamanya)";
+                if (durationIn !== "permanent") {
+                    const expDate = new Date(expiryVal);
+                    expiryLabel = `📅 ${durationIn} Hari (s/d ${expDate.toLocaleDateString('id-ID', {day:'2-digit', month:'short', year:'numeric'})})`;
+                }
+
+                document.getElementById("cardNewLabel").innerText = labelIn;
+                document.getElementById("cardNewRole").innerText = roleMap[roleIn] || "👤 Reseller";
+                document.getElementById("cardNewExpiry").innerText = expiryLabel;
+                document.getElementById("cardNewKey").innerText = generatedAccessKey;
+
+                card.classList.remove("hidden");
+                setTimeout(() => { card.classList.add("tab-fade-in"); card.classList.remove("opacity-0"); }, 50);
+
+                document.getElementById("newKeyLabel").value = "";
+                showToast(`🎉 Key Baru Berhasil Dirilis!`, "bg-purple-950", "fa-solid fa-key text-fuchsia-400");
+            } catch (error) {
+                showToast("⚠️ Gagal push key baru ke server.", "bg-rose-950", "fa-solid fa-bug text-rose-400");
+            }
+        }
+
+        async function createDevCustomKey() {
+            try {
+                if (window.userRole !== "developer" && window.userRole !== "sub-developer") return;
+                const customKey = document.getElementById("devCustomKeyInput").value.trim().toUpperCase();
+                const labelIn = document.getElementById("devCustomLabelInput").value.trim();
+                const roleIn = document.getElementById("devCustomRoleSelect").value;
+                const durationIn = document.getElementById("devCustomDurationSelect").value;
+
+                if (customKey === "" || labelIn === "") {
+                    showToast("⚠️ Kode Key & Nama tidak boleh kosong!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                    return;
+                }
+                if (!db) {
+                    showToast("❌ Firebase Offline!", "bg-rose-950", "fa-solid fa-circle-xmark text-rose-400");
+                    return;
+                }
+
+                const isConflict = baselineKeys.some(k => k.key.toUpperCase() === customKey);
+                if (isConflict) {
+                    showToast("❌ Key ini dilindungi internal sistem!", "bg-rose-950", "fa-solid fa-ban text-rose-500");
+                    return;
+                }
+
+                const expiryVal = durationIn !== "permanent" ? (Date.now() + parseInt(durationIn) * 24 * 60 * 60 * 1000) : "permanent";
+                const now = new Date();
+                const createTimeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' | ' + now.toLocaleDateString('id-ID');
+                const creatorName = window.activeUser || "Root System";
+
+                await db.ref(`custom_keys/${customKey}`).set({ 
+                    key: customKey, 
+                    label: labelIn, 
+                    role: roleIn, 
+                    expiry: expiryVal,
+                    createdBy: creatorName,
+                    createdAt: createTimeString
+                });
+
+                document.getElementById("devCustomKeyInput").value = "";
+                document.getElementById("devCustomLabelInput").value = "";
+                showToast(`🚀 Akun Custom Sukses Dirilis!`, "bg-purple-950", "fa-solid fa-shield-halved text-fuchsia-400");
+            } catch (error) {
+                showToast("⚠️ Gagal mengunggah kode custom dev.", "bg-rose-950", "fa-solid fa-bug text-rose-400");
+            }
+        }
+
+        async function removeAccount(keyToDel) {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer") {
+                showToast("❌ Anda tidak diizinkan menghapus akun!", "bg-rose-950", "fa-solid fa-ban text-rose-500");
+                return;
+            }
+            if (db) {
+                await db.ref(`custom_keys/${keyToDel}`).remove().catch(()=>{});
+                await db.ref(`device_locks/${keyToDel}`).remove().catch(()=>{});
+            }
+            showToast(`🗑️ Akses Key Dihapus!`, "bg-neutral-950", "fa-solid fa-trash-can text-rose-400");
+        }
+
+        async function resetKeyDeviceLock() {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer" && window.userRole !== "admin") return;
+            const keyToReset = document.getElementById("resetDeviceInput").value.trim().toUpperCase();
+            if (keyToReset === "") return;
+            if (db) {
+                await db.ref(`device_locks/${keyToReset}`).remove().catch(()=>{});
+                document.getElementById("resetDeviceInput").value = "";
+                showToast(`🔓 Device Lock Berhasil Direset!`, "bg-blue-950", "fa-solid fa-mobile-screen text-emerald-400");
+            }
+        }
+
+        async function addKeyToBanList() {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer") return;
+            const keyToBan = document.getElementById("banKeyInput").value.trim().toUpperCase();
+            if (keyToBan === "" || keyToBan === "AZZAM-DEV") return;
+            if (db) await db.ref(`banned_keys/${keyToBan}`).set(true).catch(()=>{});
+            document.getElementById("banKeyInput").value = "";
+            showToast(`🚫 Key Masuk Blacklist!`, "bg-rose-950", "fa-solid fa-user-slash text-rose-400");
+        }
+
+        async function removeKeyFromBanList(keyToUnban) {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer") return;
+            if (db) await db.ref(`banned_keys/${keyToUnban}`).remove().catch(()=>{});
+            showToast(`🔓 Key Di-unban Sukses!`, "bg-neutral-950", "fa-solid fa-user-check text-emerald-400");
+        }
+
+        async function toggleMaintenanceMode() {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer") return;
+            const currentChecked = document.getElementById("maintenanceToggle").checked;
+            if (db) await db.ref("system_settings/maintenance_mode").set(currentChecked).catch(()=>{});
+            showToast(currentChecked ? "⚠️ Server Maintenance Active!" : "🟢 Server Normal!", "bg-neutral-900", "fa-solid fa-gears");
+        }
+
+        async function updateDownloadLink() {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer") return;
+            const newUrl = document.getElementById("appLinkInput").value.trim();
+            if (newUrl === "") {
+                showToast("⚠️ URL Link tidak boleh kosong!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                return;
+            }
+            if (db) {
+                await db.ref("system_settings/download_url").set(newUrl).catch(()=>{});
+                showToast("🚀 Link Download App Sukses Diperbarui!", "bg-purple-950", "fa-solid fa-circle-check text-fuchsia-400");
+            }
+        }
+
+        function initGlobalFirebaseStreams() {
+            if (!db || isListenersInitialized) return;
+            isListenersInitialized = true;
+
+            db.ref("exam_key_history").on('value', (snapshot) => {
+                const container = document.getElementById("historyContainer");
+                if(!container) return;
+                if(!snapshot.exists()){
+                    container.innerHTML = `<p class="text-center text-xs text-purple-900/60 py-10 italic">Belum ada riwayat pembuatan key.</p>`;
+                    return;
+                }
+                let htmlData = "";
+                snapshot.forEach((childSnapshot) => {
+                    const item = childSnapshot.val();
+                    htmlData = `
+                        <div class="bg-black/40 border border-purple-950/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition-all duration-300 hover:border-purple-500/20">
+                            <div class="min-w-0 flex-1">
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mb-1">
+                                    <span class="font-mono text-[11px] font-bold text-purple-400">${item.hwid}</span>
+                                    <span class="text-[10px] text-purple-300/40">${item.time}</span>
+                                </div>
+                                <div class="font-mono text-xs font-bold text-slate-300 break-all select-all">${item.key}</div>
+                            </div>
+                            <div class="text-[9px] bg-purple-950/30 border border-purple-500/20 text-purple-300 px-2 py-1 rounded-md font-bold self-start sm:self-center">${item.duration}</div>
+                        </div>
+                    ` + htmlData;
+                });
+                container.innerHTML = htmlData;
+            });
+
+            db.ref("custom_keys").on('value', (snapshot) => {
+                const container = document.getElementById("accountContainer");
+                if(!container) return;
+                if(!snapshot.exists()){
+                    container.innerHTML = `<p class="text-center text-xs text-purple-900/50 py-6 italic">Belum ada kode custom dirilis.</p>`;
+                    const clearBtn = document.getElementById("clearCustomKeysBtn");
+                    if (clearBtn) clearBtn.style.display = "none";
+                    return;
+                }
+                const clearBtn = document.getElementById("clearCustomKeysBtn");
+                if (clearBtn && (window.userRole === "developer" || window.userRole === "sub-developer")) clearBtn.style.display = "flex";
+
+                let htmlData = "";
+                snapshot.forEach((child) => {
+                    const acc = child.val();
+                    let statusLabel = acc.expiry === "permanent" 
+                        ? `<span class="text-[9px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20 font-bold uppercase">Lifetime</span>` 
+                        : (acc.expiry - Date.now() <= 0 
+                            ? `<span class="text-[9px] bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded border border-rose-500/20 font-bold uppercase">Expired</span>` 
+                            : `<span class="text-[9px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold uppercase">${Math.ceil((acc.expiry - Date.now())/(1000*60*60*24))} Hari</span>`);
+                    
+                    let readableRole = "👤 Reseller";
+                    let roleColor = "border-purple-950 text-purple-400/60";
+                    if(acc.role === "admin") { readableRole = "🛠️ Admin"; roleColor = "border-blue-950 text-blue-400"; }
+                    else if(acc.role === "sub-developer") { readableRole = "🚀 Sub-Dev"; roleColor = "border-amber-500/30 text-amber-400"; }
+                    else if(acc.role === "developer") { readableRole = "👑 Dev Custom"; roleColor = "border-fuchsia-500/30 text-fuchsia-400"; }
+                    else if(acc.role === "vip") { readableRole = "💎 VIP"; roleColor = "border-fuchsia-950 text-fuchsia-400"; }
+
+                    let deleteBtnHtml = "";
+                    if (window.userRole === "developer" || window.userRole === "sub-developer") {
+                        deleteBtnHtml = `<button onclick="removeAccount('${acc.key}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 text-rose-400 flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>`;
+                    }
+
+                    // Logika penayangan informasi pembuat & jam rilis
+                    let creatorInfoHtml = "";
+                    if (acc.createdBy && acc.createdAt) {
+                        creatorInfoHtml = `<div class="text-[10px] text-fuchsia-300/40 mt-1 flex items-center gap-1"><i class="fa-solid fa-code-branch text-[9px]"></i> Dev: <span class="text-purple-300/60 font-medium">${acc.createdBy}</span> (${acc.createdAt})</div>`;
+                    }
+
+                    htmlData += `
+                        <div class="bg-black/50 border border-purple-950/60 rounded-xl p-3.5 flex flex-col gap-2 transition-all duration-300 hover:border-purple-500/20">
+                            <div class="flex items-center justify-between gap-3 w-full">
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="font-bold text-sm text-white">${acc.label}</span>
+                                        <span class="text-[10px] font-bold px-1.5 py-0.5 bg-black rounded-md border ${roleColor}">${readableRole}</span>
+                                    </div>
+                                    <div class="text-xs text-purple-300/50 font-mono truncate">Key: <span class="text-fuchsia-400 font-bold select-all">${acc.key}</span></div>
+                                </div>
+                                <div class="flex items-center gap-3 shrink-0">${statusLabel}${deleteBtnHtml}</div>
+                            </div>
+                            ${creatorInfoHtml}
+                        </div>
+                    `;
+                });
+                container.innerHTML = htmlData;
+            });
+
+            db.ref("banned_keys").on('value', (snapshot) => {
+                const container = document.getElementById("banListContainer");
+                if(!container) return;
+                if(!snapshot.exists()){
+                    container.innerHTML = `<p class="text-center text-[11px] text-rose-400/40 py-2 italic">Daftar blacklist kosong.</p>`;
+                    return;
+                }
+                let htmlData = "";
+                snapshot.forEach((child) => {
+                    const bKey = child.key;
+                    htmlData += `
+                        <div class="bg-rose-950/20 border border-rose-950/60 rounded-xl p-2.5 flex items-center justify-between gap-3">
+                            <span class="font-mono text-xs font-bold text-rose-400 select-all">${bKey}</span>
+                            <button onclick="removeKeyFromBanList('${bKey}')" class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-bold rounded-lg cursor-pointer transition-all duration-200 active:scale-95">Unban</button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = htmlData;
+            });
+        }
+
+        async function executeWipeKeyHistory() {
+            if (db) await db.ref("exam_key_history").remove().catch(()=>{});
+            closeWipeModal();
+            showToast("💥 Riwayat di-wipe total!", "bg-rose-950", "fa-solid fa-circle-check text-rose-400");
+        }
+
+        async function executeWipeCustomAccessKeys() {
+            if (db) {
+                await db.ref("custom_keys").remove().catch(()=>{});
+                await db.ref("device_locks").remove().catch(()=>{});
+            }
+            closeWipeModal();
+            showToast("💀 Database dihapus!", "bg-rose-950", "fa-solid fa-skull-crossbones text-rose-500");
+        }
+
+        function showMaintenanceScreen() {
+            document.getElementById("loginCard").classList.add("hidden");
+            document.getElementById("generatorCard").classList.add("hidden");
+            document.getElementById("bannedCard").classList.add("hidden");
+            document.getElementById("maintenanceCard").classList.remove("hidden");
+        }
+
+        function triggerLogout() {
+            localStorage.removeItem("vault_access_key");
+            document.getElementById("loginKey").value = "";
+            document.getElementById("autoSaveCheck").checked = false;
+            document.getElementById("generatorCard").classList.add("hidden");
+            document.getElementById("loginCard").classList.remove("hidden");
+            window.userRole = ""; window.loggedKey = ""; window.activeUser = "";
+        }
+
+        function switchTab(target) {
+            const tabs = ["tabGen", "tabHist", "tabCreate", "tabDev", "tabAbout"];
+            const contents = ["generatorTabContent", "historyTabContent", "create_akunTabContent", "dev_panelTabContent", "aboutTabContent"];
+            const inactiveClass = "flex-1 py-2.5 px-1 rounded-xl text-[11px] font-semibold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 text-purple-400/60 hover:text-purple-300 hover:bg-purple-950/20 cursor-pointer transition-all duration-200 active:scale-95";
+            const activeClass = "flex-1 py-2.5 px-1 rounded-xl text-[11px] font-bold flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)] cursor-pointer transition-all duration-200";
+
+            tabs.forEach(t => { const el = document.getElementById(t); if(el) el.className = inactiveClass; });
+            contents.forEach(c => { const el = document.getElementById(c); if(el) { el.classList.add("hidden"); el.classList.remove("tab-fade-in"); } });
+
+            const targetContent = document.getElementById(target + "TabContent");
+            if (!targetContent) return;
+            targetContent.classList.remove("hidden");
+            targetContent.classList.add("tab-fade-in");
+
+            if (target === "generator") {
+                document.getElementById("tabGen").className = activeClass;
+            } else if (target === "history") {
+                document.getElementById("tabHist").className = activeClass;
+                document.getElementById("clearHistoryBtn").style.display = (window.userRole === "developer" || window.userRole === "sub-developer") ? "flex" : "none";
+            } else if (target === "create_akun") {
+                document.getElementById("tabCreate").className = activeClass;
+            } else if (target === "dev_panel") {
+                document.getElementById("tabDev").className = activeClass;
+                const clearBtn = document.getElementById("clearCustomKeysBtn");
+                if (clearBtn) clearBtn.style.display = (window.userRole === "developer" || window.userRole === "sub-developer") ? "flex" : "none";
+            } else if (target === "about") {
+                document.getElementById("tabAbout").className = activeClass;
+            }
+        }
+
+        function applyRoleConfigurations() {
+            const tabCreate = document.getElementById("tabCreate");
+            const tabDev = document.getElementById("tabDev");
+            const roleBadge = document.getElementById("roleBadge");
+            const expBox = document.getElementById("aboutExpiryBox");
+
+            if(tabCreate) tabCreate.style.display = (window.userRole === "developer" || window.userRole === "sub-developer" || window.userRole === "admin") ? "flex" : "none";
+            if(tabDev) tabDev.style.display = (window.userRole === "developer" || window.userRole === "sub-developer") ? "flex" : "none";
+            
+            if(window.currentAccountExpiry !== "permanent") {
+                if(expBox) expBox.classList.remove("hidden");
+                const expVal = document.getElementById("aboutExpiryValue");
+                if(expVal) expVal.innerText = new Date(window.currentAccountExpiry).toLocaleDateString('id-ID');
+            } else {
+                if(expBox) expBox.classList.add("hidden");
+            }
+            if(roleBadge) roleBadge.innerHTML = `💎 Role: ${window.userRole.toUpperCase()} | ${window.activeUser}`;
+        }
+
+        function showGenerator() {
+            document.getElementById("generatorCard").classList.remove("hidden");
+            switchTab("generator");
+        }
+
+        function showToast(msg, bgClass = "bg-neutral-950", iconClass = "fa-solid fa-circle-check") {
+            const t = document.getElementById("toast");
+            document.getElementById("toastText").innerText = msg;
+            t.className = `fixed top-6 left-1/2 text-white px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3.5 text-sm font-semibold z-50 w-[92%] max-w-sm justify-center sm:w-auto transition-all duration-300 border border-purple-500/20 backdrop-blur-xl ${bgClass}`;
+            document.getElementById("toastIcon").className = `${iconClass} text-base`;
+            t.style.opacity = "1"; t.style.transform = "translate(-50%, 0px)";
+            setTimeout(() => { t.style.opacity = "0"; t.style.transform = "translate(-50%, -20px)"; }, 2500);
+        }
+
+        function handleDurationChange() {
+            const v = document.getElementById("durationSelect").value;
+            const w = document.getElementById("customInputWrapper");
+            if(w) w.style.display = (v === "permanent") ? "none" : "block";
+            if(v !== "permanent") {
+                const lbl = document.getElementById("customInputLabel");
+                if(lbl) lbl.innerText = (v === "custom_days") ? "Jumlah Hari" : "Jumlah Jam";
+            }
+        }
+
+        function triggerWipeModal(target) {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer") return;
+            const m = document.getElementById("customConfirmModal");
+            document.getElementById("modalDescription").innerText = target === 'history' ? "Hapus semua riwayat cloud?" : "Hancurkan seluruh database hak akses reseller?";
+            document.getElementById("modalConfirmBtn").onclick = target === 'history' ? executeWipeKeyHistory : executeWipeCustomAccessKeys;
+            m.classList.replace("opacity-0", "opacity-100"); m.classList.remove("pointer-events-none");
+        }
+
+        function closeWipeModal() {
+            const m = document.getElementById("customConfirmModal");
+            m.classList.replace("opacity-100", "opacity-0"); m.classList.add("pointer-events-none");
+        }
+
+        function copyToClipboard() {
+            const txt = document.getElementById("activationKeyDisplay").innerText;
+            if(txt.includes("XXXXX")) return;
+            navigator.clipboard.writeText(txt);
+            showToast("✅ Key Berhasil Disalin!", "bg-purple-950", "fa-solid fa-check text-fuchsia-400");
+            const copyBtn = document.getElementById("copyBtnText");
+            const copyIcon = document.getElementById("copyIcon");
+            if(copyBtn) copyBtn.innerText = "Tersalin!";
+            if(copyIcon) copyIcon.className = "fa-solid fa-check text-xs";
+            setTimeout(() => {
+                if(copyBtn) copyBtn.innerText = "Salin";
+                if(copyIcon) copyIcon.className = "fa-regular fa-copy text-xs";
+            }, 2000);
+        }
+
+        function copyNewAccountKey() {
+            const txt = document.getElementById("cardNewKey").innerText;
+            if(!txt || txt === "—") return;
+            navigator.clipboard.writeText(txt);
+            showToast("✅ Key Login Berhasil Disalin!", "bg-purple-950", "fa-solid fa-check text-fuchsia-400");
+            const copyBtn = document.getElementById("copyNewBtnText");
+            const copyIcon = document.getElementById("copyNewIcon");
+            if(copyBtn) copyBtn.innerText = "Tersalin!";
+            if(copyIcon) copyIcon.className = "fa-solid fa-check text-xs";
+            setTimeout(() => {
+                if(copyBtn) copyBtn.innerText = "Salin";
+                if(copyIcon) copyIcon.className = "fa-regular fa-copy text-xs";
+            }, 2000);
+        }
     </script>
 </body>
 </html>
