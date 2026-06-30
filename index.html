@@ -2,76 +2,168 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Muh. Khaerul Azzam | Cyber Profile & Core Mod System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>Cyber Profile | M. Khaerul Azzam</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root {
-            --bg-darker: #050508;
-            --bg-card: #0d0e15;
-            --neon-cyan: #00f0ff;
-            --neon-purple: #bd00ff;
-            --text-main: #f1f5f9;
-            --status-green: #00ff66;
-            --glass-border: rgba(0, 240, 255, 0.15);
+        /* Sistem Anti-Salin Global (Memblokir seleksi teks & menu tekan lama di iOS/Android) */
+        * { 
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; -webkit-user-select: none; user-select: none; }
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: #020617; 
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 70%);
+            background-attachment: fixed;
+            touch-action: none; /* Memblokir gesture zoom bawaan browser */
+            transition: filter 0.2s ease; /* Efek transisi halus saat layar nge-blur */
+        }
 
-        body { background-color: var(--bg-darker); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden; }
+        .cyber-card { 
+            background: rgba(10, 10, 15, 0.8); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(0, 240, 255, 0.2); 
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 240, 255, 0.1);
+        }
 
-        .cyber-wrapper { width: 100%; max-width: 460px; background: var(--bg-card); border: 2px solid var(--neon-cyan); border-radius: 16px; padding-bottom: 20px; }
+        .neon-text { text-shadow: 0 0 10px rgba(0, 240, 255, 0.6); }
+        
+        .status-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
+        }
 
-        .cyber-header { padding: 30px 20px; text-align: center; border-bottom: 1px dashed var(--glass-border); }
+        .mod-item-list:hover {
+            background: rgba(0, 240, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.3);
+            transform: translateX(4px);
+        }
 
-        .profile-pic { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--neon-cyan); margin-bottom: 15px; }
-
-        .coder-name { font-size: 20px; text-transform: uppercase; margin-bottom: 5px; }
-
-        .menu-title { font-size: 10px; color: var(--neon-purple); letter-spacing: 3px; padding: 20px; font-weight: bold; }
-
-        .mod-container { padding: 0 20px; display: flex; flex-direction: column; gap: 8px; }
-
-        .mod-card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
-
-        .mod-label { font-size: 12px; font-weight: bold; }
-
-        .status-badge { font-size: 9px; font-weight: bold; color: var(--status-green); background: rgba(0, 255, 102, 0.1); padding: 3px 6px; border-radius: 4px; border: 1px solid rgba(0, 255, 102, 0.3); }
-
-        .networks-container { padding: 20px 20px 0 20px; display: flex; flex-direction: column; gap: 10px; }
-        .net-button { display: block; text-align: center; padding: 12px; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); text-decoration: none; font-size: 11px; border-radius: 6px; text-transform: uppercase; }
+        /* Anti-Screenshot via cetak dokumen (Sembunyikan konten jika diprint ke PDF) */
+        @media print {
+            body { display: none !important; }
+        }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <div class="cyber-wrapper">
-        <div class="cyber-header">
-            <img src="foto.jpg" alt="Azzam" class="profile-pic" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=250'">
-            <h1 class="coder-name">M. Khaerul Azzam</h1>
-            <div style="font-size: 10px; color: var(--neon-cyan);">PATCHER // SYSTEM MOD</div>
+    <div class="cyber-card max-w-sm w-full rounded-[2rem] p-6 relative overflow-hidden transition-all duration-500">
+        
+        <div class="text-center">
+            <div class="relative inline-block group">
+                <div class="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                <img src="foto.jpg" alt="Azzam" class="w-24 h-24 rounded-full border-2 border-cyan-400 relative shadow-2xl object-cover aspect-square" onerror="this.src='https://ui-avatars.com/api/?name=MK&background=00f0ff&color=000'">
+            </div>
+            <h1 class="text-xl font-black text-white mt-4 uppercase tracking-tight">Azzam</h1>
+            <div class="text-[10px] text-cyan-400 font-bold tracking-[0.3em] mt-1 uppercase neon-text">Patcher // System Mod</div>
         </div>
 
-        <div class="menu-title">ACTIVE_PATCH_MODULES</div>
-        <div class="mod-container">
-            <div class="mod-card"><span class="mod-label">✅ SCREENSHOT BYPASS</span><span class="status-badge">ACTIVE</span></div>
-            <div class="mod-card"><span class="mod-label">✅ FLOATING APP SYSTEM</span><span class="status-badge">ACTIVE</span></div>
-            <div class="mod-card"><span class="mod-label">✅ UNPIN & PIN APP CONTROL</span><span class="status-badge">ACTIVE</span></div>
-            <div class="mod-card"><span class="mod-label">✅ AUTO SAVE GOOGLE</span><span class="status-badge">ACTIVE</span></div>
-            <div class="mod-card"><span class="mod-label">✅ SALIN TEKS SYSTEM</span><span class="status-badge">ACTIVE</span></div>
-            <div class="mod-card"><span class="mod-label">✅ STEALTH EXIT (NO LOG)</span><span class="status-badge">ACTIVE</span></div>
-            <div class="mod-card"><span class="mod-label">✅ REMOVE PINALTY FEATURE</span><span class="status-badge">ACTIVE</span></div>
+        <div class="mt-6">
+            <div class="text-[9px] text-purple-400 font-bold tracking-[0.3em] uppercase mb-3 opacity-70">Active_Patch_Modules</div>
+            <div class="space-y-2 max-h-[290px] overflow-y-auto pr-1 custom-scrollbar">
+                
+                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
+                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-shield-halved w-5 text-cyan-400"></i>SCREENSHOT BYPASS</span>
+                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                </div>
+                
+                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
+                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-layer-group w-5 text-cyan-400"></i>FLOATING APP SYSTEM</span>
+                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                </div>
+                
+                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
+                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-thumbtack w-5 text-cyan-400"></i>UNPIN & PIN APP CONTROL</span>
+                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                </div>
+                
+                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
+                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-brands fa-google w-5 text-cyan-400"></i>AUTO SAVE GOOGLE</span>
+                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                </div>
+
+                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
+                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-copy w-5 text-cyan-400"></i>SALIN TEKS SYSTEM</span>
+                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                </div>
+
+                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
+                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-ghost w-5 text-cyan-400"></i>STEALTH EXIT (NO LOG)</span>
+                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                </div>
+
+                <div class="mod-item-list p-3 rounded-xl border border-white/5 bg-white/[0.02] flex justify-between items-center transition-all duration-300">
+                    <span class="text-[11px] font-semibold text-slate-200 flex items-center"><i class="fa-solid fa-ban w-5 text-cyan-400"></i>REMOVE PINALTY FEATURE</span>
+                    <span class="status-pulse text-[8px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold">ACTIVE</span>
+                </div>
+
+            </div>
         </div>
 
-        <div class="networks-container">
-            <a href="https://instagram.com/mhmmdkhrulazzam" class="net-button">INSTAGRAM // @mhmmdkhrulazzam</a>
-            <a href="https://tiktok.com/@mhmmdkhrullazzam" class="net-button">TIKTOK // @mhmmdkhrullazzam</a>
+        <div class="grid grid-cols-2 gap-3 mt-6">
+            <a href="https://instagram.com/mhmmdkhrulazzam" class="bg-black/40 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 py-2.5 rounded-xl text-center transition-all duration-300">
+                <i class="fa-brands fa-instagram text-cyan-400 mb-0.5 block text-sm"></i>
+                <div class="text-[9px] text-cyan-200 uppercase font-bold tracking-wider">Instagram</div>
+            </a>
+            <a href="https://tiktok.com/@mhmmdkhrullazzam" class="bg-black/40 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/10 py-2.5 rounded-xl text-center transition-all duration-300">
+                <i class="fa-brands fa-tiktok text-purple-400 mb-0.5 block text-sm"></i>
+                <div class="text-[9px] text-purple-200 uppercase font-bold tracking-wider">Tiktok</div>
+            </a>
         </div>
     </div>
 
     <script>
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'i')) {
+        // 1. BLOKIR KLIK KANAN, COPY, CUT, & SELEKSI DATA
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('copy', e => e.preventDefault());
+        document.addEventListener('cut', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+
+        // 2. BLOKIR SHORTCUT KEYBOARD (DevTools, Save, Print, & Keys Screenshot)
+        document.addEventListener('keydown', (e) => {
+            if (
+                (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's' || e.key === 'i' || e.key === 'p')) ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                e.key === 'F12' || 
+                e.key === 'PrintScreen'
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // 3. BLOKIR PINCH TO ZOOM (Mobile)
+        document.addEventListener('touchmove', function (e) {
+            if (e.scale !== undefined && e.scale !== 1) { 
+                e.preventDefault(); 
+            }
+        }, { passive: false });
+
+        // 4. BLOKIR SCROLL MOUSE + CTRL (Desktop Zoom)
+        document.addEventListener('wheel', function (e) {
+            if (e.ctrlKey) {
                 e.preventDefault();
             }
+        }, { passive: false });
+
+        // 5. TRICK ANTI-SCREENSHOT BACKGROUND (Otomatis blur total saat membuka panel notifikasi/pindah aplikasi)
+        window.addEventListener('blur', () => {
+            document.body.style.filter = 'blur(25px)';
+        });
+        window.addEventListener('focus', () => {
+            document.body.style.filter = 'none';
         });
     </script>
 </body>
