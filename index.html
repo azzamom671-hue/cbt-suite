@@ -6,7 +6,7 @@
     <title>Premium Key Generator & Activation Suite</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
@@ -46,7 +46,7 @@
         @keyframes premiumFadeUp { from { opacity: 0; transform: translate3d(0, 30px, 0); filter: blur(8px); } to { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); } }
         
         .animate-premium-fade-out { animation: premiumFadeOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
-        @keyframes premiumFadeOut { from { opacity: 1; transform: translate3d(0,0,0); filter: blur(0); } to { opacity: 0; transform: translate3d(0, -20px, 0); filter: blur(8px); } }
+        @keyframes premiumFadeOut { from { opacity: 1; transform: translate3d(0,0,0) scale(1); filter: blur(0); } to { opacity: 0; transform: translate3d(0, -20px, 0) scale(0.95); filter: blur(8px); } }
 
         .tab-fade-in { animation: tabFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
         @keyframes tabFadeUp { 
@@ -132,7 +132,7 @@
 
         <div id="bannedCard" class="max-w-md w-full glass-panel rounded-3xl p-8 text-center relative my-auto hidden animate-premium-fade" style="border-color: rgba(244, 63, 94, 0.3);">
             <div class="flex flex-col items-center justify-center space-y-6">
-                <div class="w-20 h-20 rounded-2xl bg-rose-500/10 border border-rose-500/40 flex items-center justify-center text-rose-400 text-3xl shadow-[0_0_30px_rgba(244,63,94,0.25)]">
+                <div class="w-20 h-20 rounded-2xl bg-rose-500/10 border border-rose-500/40 flex items-center justify-center text-rose-400 text-3xl shadow-[0_0_30px_rgba(244, 63, 94, 0.25)]">
                     <i class="fa-solid fa-ban"></i>
                 </div>
                 <div>
@@ -231,13 +231,19 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-4 pt-3">
-                    <button onclick="generateKey()" class="neon-btn flex-1 py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer transition-all duration-200 active:scale-95">
+                <div class="flex flex-col gap-3 pt-3">
+                    <button onclick="generateKey()" class="w-full py-4 rounded-xl text-white font-bold flex items-center justify-center gap-2.5 shadow-lg text-sm tracking-wide cursor-pointer transition-all duration-200 active:scale-95 neon-btn">
                         <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Build Activation Key
                     </button>
-                    <a id="appDownloadBtn" href="https://www.mediafire.com/file/0nphq9goho28ic1/CBT_Reseller_Exam_2_fix_accaunt_%25281%2529.apk/file" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold px-6 py-4 rounded-xl flex items-center justify-center gap-2.5 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-sm group active:scale-95">
-                        <i class="fa-solid fa-cloud-arrow-down text-base group-hover:translate-y-0.5 transition-transform"></i> App
-                    </a>
+                    
+                    <div class="flex flex-col gap-3 w-full">
+                        <a id="appDownloadBtn" href="#" target="_blank" class="bg-black hover:bg-neutral-950 text-fuchsia-400 hover:text-fuchsia-300 font-bold p-3.5 rounded-xl flex items-center justify-center gap-2 cursor-pointer border border-purple-950/60 hover:border-fuchsia-500/30 transition-all duration-300 shadow-sm text-xs group active:scale-95 w-full">
+                            <i class="fa-solid fa-cloud-arrow-down text-sm group-hover:translate-y-0.5 transition-transform"></i> Download App 1
+                        </a>
+                        <a id="app2DownloadBtn" href="#" target="_blank" class="hidden bg-black hover:bg-neutral-950 text-cyan-400 hover:text-cyan-300 font-bold p-3.5 rounded-xl flex items-center justify-center gap-2 cursor-pointer border border-purple-950/60 hover:border-cyan-500/30 transition-all duration-300 shadow-sm text-xs group active:scale-95 w-full">
+                            <i class="fa-solid fa-cloud-arrow-down text-sm group-hover:translate-y-0.5 transition-transform"></i> Download App 2
+                        </a>
+                    </div>
                 </div>
 
                 <div id="resultArea" class="mt-6 hidden opacity-0 transition-all duration-500 relative">
@@ -496,11 +502,21 @@
                         <div id="banListContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1 no-scrollbar"></div>
                     </div>
 
-                    <div class="pt-3 border-t border-purple-950/40 space-y-2">
-                        <label for="appLinkInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1">Ubah Link Download Aplikasi (App)</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="appLinkInput" placeholder="Masukkan URL APK File Baru" class="flex-1 px-4 py-2.5 bg-black border border-purple-950 rounded-xl text-xs text-purple-300 focus:outline-none focus:border-blue-500 font-mono transition-all">
-                            <button onclick="updateDownloadLink()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shrink-0">Update</button>
+                    <div class="pt-3 border-t border-purple-950/40 space-y-3">
+                        <div>
+                            <label for="appLinkInput" class="block text-xs font-bold text-purple-400 uppercase tracking-widest ml-1 mb-1">Ubah Link Download Aplikasi 1 (App 1)</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="appLinkInput" placeholder="Masukkan URL APK File Baru" class="flex-1 px-4 py-2.5 bg-black border border-purple-950 rounded-xl text-xs text-purple-300 focus:outline-none focus:border-blue-500 font-mono transition-all">
+                                <button onclick="updateDownloadLink(1)" class="bg-purple-600 hover:bg-purple-500 text-white px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shrink-0">Update</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="app2LinkInput" class="block text-xs font-bold text-cyan-400 uppercase tracking-widest ml-1 mb-1">Ubah Link Download Aplikasi 2 (App 2)</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="app2LinkInput" placeholder="Masukkan URL APK File Kedua" class="flex-1 px-4 py-2.5 bg-black border border-purple-950 rounded-xl text-xs text-cyan-300 focus:outline-none focus:border-cyan-500 font-mono transition-all">
+                                <button onclick="updateDownloadLink(2)" class="bg-cyan-600 hover:bg-cyan-500 text-white px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer shrink-0">Update</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -665,6 +681,17 @@
                     if (appBtn) appBtn.href = url;
                     if (appInput && document.activeElement !== appInput) appInput.value = url;
                 });
+
+                db.ref("system_settings/download_url_2").on('value', (snapshot) => {
+                    const url2 = snapshot.val() || "";
+                    const app2Btn = document.getElementById("app2DownloadBtn");
+                    const app2Input = document.getElementById("app2LinkInput");
+                    
+                    if (app2Btn) {
+                        app2Btn.href = url2;
+                    }
+                    if (app2Input && document.activeElement !== app2Input) app2Input.value = url2;
+                });
             } catch(e) { console.error(e); }
         }
 
@@ -800,6 +827,18 @@
             } finally {
                 resetLoginButton();
             }
+        }
+
+        function removeAccount(keyToDel) {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer") {
+                showToast("❌ Anda tidak diizinkan menghapus akun!", "bg-rose-950", "fa-solid fa-ban text-rose-500");
+                return;
+            }
+            if (db) {
+                db.ref(`custom_keys/${keyToDel}`).remove().catch(()=>{});
+                db.ref(`device_locks/${keyToDel}`).remove().catch(()=>{});
+            }
+            showToast(`🗑️ Akses Key Dihapus!`, "bg-neutral-950", "fa-solid fa-trash-can text-rose-400");
         }
 
         function resetLoginButton() {
@@ -1037,18 +1076,6 @@
             }
         }
 
-        async function removeAccount(keyToDel) {
-            if (window.userRole !== "developer" && window.userRole !== "sub-developer") {
-                showToast("❌ Anda tidak diizinkan menghapus akun!", "bg-rose-950", "fa-solid fa-ban text-rose-500");
-                return;
-            }
-            if (db) {
-                await db.ref(`custom_keys/${keyToDel}`).remove().catch(()=>{});
-                await db.ref(`device_locks/${keyToDel}`).remove().catch(()=>{});
-            }
-            showToast(`🗑️ Akses Key Dihapus!`, "bg-neutral-950", "fa-solid fa-trash-can text-rose-400");
-        }
-
         async function resetKeyDeviceLock() {
             if (window.userRole !== "developer" && window.userRole !== "sub-developer" && window.userRole !== "admin") return;
             const keyToReset = document.getElementById("resetDeviceInput").value.trim().toUpperCase();
@@ -1082,16 +1109,26 @@
             showToast(currentChecked ? "⚠️ Server Maintenance Active!" : "🟢 Server Normal!", "bg-neutral-900", "fa-solid fa-gears");
         }
 
-        async function updateDownloadLink() {
-            if (window.userRole !== "developer" && window.userRole !== "sub-developer") return;
-            const newUrl = document.getElementById("appLinkInput").value.trim();
+        async function updateDownloadLink(appType) {
+            if (window.userRole !== "developer" && window.userRole !== "sub-developer" && window.userRole !== "admin") return;
+            
+            if (appType === 2 && window.userRole !== "developer") {
+                showToast("❌ Hanya Full Developer (AZZAM-DEV) yang bisa mengubah App 2!", "bg-rose-950", "fa-solid fa-ban text-rose-500");
+                return;
+            }
+
+            const inputId = appType === 1 ? "appLinkInput" : "app2LinkInput";
+            const dbNode = appType === 1 ? "download_url" : "download_url_2";
+            const appName = appType === 1 ? "App 1" : "App 2";
+            
+            const newUrl = document.getElementById(inputId).value.trim();
             if (newUrl === "") {
-                showToast("⚠️ URL Link tidak boleh kosong!", "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
+                showToast(`⚠️ URL Link ${appName} tidak boleh kosong!`, "bg-neutral-950", "fa-solid fa-triangle-exclamation text-amber-400");
                 return;
             }
             if (db) {
-                await db.ref("system_settings/download_url").set(newUrl).catch(()=>{});
-                showToast("🚀 Link Download App Sukses Diperbarui!", "bg-purple-950", "fa-solid fa-circle-check text-fuchsia-400");
+                await db.ref(`system_settings/${dbNode}`).set(newUrl).catch(()=>{});
+                showToast(`🚀 Link Download ${appName} Sukses Diperbarui!`, "bg-purple-950", "fa-solid fa-circle-check text-fuchsia-400");
             }
         }
 
@@ -1153,12 +1190,17 @@
                     else if(acc.role === "developer") { readableRole = "👑 Dev Custom"; roleColor = "border-fuchsia-500/30 text-fuchsia-400"; }
                     else if(acc.role === "vip") { readableRole = "💎 VIP"; roleColor = "border-fuchsia-950 text-fuchsia-400"; }
 
+                    // Perbaikan Utama: Memastikan tombol Hapus ter-render berdasarkan data session aktif
                     let deleteBtnHtml = "";
-                    if (window.userRole === "developer" || window.userRole === "sub-developer") {
-                        deleteBtnHtml = `<button onclick="removeAccount('${acc.key}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 text-rose-400 flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"><i class="fa-solid fa-trash text-xs"></i></button>`;
+                    const currentVaultKey = localStorage.getItem("vault_access_key") || "";
+                    const hasDevPrivilege = window.userRole === "developer" || 
+                                            window.userRole === "sub-developer" || 
+                                            currentVaultKey.toUpperCase() === "AZZAM-DEV";
+
+                    if (hasDevPrivilege) {
+                        deleteBtnHtml = `<button onclick="removeAccount('${acc.key}')" class="w-8 h-8 rounded-lg bg-rose-950/30 hover:bg-rose-950 border border-rose-950 text-rose-400 flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer" title="Hapus Akun"><i class="fa-solid fa-trash text-xs"></i></button>`;
                     }
 
-                    // Logika penayangan informasi pembuat & jam rilis
                     let creatorInfoHtml = "";
                     if (acc.createdBy && acc.createdAt) {
                         creatorInfoHtml = `<div class="text-[10px] text-fuchsia-300/40 mt-1 flex items-center gap-1"><i class="fa-solid fa-code-branch text-[9px]"></i> Dev: <span class="text-purple-300/60 font-medium">${acc.createdBy}</span> (${acc.createdAt})</div>`;
@@ -1270,10 +1312,19 @@
             const tabDev = document.getElementById("tabDev");
             const roleBadge = document.getElementById("roleBadge");
             const expBox = document.getElementById("aboutExpiryBox");
+            const app2Btn = document.getElementById("app2DownloadBtn");
 
             if(tabCreate) tabCreate.style.display = (window.userRole === "developer" || window.userRole === "sub-developer" || window.userRole === "admin") ? "flex" : "none";
             if(tabDev) tabDev.style.display = (window.userRole === "developer" || window.userRole === "sub-developer") ? "flex" : "none";
             
+            if(app2Btn) {
+                if (window.userRole === "developer" || window.userRole === "sub-developer") {
+                    app2Btn.classList.remove("hidden");
+                } else {
+                    app2Btn.classList.add("hidden");
+                }
+            }
+
             if(window.currentAccountExpiry !== "permanent") {
                 if(expBox) expBox.classList.remove("hidden");
                 const expVal = document.getElementById("aboutExpiryValue");
